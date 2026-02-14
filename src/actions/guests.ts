@@ -231,3 +231,45 @@ export async function deleteHousehold(householdId: string) {
   revalidatePath("/admin/guests");
   return { success: true };
 }
+
+// --- CSV Export ---
+
+export async function exportGuestsCsv(): Promise<string> {
+  const guests = await prisma.guest.findMany({
+    include: { household: true },
+    orderBy: [{ household: { name: "asc" } }, { isPrimary: "desc" }],
+  });
+
+  const headers = [
+    "household_name",
+    "first_name",
+    "last_name",
+    "email",
+    "is_primary",
+    "attending",
+    "meal_preference",
+    "dietary_restrictions",
+    "song_request",
+  ];
+
+  const rows = guests.map((g) => [
+    csvEscape(g.household.name),
+    csvEscape(g.firstName),
+    csvEscape(g.lastName),
+    csvEscape(g.email ?? ""),
+    g.isPrimary ? "true" : "false",
+    g.attending ?? "PENDING",
+    csvEscape(g.mealPreference ?? ""),
+    csvEscape(g.dietaryRestrictions ?? ""),
+    csvEscape(g.songRequest ?? ""),
+  ]);
+
+  return [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+}
+
+function csvEscape(value: string): string {
+  if (value.includes(",") || value.includes('"') || value.includes("\n")) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
+}
