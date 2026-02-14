@@ -13,9 +13,16 @@ export async function createClient() {
           return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options);
-          });
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options);
+            });
+          } catch {
+            // setAll is called from Server Components when Supabase
+            // refreshes tokens. Cookies can only be set in Server Actions
+            // or Route Handlers, so we silently ignore the error here.
+            // The middleware will handle token refresh on the next request.
+          }
         },
       },
     },

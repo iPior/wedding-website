@@ -84,7 +84,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
               <TableHead>Email</TableHead>
               <TableHead>Primary</TableHead>
               <TableHead>RSVP</TableHead>
-              <TableHead>Meal</TableHead>
+              <TableHead>Dietary</TableHead>
               <TableHead className="w-[100px]" />
             </TableRow>
           </TableHeader>
@@ -124,7 +124,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
                     </span>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
-                    {guest.mealPreference ?? "—"}
+                    {guest.dietaryRestrictions ?? "—"}
                   </TableCell>
                   <TableCell>
                     <DeleteGuestButton guestId={guest.id} />

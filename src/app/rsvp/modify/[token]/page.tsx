@@ -1,4 +1,4 @@
-import { SiteNav } from "@/components/layout/site-nav";
+import { GuestLayout } from "@/components/layout/guest-layout";
 import { getHouseholdByToken } from "@/actions/rsvp";
 import { ModifyRsvpClient } from "@/components/rsvp/modify-rsvp-client";
 
@@ -12,40 +12,39 @@ export default async function ModifyRsvpPage({ params }: Props) {
 
   if (!data) {
     return (
-      <>
-        <SiteNav />
-        <main className="mx-auto max-w-lg px-4 py-12 text-center">
-          <h1 className="text-2xl font-semibold">Invalid Link</h1>
+      <GuestLayout className="max-w-lg">
+        <div className="text-center">
+          <h1 className="font-playfair text-2xl font-semibold">
+            Invalid Link
+          </h1>
           <p className="mt-2 text-muted-foreground">
-            This RSVP modification link is invalid or has expired. Please contact
-            the couple if you need to update your RSVP.
+            This RSVP modification link is invalid or has expired. Please
+            contact the couple if you need to update your RSVP.
           </p>
-        </main>
-      </>
+        </div>
+      </GuestLayout>
     );
   }
 
   if (data.deadlinePassed) {
     return (
-      <>
-        <SiteNav />
-        <main className="mx-auto max-w-lg px-4 py-12 text-center">
-          <h1 className="text-2xl font-semibold">Modifications Closed</h1>
+      <GuestLayout className="max-w-lg">
+        <div className="text-center">
+          <h1 className="font-playfair text-2xl font-semibold">
+            Modifications Closed
+          </h1>
           <p className="mt-2 text-muted-foreground">
             The RSVP deadline has passed. Please contact the couple directly if
             you need to make changes.
           </p>
-        </main>
-      </>
+        </div>
+      </GuestLayout>
     );
   }
 
   return (
-    <>
-      <SiteNav />
-      <main className="mx-auto max-w-lg px-4 py-12">
-        <ModifyRsvpClient household={data.household} token={token} />
-      </main>
-    </>
+    <GuestLayout className="max-w-lg">
+      <ModifyRsvpClient household={data.household} token={token} />
+    </GuestLayout>
   );
 }

@@ -12,22 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { weddingConfig } from "../../../wedding.config";
 
 type GuestFormData = {
   id: string;
   firstName: string;
   lastName: string;
   attending: "YES" | "NO" | "";
-  mealPreference: string;
   dietaryRestrictions: string;
   songRequest: string;
 };
@@ -35,7 +26,6 @@ type GuestFormData = {
 type PlusOneFormData = {
   firstName: string;
   lastName: string;
-  mealPreference: string;
   dietaryRestrictions: string;
 };
 
@@ -55,7 +45,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       firstName: g.firstName,
       lastName: g.lastName,
       attending: (g.attending === "YES" || g.attending === "NO" ? g.attending : "") as GuestFormData["attending"],
-      mealPreference: g.mealPreference ?? "",
       dietaryRestrictions: g.dietaryRestrictions ?? "",
       songRequest: g.songRequest ?? "",
     }))
@@ -64,7 +53,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     household.existingPlusOnes.map((p) => ({
       firstName: p.firstName,
       lastName: p.lastName,
-      mealPreference: p.mealPreference ?? "",
       dietaryRestrictions: p.dietaryRestrictions ?? "",
     }))
   );
@@ -81,7 +69,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     if (plusOnes.length >= household.maxPlusOnes) return;
     setPlusOnes((prev) => [
       ...prev,
-      { firstName: "", lastName: "", mealPreference: "", dietaryRestrictions: "" },
+      { firstName: "", lastName: "", dietaryRestrictions: "" },
     ]);
   }
 
@@ -110,20 +98,12 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
         setError(`Please select attending status for ${guest.firstName} ${guest.lastName}`);
         return;
       }
-      if (guest.attending === "YES" && !guest.mealPreference) {
-        setError(`Please select a meal preference for ${guest.firstName} ${guest.lastName}`);
-        return;
-      }
     }
 
     for (let i = 0; i < plusOnes.length; i++) {
       const po = plusOnes[i];
       if (!po.firstName.trim() || !po.lastName.trim()) {
         setError(`Please enter a name for plus-one #${i + 1}`);
-        return;
-      }
-      if (!po.mealPreference) {
-        setError(`Please select a meal preference for ${po.firstName} ${po.lastName}`);
         return;
       }
     }
@@ -136,7 +116,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       guests: guests.map((g) => ({
         id: g.id,
         attending: g.attending as "YES" | "NO",
-        mealPreference: g.mealPreference || undefined,
         dietaryRestrictions: g.dietaryRestrictions || undefined,
         songRequest: g.songRequest || undefined,
       })),
@@ -145,7 +124,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
         .map((p) => ({
           firstName: p.firstName.trim(),
           lastName: p.lastName.trim(),
-          mealPreference: p.mealPreference || undefined,
           dietaryRestrictions: p.dietaryRestrictions || undefined,
         })),
     };
@@ -226,36 +204,15 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
           </div>
 
           {guest.attending === "YES" && (
-            <>
-              <div className="space-y-2">
-                <Label>Meal Preference</Label>
-                <Select
-                  value={guest.mealPreference}
-                  onValueChange={(v) => updateGuest(index, "mealPreference", v)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a meal" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {weddingConfig.mealOptions.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Dietary Restrictions</Label>
-                <Textarea
-                  value={guest.dietaryRestrictions}
-                  onChange={(e) => updateGuest(index, "dietaryRestrictions", e.target.value)}
-                  placeholder="Any allergies or restrictions..."
-                  rows={2}
-                />
-              </div>
-            </>
+            <div className="space-y-2">
+              <Label>Dietary Restrictions</Label>
+              <Textarea
+                value={guest.dietaryRestrictions}
+                onChange={(e) => updateGuest(index, "dietaryRestrictions", e.target.value)}
+                placeholder="Any allergies or dietary restrictions..."
+                rows={2}
+              />
+            </div>
           )}
 
           {household.guests[index]?.isPrimary && (
@@ -325,30 +282,11 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Meal Preference</Label>
-                  <Select
-                    value={po.mealPreference}
-                    onValueChange={(v) => updatePlusOne(index, "mealPreference", v)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a meal" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {weddingConfig.mealOptions.map((option) => (
-                        <SelectItem key={option} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
                   <Label>Dietary Restrictions</Label>
                   <Textarea
                     value={po.dietaryRestrictions}
                     onChange={(e) => updatePlusOne(index, "dietaryRestrictions", e.target.value)}
-                    placeholder="Any allergies or restrictions..."
+                    placeholder="Any allergies or dietary restrictions..."
                     rows={2}
                   />
                 </div>
