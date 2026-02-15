@@ -248,7 +248,6 @@ export async function exportGuestsCsv(): Promise<string> {
     "is_primary",
     "attending",
     "dietary_restrictions",
-    "song_request",
   ];
 
   const rows = guests.map((g) => [
@@ -259,7 +258,6 @@ export async function exportGuestsCsv(): Promise<string> {
     g.isPrimary ? "true" : "false",
     g.attending ?? "PENDING",
     csvEscape(g.dietaryRestrictions ?? ""),
-    csvEscape(g.songRequest ?? ""),
   ]);
 
   return [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
