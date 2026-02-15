@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
+import type { AttendanceStatus } from "@prisma/client";
 import {
   Table,
   TableBody,
@@ -10,11 +12,34 @@ import {
 import { CsvUpload } from "@/components/admin/csv-upload";
 import { AddGuestForm } from "@/components/admin/add-guest-form";
 import { DeleteGuestButton, DeleteHouseholdButton } from "@/components/admin/delete-button";
+import { GuestFilters } from "@/components/admin/guest-filters";
+import { CsvExportButton } from "@/components/admin/csv-export-button";
 
-export default async function AdminGuestsPage() {
+type Props = {
+  searchParams: Promise<{ search?: string; status?: string }>;
+};
+
+export default async function AdminGuestsPage({ searchParams }: Props) {
+  const { search, status } = await searchParams;
+
+  const where: Record<string, unknown> = {};
+  if (status && ["YES", "NO", "PENDING"].includes(status)) {
+    where.attending = status as AttendanceStatus;
+  }
+  if (search) {
+    where.OR = [
+      { firstName: { contains: search, mode: "insensitive" } },
+      { lastName: { contains: search, mode: "insensitive" } },
+    ];
+  }
+
   const households = await prisma.household.findMany({
+    where: {
+      guests: { some: where },
+    },
     include: {
       guests: {
+        where,
         orderBy: { isPrimary: "desc" },
       },
     },
@@ -25,11 +50,15 @@ export default async function AdminGuestsPage() {
 
   return (
     <main className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">Guests</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {households.length} household(s), {totalGuests} guest(s)
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold">Guests</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {households.length} household(s), {totalGuests} guest(s)
+            {(search || status) && " (filtered)"}
+          </p>
+        </div>
+        <CsvExportButton />
       </div>
 
       <div className="space-y-2">
@@ -42,6 +71,10 @@ export default async function AdminGuestsPage() {
 
       <AddGuestForm />
 
+      <Suspense fallback={null}>
+        <GuestFilters />
+      </Suspense>
+
       {households.length > 0 && (
         <Table>
           <TableHeader>
@@ -51,6 +84,7 @@ export default async function AdminGuestsPage() {
               <TableHead>Email</TableHead>
               <TableHead>Primary</TableHead>
               <TableHead>RSVP</TableHead>
+              <TableHead>Meal</TableHead>
               <TableHead className="w-[100px]" />
             </TableRow>
           </TableHeader>
@@ -89,6 +123,9 @@ export default async function AdminGuestsPage() {
                       {guest.attending ?? "PENDING"}
                     </span>
                   </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
+                    {guest.mealPreference ?? "—"}
+                  </TableCell>
                   <TableCell>
                     <DeleteGuestButton guestId={guest.id} />
                   </TableCell>
@@ -101,7 +138,9 @@ export default async function AdminGuestsPage() {
 
       {households.length === 0 && (
         <p className="py-8 text-center text-sm text-muted-foreground">
-          No guests yet. Import a CSV or add guests manually.
+          {search || status
+            ? "No guests match your filters."
+            : "No guests yet. Import a CSV or add guests manually."}
         </p>
       )}
     </main>

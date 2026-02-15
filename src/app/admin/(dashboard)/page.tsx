@@ -1,18 +1,35 @@
 import { prisma } from "@/lib/prisma";
+import { Separator } from "@/components/ui/separator";
+import { AttendanceChart } from "@/components/admin/charts/attendance-chart";
+import { MealChart } from "@/components/admin/charts/meal-chart";
+import { RsvpTimeline } from "@/components/admin/charts/rsvp-timeline";
 
 export default async function AdminDashboardPage() {
-  const [householdCount, guestCount, rsvpCounts] = await Promise.all([
-    prisma.household.count(),
-    prisma.guest.count(),
-    prisma.guest.groupBy({
-      by: ["attending"],
-      _count: true,
-    }),
-  ]);
+  const [householdCount, guestCount, rsvpCounts, mealCounts, rsvpDates] =
+    await Promise.all([
+      prisma.household.count(),
+      prisma.guest.count(),
+      prisma.guest.groupBy({
+        by: ["attending"],
+        _count: true,
+      }),
+      prisma.guest.groupBy({
+        by: ["mealPreference"],
+        where: { attending: "YES", mealPreference: { not: null } },
+        _count: true,
+      }),
+      prisma.guest.findMany({
+        where: { rsvpSubmittedAt: { not: null } },
+        select: { rsvpSubmittedAt: true },
+        orderBy: { rsvpSubmittedAt: "asc" },
+      }),
+    ]);
 
   const attending = rsvpCounts.find((r) => r.attending === "YES")?._count ?? 0;
   const declined = rsvpCounts.find((r) => r.attending === "NO")?._count ?? 0;
   const pending = rsvpCounts.find((r) => r.attending === "PENDING")?._count ?? 0;
+  const responded = attending + declined;
+  const responseRate = guestCount > 0 ? Math.round((responded / guestCount) * 100) : 0;
 
   const stats = [
     { label: "Households", value: householdCount },
@@ -20,13 +37,41 @@ export default async function AdminDashboardPage() {
     { label: "Attending", value: attending },
     { label: "Declined", value: declined },
     { label: "Pending", value: pending },
+    { label: "Response Rate", value: `${responseRate}%` },
   ];
+
+  const attendanceData = [
+    { name: "YES", value: attending },
+    { name: "NO", value: declined },
+    { name: "PENDING", value: pending },
+  ];
+
+  const mealData = mealCounts.map((m) => ({
+    name: m.mealPreference ?? "Unknown",
+    count: m._count,
+  }));
+
+  // Build cumulative RSVP timeline by date
+  const timelineMap = new Map<string, number>();
+  for (const r of rsvpDates) {
+    if (r.rsvpSubmittedAt) {
+      const date = r.rsvpSubmittedAt.toISOString().slice(0, 10);
+      timelineMap.set(date, (timelineMap.get(date) ?? 0) + 1);
+    }
+  }
+  let cumulative = 0;
+  const timelineData = Array.from(timelineMap.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, count]) => {
+      cumulative += count;
+      return { date, count: cumulative };
+    });
 
   return (
     <main className="space-y-6">
       <h1 className="text-2xl font-semibold">Dashboard</h1>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         {stats.map((stat) => (
           <div
             key={stat.label}
@@ -38,9 +83,24 @@ export default async function AdminDashboardPage() {
         ))}
       </div>
 
-      <p className="text-sm text-muted-foreground">
-        Charts and detailed analytics will be added in Phase 5.
-      </p>
+      <Separator />
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-lg border p-4">
+          <h2 className="mb-4 text-sm font-medium">Attendance Breakdown</h2>
+          <AttendanceChart data={attendanceData} />
+        </div>
+
+        <div className="rounded-lg border p-4">
+          <h2 className="mb-4 text-sm font-medium">Meal Preferences</h2>
+          <MealChart data={mealData} />
+        </div>
+      </div>
+
+      <div className="rounded-lg border p-4">
+        <h2 className="mb-4 text-sm font-medium">RSVPs Over Time</h2>
+        <RsvpTimeline data={timelineData} />
+      </div>
     </main>
   );
 }
