@@ -1,21 +1,15 @@
 import { prisma } from "@/lib/prisma";
 import { Separator } from "@/components/ui/separator";
 import { AttendanceChart } from "@/components/admin/charts/attendance-chart";
-import { MealChart } from "@/components/admin/charts/meal-chart";
 import { RsvpTimeline } from "@/components/admin/charts/rsvp-timeline";
 
 export default async function AdminDashboardPage() {
-  const [householdCount, guestCount, rsvpCounts, mealCounts, rsvpDates] =
+  const [householdCount, guestCount, rsvpCounts, rsvpDates] =
     await Promise.all([
       prisma.household.count(),
       prisma.guest.count(),
       prisma.guest.groupBy({
         by: ["attending"],
-        _count: true,
-      }),
-      prisma.guest.groupBy({
-        by: ["mealPreference"],
-        where: { attending: "YES", mealPreference: { not: null } },
         _count: true,
       }),
       prisma.guest.findMany({
@@ -46,11 +40,6 @@ export default async function AdminDashboardPage() {
     { name: "PENDING", value: pending },
   ];
 
-  const mealData = mealCounts.map((m) => ({
-    name: m.mealPreference ?? "Unknown",
-    count: m._count,
-  }));
-
   // Build cumulative RSVP timeline by date
   const timelineMap = new Map<string, number>();
   for (const r of rsvpDates) {
@@ -59,13 +48,14 @@ export default async function AdminDashboardPage() {
       timelineMap.set(date, (timelineMap.get(date) ?? 0) + 1);
     }
   }
-  let cumulative = 0;
-  const timelineData = Array.from(timelineMap.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([date, count]) => {
-      cumulative += count;
-      return { date, count: cumulative };
-    });
+  const timelineData: { date: string; count: number }[] = [];
+  const sorted = Array.from(timelineMap.entries()).sort(([a], [b]) =>
+    a.localeCompare(b)
+  );
+  for (const [date, count] of sorted) {
+    const prev = timelineData.length > 0 ? timelineData[timelineData.length - 1].count : 0;
+    timelineData.push({ date, count: prev + count });
+  }
 
   return (
     <main className="space-y-6">
@@ -92,14 +82,9 @@ export default async function AdminDashboardPage() {
         </div>
 
         <div className="rounded-lg border p-4">
-          <h2 className="mb-4 text-sm font-medium">Meal Preferences</h2>
-          <MealChart data={mealData} />
+          <h2 className="mb-4 text-sm font-medium">RSVPs Over Time</h2>
+          <RsvpTimeline data={timelineData} />
         </div>
-      </div>
-
-      <div className="rounded-lg border p-4">
-        <h2 className="mb-4 text-sm font-medium">RSVPs Over Time</h2>
-        <RsvpTimeline data={timelineData} />
       </div>
     </main>
   );

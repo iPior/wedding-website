@@ -32,7 +32,6 @@ export type HouseholdData = {
     lastName: string;
     isPrimary: boolean;
     attending: string | null;
-    mealPreference: string | null;
     dietaryRestrictions: string | null;
     songRequest: string | null;
     email: string | null;
@@ -41,7 +40,6 @@ export type HouseholdData = {
     id: string;
     firstName: string;
     lastName: string;
-    mealPreference: string | null;
     dietaryRestrictions: string | null;
   }>;
 };
@@ -127,7 +125,6 @@ export async function getHouseholdForRsvp(householdId: string): Promise<Househol
       lastName: g.lastName,
       isPrimary: g.isPrimary,
       attending: g.attending,
-      mealPreference: g.mealPreference,
       dietaryRestrictions: g.dietaryRestrictions,
       songRequest: g.songRequest,
       email: g.email,
@@ -136,7 +133,6 @@ export async function getHouseholdForRsvp(householdId: string): Promise<Househol
       id: p.id,
       firstName: p.firstName,
       lastName: p.lastName,
-      mealPreference: p.mealPreference,
       dietaryRestrictions: p.dietaryRestrictions,
     })),
   };
@@ -147,7 +143,6 @@ export async function getHouseholdForRsvp(householdId: string): Promise<Househol
 const guestRsvpSchema = z.object({
   id: z.string().uuid(),
   attending: z.enum(["YES", "NO"]),
-  mealPreference: z.string().optional(),
   dietaryRestrictions: z.string().optional(),
   songRequest: z.string().optional(),
 });
@@ -155,7 +150,6 @@ const guestRsvpSchema = z.object({
 const plusOneSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
-  mealPreference: z.string().optional(),
   dietaryRestrictions: z.string().optional(),
 });
 
@@ -228,7 +222,6 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         where: { id: guestInput.id },
         data: {
           attending: guestInput.attending,
-          mealPreference: guestInput.attending === "YES" ? (guestInput.mealPreference ?? null) : null,
           dietaryRestrictions: guestInput.attending === "YES" ? (guestInput.dietaryRestrictions ?? null) : null,
           songRequest: guestInput.songRequest ?? null,
           rsvpSubmittedAt: now,
@@ -247,7 +240,6 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
           confirmedBy: primaryGuest.id,
           firstName: p.firstName,
           lastName: p.lastName,
-          mealPreference: p.mealPreference ?? null,
           dietaryRestrictions: p.dietaryRestrictions ?? null,
         })),
       });
@@ -273,7 +265,6 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
     return {
       name: fullGuest ? `${fullGuest.firstName} ${fullGuest.lastName}` : "Guest",
       attending: g.attending === "YES",
-      mealPreference: g.mealPreference ?? null,
     };
   });
 
@@ -287,7 +278,6 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         guests: guestDetails,
         plusOnes: plusOnes.map((p) => ({
           name: `${p.firstName} ${p.lastName}`,
-          mealPreference: p.mealPreference ?? null,
         })),
         modifyUrl,
         attendingCount: attendingGuests.length + plusOnes.length,
@@ -374,7 +364,6 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
         where: { id: guestInput.id },
         data: {
           attending: guestInput.attending,
-          mealPreference: guestInput.attending === "YES" ? (guestInput.mealPreference ?? null) : null,
           dietaryRestrictions: guestInput.attending === "YES" ? (guestInput.dietaryRestrictions ?? null) : null,
           songRequest: guestInput.songRequest ?? null,
           rsvpSubmittedAt: now,
@@ -395,7 +384,6 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
           confirmedBy: primaryGuest.id,
           firstName: p.firstName,
           lastName: p.lastName,
-          mealPreference: p.mealPreference ?? null,
           dietaryRestrictions: p.dietaryRestrictions ?? null,
         })),
       });
@@ -420,7 +408,6 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
     return {
       name: fullGuest ? `${fullGuest.firstName} ${fullGuest.lastName}` : "Guest",
       attending: g.attending === "YES",
-      mealPreference: g.mealPreference ?? null,
     };
   });
 
@@ -434,7 +421,6 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
         guests: guestDetails,
         plusOnes: plusOnes.map((p) => ({
           name: `${p.firstName} ${p.lastName}`,
-          mealPreference: p.mealPreference ?? null,
         })),
         modifyUrl,
       }),

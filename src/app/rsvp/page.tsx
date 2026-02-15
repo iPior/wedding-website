@@ -1,13 +1,10 @@
-import { SiteNav } from "@/components/layout/site-nav";
+import { GuestLayout } from "@/components/layout/guest-layout";
 import { RsvpFlow } from "@/components/rsvp/rsvp-flow";
 
 export default function RsvpPage() {
   return (
-    <>
-      <SiteNav />
-      <main className="mx-auto max-w-lg px-4 py-12">
-        <RsvpFlow />
-      </main>
-    </>
+    <GuestLayout className="max-w-lg">
+      <RsvpFlow />
+    </GuestLayout>
   );
 }

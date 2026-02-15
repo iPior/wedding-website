@@ -14,12 +14,10 @@ import {
 interface GuestDetail {
   name: string;
   attending: boolean;
-  mealPreference: string | null;
 }
 
 interface PlusOneDetail {
   name: string;
-  mealPreference: string | null;
 }
 
 interface RsvpModifiedEmailProps {
@@ -54,9 +52,6 @@ export default function RsvpModifiedEmail({
             {guests.map((guest, i) => (
               <Text key={i} style={guestLine}>
                 {guest.name} — {guest.attending ? "Attending" : "Not Attending"}
-                {guest.attending && guest.mealPreference
-                  ? ` (${guest.mealPreference})`
-                  : ""}
               </Text>
             ))}
 
@@ -68,7 +63,6 @@ export default function RsvpModifiedEmail({
                 {plusOnes.map((po, i) => (
                   <Text key={i} style={guestLine}>
                     {po.name}
-                    {po.mealPreference ? ` (${po.mealPreference})` : ""}
                   </Text>
                 ))}
               </>

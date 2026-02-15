@@ -247,7 +247,6 @@ export async function exportGuestsCsv(): Promise<string> {
     "email",
     "is_primary",
     "attending",
-    "meal_preference",
     "dietary_restrictions",
     "song_request",
   ];
@@ -259,7 +258,6 @@ export async function exportGuestsCsv(): Promise<string> {
     csvEscape(g.email ?? ""),
     g.isPrimary ? "true" : "false",
     g.attending ?? "PENDING",
-    csvEscape(g.mealPreference ?? ""),
     csvEscape(g.dietaryRestrictions ?? ""),
     csvEscape(g.songRequest ?? ""),
   ]);
