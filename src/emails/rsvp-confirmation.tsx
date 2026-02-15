@@ -1,15 +1,108 @@
-import { Body, Container, Head, Html, Preview, Text } from "@react-email/components";
+import {
+  Body,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Link,
+  Preview,
+  Section,
+  Text,
+} from "@react-email/components";
 
-export default function RsvpConfirmationEmail() {
+interface GuestDetail {
+  name: string;
+  attending: boolean;
+  mealPreference: string | null;
+}
+
+interface PlusOneDetail {
+  name: string;
+  mealPreference: string | null;
+}
+
+interface RsvpConfirmationEmailProps {
+  householdName: string;
+  guests: GuestDetail[];
+  plusOnes: PlusOneDetail[];
+  modifyUrl: string;
+  attendingCount: number;
+}
+
+export default function RsvpConfirmationEmail({
+  householdName = "The Smith Family",
+  guests = [],
+  plusOnes = [],
+  modifyUrl = "https://example.com/rsvp/modify/token",
+  attendingCount = 0,
+}: RsvpConfirmationEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Your RSVP was received</Preview>
-      <Body>
-        <Container>
-          <Text>Thanks for your RSVP. We are excited to celebrate with you.</Text>
+      <Preview>{`Your RSVP was received — ${attendingCount} attending`}</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Heading style={heading}>RSVP Confirmation</Heading>
+          <Text style={text}>
+            Thank you for responding! Here is a summary of your RSVP for{" "}
+            <strong>{householdName}</strong>.
+          </Text>
+
+          <Section style={summarySection}>
+            <Heading as="h3" style={subheading}>
+              Guests
+            </Heading>
+            {guests.map((guest, i) => (
+              <Text key={i} style={guestLine}>
+                {guest.name} — {guest.attending ? "Attending" : "Not Attending"}
+                {guest.attending && guest.mealPreference
+                  ? ` (${guest.mealPreference})`
+                  : ""}
+              </Text>
+            ))}
+
+            {plusOnes.length > 0 && (
+              <>
+                <Heading as="h3" style={subheading}>
+                  Plus Ones
+                </Heading>
+                {plusOnes.map((po, i) => (
+                  <Text key={i} style={guestLine}>
+                    {po.name}
+                    {po.mealPreference ? ` (${po.mealPreference})` : ""}
+                  </Text>
+                ))}
+              </>
+            )}
+          </Section>
+
+          <Hr style={hr} />
+
+          <Text style={text}>
+            Need to make changes? You can{" "}
+            <Link href={modifyUrl} style={link}>
+              modify your RSVP here
+            </Link>
+            .
+          </Text>
+
+          <Text style={footer}>
+            We are excited to celebrate with you!
+          </Text>
         </Container>
       </Body>
     </Html>
   );
 }
+
+const main = { backgroundColor: "#f6f6f6", fontFamily: "sans-serif" };
+const container = { margin: "0 auto", padding: "32px 24px", maxWidth: "520px" };
+const heading = { fontSize: "24px", fontWeight: "600" as const, marginBottom: "16px" };
+const subheading = { fontSize: "16px", fontWeight: "600" as const, marginBottom: "8px", marginTop: "16px" };
+const text = { fontSize: "14px", lineHeight: "1.6", color: "#333" };
+const guestLine = { fontSize: "14px", lineHeight: "1.4", color: "#333", margin: "4px 0" };
+const summarySection = { backgroundColor: "#ffffff", padding: "16px", borderRadius: "8px", marginTop: "16px" };
+const hr = { borderColor: "#ddd", margin: "24px 0" };
+const link = { color: "#8B7355", textDecoration: "underline" };
+const footer = { fontSize: "14px", color: "#666", marginTop: "16px" };
