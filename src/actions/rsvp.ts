@@ -33,7 +33,6 @@ export type HouseholdData = {
     isPrimary: boolean;
     attending: string | null;
     dietaryRestrictions: string | null;
-    songRequest: string | null;
     email: string | null;
   }>;
   existingPlusOnes: Array<{
@@ -71,8 +70,13 @@ export async function searchGuests(firstName: string, lastName: string): Promise
     },
   });
 
-  const fuse = new Fuse(allGuests, {
-    keys: ["firstName", "lastName"],
+  const guestsWithFullName = allGuests.map((g) => ({
+    ...g,
+    fullName: `${g.firstName} ${g.lastName}`,
+  }));
+
+  const fuse = new Fuse(guestsWithFullName, {
+    keys: ["firstName", "lastName", "fullName"],
     threshold: 0.4,
     includeScore: true,
   });
@@ -126,7 +130,6 @@ export async function getHouseholdForRsvp(householdId: string): Promise<Househol
       isPrimary: g.isPrimary,
       attending: g.attending,
       dietaryRestrictions: g.dietaryRestrictions,
-      songRequest: g.songRequest,
       email: g.email,
     })),
     existingPlusOnes: household.plusOnes.map((p) => ({
@@ -144,7 +147,6 @@ const guestRsvpSchema = z.object({
   id: z.string().uuid(),
   attending: z.enum(["YES", "NO"]),
   dietaryRestrictions: z.string().optional(),
-  songRequest: z.string().optional(),
 });
 
 const plusOneSchema = z.object({
@@ -223,7 +225,6 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         data: {
           attending: guestInput.attending,
           dietaryRestrictions: guestInput.attending === "YES" ? (guestInput.dietaryRestrictions ?? null) : null,
-          songRequest: guestInput.songRequest ?? null,
           rsvpSubmittedAt: now,
           ...(primaryGuest && guestInput.id === primaryGuest.id
             ? { email, rsvpToken }
@@ -365,7 +366,6 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
         data: {
           attending: guestInput.attending,
           dietaryRestrictions: guestInput.attending === "YES" ? (guestInput.dietaryRestrictions ?? null) : null,
-          songRequest: guestInput.songRequest ?? null,
           rsvpSubmittedAt: now,
           ...(primaryGuest && guestInput.id === primaryGuest.id
             ? { email, rsvpToken: newToken }

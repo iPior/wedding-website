@@ -32,9 +32,7 @@ model Guest {
   isPrimary           Boolean           @default(false) @map("is_primary")
   isPlusOne           Boolean           @default(false) @map("is_plus_one")
   attending           AttendanceStatus? @default(PENDING)
-  mealPreference      String?           @map("meal_preference")
   dietaryRestrictions String?           @map("dietary_restrictions")
-  songRequest         String?           @map("song_request")
   rsvpSubmittedAt     DateTime?         @map("rsvp_submitted_at")
   rsvpToken           String?           @unique @map("rsvp_token")
   createdAt           DateTime          @default(now()) @map("created_at")
@@ -55,7 +53,6 @@ model PlusOne {
   confirmedBy         String   @map("confirmed_by")
   firstName           String   @map("first_name")
   lastName            String   @map("last_name")
-  mealPreference      String?  @map("meal_preference")
   dietaryRestrictions String?  @map("dietary_restrictions")
   createdAt           DateTime @default(now()) @map("created_at")
 

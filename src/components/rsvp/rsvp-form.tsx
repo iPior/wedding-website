@@ -20,7 +20,6 @@ type GuestFormData = {
   lastName: string;
   attending: "YES" | "NO" | "";
   dietaryRestrictions: string;
-  songRequest: string;
 };
 
 type PlusOneFormData = {
@@ -46,7 +45,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       lastName: g.lastName,
       attending: (g.attending === "YES" || g.attending === "NO" ? g.attending : "") as GuestFormData["attending"],
       dietaryRestrictions: g.dietaryRestrictions ?? "",
-      songRequest: g.songRequest ?? "",
     }))
   );
   const [plusOnes, setPlusOnes] = useState<PlusOneFormData[]>(
@@ -117,7 +115,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
         id: g.id,
         attending: g.attending as "YES" | "NO",
         dietaryRestrictions: g.dietaryRestrictions || undefined,
-        songRequest: g.songRequest || undefined,
       })),
       plusOnes: plusOnes
         .filter((p) => p.firstName.trim())
@@ -215,16 +212,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
             </div>
           )}
 
-          {household.guests[index]?.isPrimary && (
-            <div className="space-y-2">
-              <Label>Song Request (optional)</Label>
-              <Input
-                value={guest.songRequest}
-                onChange={(e) => updateGuest(index, "songRequest", e.target.value)}
-                placeholder="What song gets you on the dance floor?"
-              />
-            </div>
-          )}
         </div>
       ))}
 

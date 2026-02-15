@@ -29,7 +29,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 *.tsbuildinfo
 
 # Bun
-bun.lock
+# bun.lock must be committed so Vercel uses bun
 
 # IntelliJ based IDEs
 .idea
