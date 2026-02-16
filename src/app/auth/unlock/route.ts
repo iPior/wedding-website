@@ -11,14 +11,14 @@ export async function POST(request: NextRequest) {
   const configuredPassword = process.env.SITE_PASSWORD;
 
   if (!configuredPassword) {
-    return NextResponse.redirect(new URL("/password?error=misconfigured", request.url));
+    return NextResponse.redirect(new URL("/password?error=misconfigured", request.url), 303);
   }
 
   if (!enteredPassword || enteredPassword !== configuredPassword) {
-    return NextResponse.redirect(new URL("/password?error=invalid", request.url));
+    return NextResponse.redirect(new URL("/password?error=invalid", request.url), 303);
   }
 
-  const response = NextResponse.redirect(new URL("/", request.url));
+  const response = NextResponse.redirect(new URL("/", request.url), 303);
   response.cookies.set({
     name: SITE_ACCESS_COOKIE,
     value: SITE_ACCESS_COOKIE_VALUE,
