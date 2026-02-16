@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 
 export default function DetailsPage() {
-  const { venue, schedule, accommodations, registry, date } = weddingConfig;
+  const { venue, schedule, date } = weddingConfig;
   const weddingDate = new Date(date);
   const formattedTime = weddingDate.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -79,49 +79,6 @@ export default function DetailsPage() {
           </section>
         )}
 
-        {/* Accommodations */}
-        <section className="space-y-6">
-          <h2 className="text-center font-playfair text-2xl font-semibold">
-            Accommodations
-          </h2>
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="font-semibold">{accommodations.hotel}</p>
-              <p className="mt-1 flex items-center justify-center gap-1 text-sm text-muted-foreground">
-                <MapPin className="size-3.5 shrink-0" />
-                {accommodations.address}
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {accommodations.note}
-              </p>
-              <a
-                href={accommodations.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm font-medium underline underline-offset-4 hover:text-foreground"
-              >
-                Book Your Room
-              </a>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Registry */}
-        <section className="space-y-6">
-          <h2 className="text-center font-playfair text-2xl font-semibold">
-            Registry
-          </h2>
-          <div className="text-center">
-            <a
-              href={registry.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium underline underline-offset-4 hover:text-foreground"
-            >
-              {registry.label}
-            </a>
-          </div>
-        </section>
       </div>
     </GuestLayout>
   );

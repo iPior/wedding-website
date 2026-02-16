@@ -7,12 +7,12 @@ export const weddingConfig = {
   tagline: "We're getting married!",
   venue: {
     ceremony: {
-      name: "St. Mary's Chapel",
-      address: "123 Main St, Toronto, ON",
+      name: "St. Maximilian Kolbe Catholic Church",
+      address: "4260 Cawthra Rd, Mississauga, ON L4Z 1V8",
     },
     reception: {
-      name: "The Grand Hall",
-      address: "456 Oak Ave, Toronto, ON",
+      name: "Millenium Gardens Banquet Centre",
+      address: "20 Polonia Ave, Brampton, ON L6Y 5W8",
     },
   },
   rsvpDeadline: "2026-09-01T23:59:59",
@@ -22,10 +22,9 @@ export const weddingConfig = {
     fontFamily: "Playfair Display",
   },
   schedule: [
-    { time: "4:00 PM", event: "Ceremony" },
-    { time: "5:00 PM", event: "Cocktail Hour" },
-    { time: "6:00 PM", event: "Reception" },
-    { time: "10:00 PM", event: "Last Dance" },
+    { time: "2:30 PM", event: "Ceremony" },
+    { time: "6:00 PM", event: "Cocktail Hour" },
+    { time: "7:00 PM", event: "Reception" },
   ],
   faq: [
     {
@@ -52,16 +51,6 @@ export const weddingConfig = {
         "You can note any dietary restrictions when you RSVP and we'll make sure you're taken care of.",
     },
   ],
-  accommodations: {
-    hotel: "The Grand Hotel",
-    address: "789 Elm St, Toronto, ON",
-    bookingUrl: "https://example.com/booking",
-    note: "Block rate available under 'Smith-Rivera Wedding'.",
-  },
-  registry: {
-    url: "https://example.com/registry",
-    label: "View Our Registry",
-  },
   ourStory: {
     title: "Our Story",
     intro:
@@ -95,28 +84,64 @@ export const weddingConfig = {
   },
   bridalParty: [
     {
-      name: "Sam Taylor",
+      name: "Jacob Chmura",
       role: "Best Man",
-      image: "/images/bridal-party/sam.jpg",
-      bio: "Friend from college.",
+      image: "",
+      bio: "",
     },
     {
-      name: "Jamie Lee",
+      name: "Madison Coehlo",
       role: "Maid of Honor",
-      image: "/images/bridal-party/jamie.jpg",
-      bio: "Childhood best friend.",
+      image: "",
+      bio: "",
     },
     {
-      name: "Chris Park",
+      name: "Alex Johne",
       role: "Groomsman",
       image: "",
-      bio: "College roommate and adventure buddy.",
+      bio: "",
     },
     {
-      name: "Taylor Kim",
+      name: "Liliana",
       role: "Bridesmaid",
       image: "",
-      bio: "Met through work and became instant friends.",
+      bio: "",
+    },
+    {
+      name: "Peter Lewy",
+      role: "Groomsman",
+      image: "",
+      bio: "",
+    },
+    {
+      name: "Madison Terrataca",
+      role: "Bridesmaid",
+      image: "",
+      bio: "",
+    },
+    {
+      name: "Jakub Szaran",
+      role: "Groomsman",
+      image: "",
+      bio: "",
+    },
+    {
+      name: "Viki Baniak",
+      role: "Bridesmaid",
+      image: "",
+      bio: "",
+    },
+    {
+      name: "Jacob Sikora",
+      role: "Groomsman",
+      image: "",
+      bio: "",
+    },
+    {
+      name: "Julia Szaran",
+      role: "Bridesmaid",
+      image: "",
+      bio: "",
     },
   ],
 } as const;
