@@ -33,34 +33,6 @@ export default function FaqPage() {
           ))}
         </Accordion>
 
-        {weddingConfig.accommodations && (
-          <section className="mx-auto max-w-2xl rounded-lg border bg-muted/50 p-6 text-center">
-            <h2 className="font-playfair text-xl font-semibold">
-              Accommodations
-            </h2>
-            <p className="mt-2 font-medium">
-              {weddingConfig.accommodations.hotel}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {weddingConfig.accommodations.address}
-            </p>
-            {weddingConfig.accommodations.note && (
-              <p className="mt-2 text-sm text-muted-foreground">
-                {weddingConfig.accommodations.note}
-              </p>
-            )}
-            {weddingConfig.accommodations.bookingUrl && (
-              <a
-                href={weddingConfig.accommodations.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm font-medium underline underline-offset-4 hover:text-foreground"
-              >
-                Book your room
-              </a>
-            )}
-          </section>
-        )}
       </div>
     </GuestLayout>
   );

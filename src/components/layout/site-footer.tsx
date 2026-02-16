@@ -1,7 +1,7 @@
 import { weddingConfig } from "../../../wedding.config";
 
 export function SiteFooter() {
-  const { couple, date, registry } = weddingConfig;
+  const { couple, date } = weddingConfig;
 
   return (
     <footer className="mt-16 border-t pb-8 pt-6">
