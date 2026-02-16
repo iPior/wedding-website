@@ -62,6 +62,37 @@ export const weddingConfig = {
     url: "https://example.com/registry",
     label: "View Our Registry",
   },
+  ourStory: {
+    title: "Our Story",
+    intro:
+      "From a chance meeting to a lifetime together — here's how it all began.",
+    milestones: [
+      {
+        year: "2019",
+        title: "How We Met",
+        description:
+          "We met through mutual friends at a summer barbecue and hit it off immediately.",
+      },
+      {
+        year: "2020",
+        title: "First Date",
+        description:
+          "A walk along the waterfront turned into hours of conversation and laughter.",
+      },
+      {
+        year: "2022",
+        title: "Moved In Together",
+        description:
+          "We took the leap and got our first apartment together in Toronto.",
+      },
+      {
+        year: "2025",
+        title: "The Proposal",
+        description:
+          "A surprise trip to the mountains ended with the most important question.",
+      },
+    ],
+  },
   bridalParty: [
     {
       name: "Sam Taylor",
