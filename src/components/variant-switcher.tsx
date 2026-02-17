@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const VARIANTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const VARIANTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const LABELS: Record<number, string> = {
   1: "Editorial",
@@ -18,6 +18,7 @@ const LABELS: Record<number, string> = {
   9: "Provincial",
   10: "Art Deco",
   11: "Watercolor",
+  12: "Mashup",
 };
 
 export function VariantSwitcher() {
