@@ -27,7 +27,7 @@ function getServerSnapshot() {
   return JSON.stringify(null);
 }
 
-export function CountdownTimer() {
+export function CountdownTimer({ numberClassName = "font-playfair" }: { numberClassName?: string }) {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const timeLeft = JSON.parse(snapshot) as ReturnType<typeof calculateTimeLeft>;
 
@@ -49,7 +49,7 @@ export function CountdownTimer() {
     <div className="flex justify-center gap-4 sm:gap-6">
       {units.map((unit) => (
         <div key={unit.label} className="flex flex-col items-center">
-          <span className="font-playfair text-3xl font-semibold tabular-nums sm:text-4xl">
+          <span className={`${numberClassName} text-3xl font-semibold tabular-nums sm:text-4xl`}>
             {String(unit.value).padStart(2, "0")}
           </span>
           <span className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">

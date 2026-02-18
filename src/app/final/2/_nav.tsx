@@ -9,6 +9,7 @@ const { person1, person2 } = weddingConfig.couple;
 
 const NAV_ITEMS = [
   { label: "Home", href: "/final/2" },
+  { label: "Our Story", href: "/final/2/our-story" },
   { label: "Details", href: "/final/2/details" },
   { label: "FAQ", href: "/final/2/faq" },
   { label: "Party", href: "/final/2/bridal-party" },

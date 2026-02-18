@@ -9,6 +9,7 @@ const { person1, person2 } = weddingConfig.couple;
 
 const links = [
   { href: "/final/3", label: "Home" },
+  { href: "/final/3/our-story", label: "Our Story" },
   { href: "/final/3/details", label: "Details" },
   { href: "/final/3/faq", label: "FAQ" },
   { href: "/final/3/bridal-party", label: "Party" },

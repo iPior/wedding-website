@@ -29,34 +29,41 @@ export default function DetailsPage() {
           family and friends.
         </p>
 
-        <div className="grid grid-cols-1 gap-px bg-[#f0e0e4] sm:grid-cols-2">
-          <div className="bg-[#fff8f8] p-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f] mb-4">
-              Ceremony
-            </p>
-            <h3
-              className="text-xl text-[#2c2424] mb-2"
-              style={{ fontFamily: "var(--font-playfair), serif" }}
-            >
-              {weddingConfig.venue.ceremony.name}
-            </h3>
-            <p className="text-sm text-[#8a7f7f]">
-              {weddingConfig.venue.ceremony.address}
-            </p>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+          {/* Ceremony card */}
+          <div className="border border-[#f0e0e4] bg-[#fff8f8] p-6 text-center">
+            <div className="ring-1 ring-[#f0e0e4] ring-offset-4 ring-offset-[#fff8f8] p-6 sm:p-8">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#d4a0b0]">
+                Ceremony
+              </p>
+              <h3
+                className="mt-4 text-2xl text-[#2c2424]"
+                style={{ fontFamily: "var(--font-playfair), serif" }}
+              >
+                {weddingConfig.venue.ceremony.name}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#8a7f7f]">
+                {weddingConfig.venue.ceremony.address}
+              </p>
+            </div>
           </div>
-          <div className="bg-[#fff8f8] p-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f] mb-4">
-              Reception
-            </p>
-            <h3
-              className="text-xl text-[#2c2424] mb-2"
-              style={{ fontFamily: "var(--font-playfair), serif" }}
-            >
-              {weddingConfig.venue.reception.name}
-            </h3>
-            <p className="text-sm text-[#8a7f7f]">
-              {weddingConfig.venue.reception.address}
-            </p>
+
+          {/* Reception card */}
+          <div className="border border-[#f0e0e4] bg-[#fff8f8] p-6 text-center">
+            <div className="ring-1 ring-[#f0e0e4] ring-offset-4 ring-offset-[#fff8f8] p-6 sm:p-8">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#d4a0b0]">
+                Reception
+              </p>
+              <h3
+                className="mt-4 text-2xl text-[#2c2424]"
+                style={{ fontFamily: "var(--font-playfair), serif" }}
+              >
+                {weddingConfig.venue.reception.name}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#8a7f7f]">
+                {weddingConfig.venue.reception.address}
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -72,18 +79,20 @@ export default function DetailsPage() {
         >
           Schedule
         </h2>
-        <div className="space-y-5">
+        <div>
           {weddingConfig.schedule.map((item) => (
-            <div key={item.event} className="flex items-center gap-4">
-              <span className="w-20 shrink-0 text-sm text-[#8a7f7f]">
-                {item.time}
-              </span>
-              <span className="size-2 shrink-0 rounded-full bg-[#d4a0b0]" />
+            <div
+              key={item.event}
+              className="flex items-baseline justify-between border-b border-[#f0e0e4] py-5 last:border-b-0"
+            >
               <span
                 className="text-lg text-[#2c2424]"
                 style={{ fontFamily: "var(--font-playfair), serif" }}
               >
                 {item.event}
+              </span>
+              <span className="text-xs tracking-[0.2em] text-[#8a7f7f]">
+                {item.time}
               </span>
             </div>
           ))}
