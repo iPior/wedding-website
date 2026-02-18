@@ -17,3 +17,9 @@ love the homepage of 11
 
 
 add maps to details
+
+
+ last time we generated some routes using the frontend-design skill. I have just      
+  removed a few that I did not like and want to work on the next round of review. This  
+  round will be found in the /final route. For there will create sub routes combining   
+  different routes from the original /1,/2,/3,... routes.          
