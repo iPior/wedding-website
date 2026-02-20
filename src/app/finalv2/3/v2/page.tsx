@@ -17,7 +17,7 @@ function formatDate(d: Date) {
 export default function HomePage() {
   return (
     <main>
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-8">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-16">
 
         {/* Editorial hero grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-end mb-14 md:mb-16">
@@ -65,7 +65,7 @@ export default function HomePage() {
               Will you join us?
             </p>
             <Link
-              href="/final/3/rsvp"
+              href="/finalv2/3/rsvp"
               className="inline-block bg-[#2c2424] text-white text-xs uppercase tracking-[0.3em] px-10 py-4 transition-colors duration-300 hover:bg-[#d4a0b0]"
             >
               RSVP Now
