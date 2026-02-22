@@ -130,12 +130,6 @@ export default function HomePage() {
             >
               {weddingConfig.ourStory.title}
             </h2>
-            <p
-              className="mt-4 text-base italic text-[#7D7274] max-w-md mx-auto"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {weddingConfig.ourStory.intro}
-            </p>
             <div className="mx-auto mt-8 max-w-xs">
               <Flourish />
             </div>

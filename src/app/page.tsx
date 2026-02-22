@@ -43,7 +43,6 @@ export default function HomePage() {
             <h2 className="font-playfair text-2xl font-semibold">
               {ourStory.title}
             </h2>
-            <p className="mt-2 text-muted-foreground">{ourStory.intro}</p>
           </div>
           <div className="space-y-6">
             {ourStory.milestones.map((milestone) => (

@@ -17,7 +17,7 @@ function formatDate(d: Date) {
 export default function HomePage() {
   return (
     <main>
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-16">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-8">
 
         {/* Editorial hero grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-end mb-14 md:mb-16">

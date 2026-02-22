@@ -8,13 +8,12 @@ Remember, you are a design expert and each route should be unique style. USE YOU
 
 =============================
 
-
 like 3
 loves 5
 likes wedding details on 6
 likes our story of 7
 love the homepage of 11
-
+  
 
 add maps to details
 
@@ -22,4 +21,15 @@ add maps to details
  last time we generated some routes using the frontend-design skill. I have just      
   removed a few that I did not like and want to work on the next round of review. This  
   round will be found in the /final route. For there will create sub routes combining   
-  different routes from the original /1,/2,/3,... routes.          
+  different routes from the original /1,/2,/3,... routes.        
+
+=============================
+
+HOMEPAGE: Nat likes 2 i like 3  
+OUR-STORY: Nat like 3, i like 1. Eitehr 1 or 3 tbh
+DETAILS: We like 3, change details cards with maps to be like 1
+FAQ: We like 3 but change the header to say 'Questions and Answers'
+PARTY: We like 3 but make the pictures smaller. Change the subheader to say 'The wonderful people standing by our side.'
+
+FOOTER: i like 3
+FONT: either 3 or 1

@@ -118,9 +118,6 @@ export default function Variant7Home() {
           <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-wide text-[#C47D5A] sm:text-4xl">
             {ourStory.title}
           </h2>
-          <p className="mx-auto max-w-md font-[family-name:var(--font-body)] text-sm font-light leading-relaxed text-[#8A7B72]">
-            {ourStory.intro}
-          </p>
         </div>
 
         {/* Milestones — warm left border, copper years */}

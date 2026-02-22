@@ -113,9 +113,6 @@ export default function Variant8Home() {
           <h2 className="font-[family-name:var(--font-display)] text-3xl tracking-wide text-[#4A7C8A] sm:text-4xl">
             {ourStory.title}
           </h2>
-          <p className="mx-auto max-w-md font-[family-name:var(--font-body)] text-sm font-light leading-relaxed text-[#6B7F8A]">
-            {ourStory.intro}
-          </p>
         </div>
 
         {/* Timeline */}

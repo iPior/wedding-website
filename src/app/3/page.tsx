@@ -141,9 +141,6 @@ export default function HomePage() {
           >
             {weddingConfig.ourStory.title}
           </h2>
-          <p className="mx-auto mt-8 max-w-lg text-sm font-light leading-relaxed text-neutral-400">
-            {weddingConfig.ourStory.intro}
-          </p>
           {/* Animated rule */}
           <div className="mx-auto mt-12 overflow-hidden">
             <div

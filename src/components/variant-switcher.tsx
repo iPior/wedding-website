@@ -29,10 +29,42 @@ const FINAL_LABELS: Record<number, string> = {
   3: "Watercolor",
 };
 
+const FINALV2_VARIANTS = [1, 2, 3];
+
+const FINALV2_LABELS: Record<number, string> = {
+  1: "Stationery",
+  2: "Cinematic",
+  3: "Watercolor",
+};
+
 export function VariantSwitcher() {
   const pathname = usePathname();
 
-  // Check for /final/N routes first
+  // Check for /finalv2/N routes first
+  const finalv2Match = pathname.match(/^\/finalv2\/(\d{1,2})(\/|$)/);
+  if (finalv2Match) {
+    const current = parseInt(finalv2Match[1], 10);
+    if (!FINALV2_VARIANTS.includes(current)) return null;
+
+    const idx = FINALV2_VARIANTS.indexOf(current);
+    const prev = FINALV2_VARIANTS[(idx - 1 + FINALV2_VARIANTS.length) % FINALV2_VARIANTS.length];
+    const next = FINALV2_VARIANTS[(idx + 1) % FINALV2_VARIANTS.length];
+    const subRoute = pathname.replace(/^\/finalv2\/\d{1,2}/, "");
+
+    return (
+      <SwitcherUI
+        current={current}
+        total={FINALV2_VARIANTS.length}
+        label={FINALV2_LABELS[current]}
+        prevHref={`/finalv2/${prev}${subRoute}`}
+        prevLabel={FINALV2_LABELS[prev]}
+        nextHref={`/finalv2/${next}${subRoute}`}
+        nextLabel={FINALV2_LABELS[next]}
+      />
+    );
+  }
+
+  // Check for /final/N routes
   const finalMatch = pathname.match(/^\/final\/(\d{1,2})(\/|$)/);
   if (finalMatch) {
     const current = parseInt(finalMatch[1], 10);

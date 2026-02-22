@@ -71,23 +71,23 @@ export default function Variant11Layout({
         {children}
 
         {/* Footer */}
-        <footer className="border-t border-[#f0e0e4] mt-24">
+        <footer className="bg-[#2c2424] mt-24">
           <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 flex items-center justify-between">
             <span
-              className="text-lg"
+              className="text-lg text-white"
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               {person1.firstName.charAt(0)}&nbsp;&&nbsp;
               {person2.firstName.charAt(0)}
             </span>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f]">
+            <span className="text-xs uppercase tracking-[0.2em] text-white">
               {new Date(weddingConfig.date).toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
               })}
             </span>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f]">
+            <span className="text-xs uppercase tracking-[0.2em] text-white">
               Toronto, ON
             </span>
           </div>

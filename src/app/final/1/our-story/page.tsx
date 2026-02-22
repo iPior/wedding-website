@@ -21,9 +21,6 @@ export default function OurStoryPage() {
         <h1 className="font-[family-name:var(--font-display)] text-3xl font-light tracking-wide text-neutral-800 sm:text-4xl">
           {ourStory.title}
         </h1>
-        <p className="mx-auto max-w-md font-[family-name:var(--font-body)] text-sm italic leading-relaxed text-neutral-500">
-          {ourStory.intro}
-        </p>
       </div>
 
       <OrnamentalDivider />

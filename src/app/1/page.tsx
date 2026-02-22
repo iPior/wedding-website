@@ -114,12 +114,6 @@ export default function HomePage() {
           >
             {weddingConfig.ourStory.title}
           </h2>
-          <p
-            className="mt-6 max-w-md text-sm font-light leading-relaxed text-neutral-400"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            {weddingConfig.ourStory.intro}
-          </p>
         </div>
 
         {/* Milestones with left vertical line */}
