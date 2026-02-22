@@ -93,11 +93,6 @@ export default function HomePage() {
               {weddingConfig.ourStory.title}
             </h2>
           </div>
-          <div className="md:col-start-6 md:col-span-6">
-            <p className="text-lg leading-relaxed text-[#5a4f4f] md:mt-10">
-              {weddingConfig.ourStory.intro}
-            </p>
-          </div>
         </div>
 
         {/* Timeline */}

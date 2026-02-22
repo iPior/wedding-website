@@ -114,9 +114,6 @@ export default function OurStoryPage() {
               }}
             />
           </div>
-          <p className="mx-auto mt-4 max-w-lg text-sm font-light leading-relaxed text-[#8a7f7f]">
-            {ourStory.intro}
-          </p>
         </div>
       </section>
 

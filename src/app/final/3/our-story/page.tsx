@@ -12,9 +12,6 @@ export default function OurStoryPage() {
       >
         {ourStory.title}
       </h1>
-      <p className="text-base leading-relaxed text-[#5a4f4f] mb-12">
-        {ourStory.intro}
-      </p>
 
       {/* Timeline — alternating left/right */}
       <div className="relative max-w-4xl mx-auto">

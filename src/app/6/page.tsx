@@ -117,9 +117,6 @@ export default function Variant6Home() {
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-light tracking-wide text-[#5B7B5E] sm:text-4xl">
             {ourStory.title}
           </h2>
-          <p className="mx-auto max-w-md font-[family-name:var(--font-body)] text-sm font-light leading-relaxed text-[#7A7A6E]">
-            {ourStory.intro}
-          </p>
         </div>
 
         <div className="space-y-10">

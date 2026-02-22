@@ -20,9 +20,6 @@ export default function OurStoryPage() {
               style={{ animation: "grow 0.8s ease forwards", animationDelay: "0.5s", width: 0, maxWidth: "6rem" }}
             />
           </div>
-          <p className="mx-auto mt-4 max-w-lg text-sm font-light leading-relaxed text-[#8a7f7f]">
-            {ourStory.intro}
-          </p>
         </div>
       </section>
 
