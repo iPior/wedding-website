@@ -4,33 +4,30 @@ type PasswordFormProps = {
 
 export function PasswordForm({ errorMessage }: PasswordFormProps) {
   return (
-    <form action="/auth/unlock" method="post" className="mt-6 space-y-4">
-      <div className="space-y-2">
-        <label htmlFor="password" className="block text-sm font-medium">
-          Password
-        </label>
+    <form action="/auth/unlock" method="post" className="mt-8 space-y-6">
+      <div className="relative">
         <input
           id="password"
           name="password"
           type="password"
           autoComplete="current-password"
           required
-          className="w-full rounded-md border border-zinc-300 px-3 py-3 text-base outline-none ring-zinc-400 transition focus:ring-2"
-          placeholder="Enter your invite password"
+          placeholder="password"
+          className="w-full border-b border-[#d4a0b0] bg-transparent pb-3 pt-1 text-center text-sm uppercase tracking-[0.3em] text-[#2c2424] outline-none transition-colors duration-300 placeholder:text-[#8a7f7f]/50 focus:border-[#2c2424]"
         />
       </div>
 
       {errorMessage ? (
-        <p role="alert" className="text-sm text-red-600">
+        <p role="alert" className="text-xs uppercase tracking-[0.2em] text-red-400">
           {errorMessage}
         </p>
       ) : null}
 
       <button
         type="submit"
-        className="w-full rounded-md bg-zinc-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-zinc-700"
+        className="w-full bg-[#2c2424] px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-[#fff8f8] transition-colors duration-300 hover:bg-[#d4a0b0]"
       >
-        Enter site
+        Enter
       </button>
     </form>
   );
