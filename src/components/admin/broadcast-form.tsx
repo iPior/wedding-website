@@ -2,10 +2,6 @@
 
 import { useState, useRef } from "react";
 import { sendBroadcastEmail, type BroadcastResult } from "@/actions/emails";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 
 export function BroadcastForm({ subscriberCount }: { subscriberCount: number }) {
   const [result, setResult] = useState<BroadcastResult | null>(null);
@@ -13,65 +9,69 @@ export function BroadcastForm({ subscriberCount }: { subscriberCount: number }) 
   const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(formData: FormData) {
-    if (!confirm(`Send this email to ${subscriberCount} subscriber(s)?`)) {
-      return;
-    }
-
+    if (!confirm(`Send this email to ${subscriberCount} subscriber(s)?`)) return;
     setLoading(true);
     setResult(null);
     const res = await sendBroadcastEmail(formData);
     setResult(res);
     setLoading(false);
-
-    if (res.success) {
-      formRef.current?.reset();
-    }
+    if (res.success) formRef.current?.reset();
   }
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-medium">Compose Broadcast</h2>
+    <div className="space-y-5">
+      <p className="text-xs uppercase tracking-[0.3em] text-[#8a7f7f]">Compose Broadcast</p>
 
-      <form ref={formRef} action={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="subject">Subject</Label>
-          <Input
+      <form ref={formRef} action={handleSubmit} className="space-y-5">
+        <div>
+          <label htmlFor="subject" className="block text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+            Subject
+          </label>
+          <input
             id="subject"
             name="subject"
             placeholder="Wedding Update"
             required
+            className="mt-2 w-full border border-[#f0e0e4] bg-white/60 px-3 py-2 text-sm text-[#2c2424] outline-none transition-colors focus:border-[#d4a0b0] placeholder:text-[#8a7f7f]/40"
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="body">Message</Label>
-          <Textarea
+        <div>
+          <label htmlFor="body" className="block text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+            Message
+          </label>
+          <textarea
             id="body"
             name="body"
             placeholder="Write your message here..."
             rows={8}
             required
+            className="mt-2 w-full border border-[#f0e0e4] bg-white/60 px-3 py-2 text-sm text-[#2c2424] outline-none transition-colors focus:border-[#d4a0b0] placeholder:text-[#8a7f7f]/40 resize-none"
           />
-          <p className="text-xs text-muted-foreground">
+          <p className="mt-1 text-[10px] uppercase tracking-[0.15em] text-[#8a7f7f]/60">
             Use blank lines to separate paragraphs.
           </p>
         </div>
 
-        <Button type="submit" disabled={loading || subscriberCount === 0}>
+        <button
+          type="submit"
+          disabled={loading || subscriberCount === 0}
+          className="bg-[#2c2424] px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-[#fff8f8] transition-colors hover:bg-[#d4a0b0] disabled:opacity-40"
+        >
           {loading ? "Sending..." : `Send to ${subscriberCount} Subscriber(s)`}
-        </Button>
+        </button>
       </form>
 
       {result && (
         <div
-          className={`rounded-md border p-3 text-sm ${
+          className={`border p-3 text-xs uppercase tracking-[0.15em] ${
             result.success
-              ? "border-green-200 bg-green-50 text-green-800"
-              : "border-red-200 bg-red-50 text-red-800"
+              ? "border-[#d4a0b0]/40 bg-[#d4a0b0]/10 text-[#2c2424]"
+              : "border-red-200 bg-red-50 text-red-700"
           }`}
         >
           {result.success ? (
-            <p>Successfully sent to {result.sentCount} subscriber(s).</p>
+            <p>Sent to {result.sentCount} subscriber(s).</p>
           ) : (
             <p>{result.error}</p>
           )}

@@ -1,8 +1,6 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 const STATUS_OPTIONS = [
   { value: "", label: "All" },
@@ -30,22 +28,26 @@ export function GuestFilters() {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
       <div className="flex-1">
-        <Input
+        <input
           placeholder="Search by name..."
           defaultValue={currentSearch}
           onChange={(e) => updateParams("search", e.target.value)}
+          className="w-full border border-[#f0e0e4] bg-white/60 px-3 py-2 text-sm text-[#2c2424] outline-none transition-colors focus:border-[#d4a0b0] placeholder:text-[#8a7f7f]/40"
         />
       </div>
       <div className="flex gap-1">
         {STATUS_OPTIONS.map((opt) => (
-          <Button
+          <button
             key={opt.value}
-            variant={currentStatus === opt.value ? "default" : "outline"}
-            size="sm"
             onClick={() => updateParams("status", opt.value)}
+            className={`px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors ${
+              currentStatus === opt.value
+                ? "bg-[#2c2424] text-[#fff8f8]"
+                : "border border-[#f0e0e4] text-[#8a7f7f] hover:border-[#2c2424] hover:text-[#2c2424]"
+            }`}
           >
             {opt.label}
-          </Button>
+          </button>
         ))}
       </div>
     </div>

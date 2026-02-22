@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { Separator } from "@/components/ui/separator";
 import { AttendanceChart } from "@/components/admin/charts/attendance-chart";
 import { RsvpTimeline } from "@/components/admin/charts/rsvp-timeline";
 
@@ -40,7 +39,6 @@ export default async function AdminDashboardPage() {
     { name: "PENDING", value: pending },
   ];
 
-  // Build cumulative RSVP timeline by date
   const timelineMap = new Map<string, number>();
   for (const r of rsvpDates) {
     if (r.rsvpSubmittedAt) {
@@ -58,31 +56,53 @@ export default async function AdminDashboardPage() {
   }
 
   return (
-    <main className="space-y-6">
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
+    <main className="space-y-10">
+      <div>
+        <p className="text-xs uppercase tracking-[0.3em] text-[#8a7f7f]">Overview</p>
+        <h1
+          className="mt-1 text-2xl tracking-wide text-[#2c2424]"
+          style={{ fontFamily: "var(--font-playfair), serif" }}
+        >
+          Dashboard
+        </h1>
+      </div>
 
+      {/* Stat cards */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-lg border bg-card p-4 text-card-foreground"
+            className="border border-[#f0e0e4] bg-white/60 p-4"
           >
-            <p className="text-sm text-muted-foreground">{stat.label}</p>
-            <p className="mt-1 text-2xl font-semibold">{stat.value}</p>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+              {stat.label}
+            </p>
+            <p
+              className="mt-2 text-2xl text-[#2c2424]"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
+            >
+              {stat.value}
+            </p>
           </div>
         ))}
       </div>
 
-      <Separator />
+      {/* Divider */}
+      <div className="h-px bg-[#f0e0e4]" />
 
+      {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border p-4">
-          <h2 className="mb-4 text-sm font-medium">Attendance Breakdown</h2>
+        <div className="border border-[#f0e0e4] bg-white/60 p-5">
+          <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+            Attendance Breakdown
+          </p>
           <AttendanceChart data={attendanceData} />
         </div>
 
-        <div className="rounded-lg border p-4">
-          <h2 className="mb-4 text-sm font-medium">RSVPs Over Time</h2>
+        <div className="border border-[#f0e0e4] bg-white/60 p-5">
+          <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+            RSVPs Over Time
+          </p>
           <RsvpTimeline data={timelineData} />
         </div>
       </div>

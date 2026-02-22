@@ -2,7 +2,7 @@
 
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer, Tooltip } from "recharts";
 
-const COLORS = { YES: "#16a34a", NO: "#dc2626", PENDING: "#a1a1aa" };
+const COLORS = { YES: "#2c2424", NO: "#d4a0b0", PENDING: "#c8bfbf" };
 
 type Props = {
   data: Array<{ name: string; value: number }>;
@@ -10,7 +10,11 @@ type Props = {
 
 export function AttendanceChart({ data }: Props) {
   if (data.every((d) => d.value === 0)) {
-    return <p className="py-8 text-center text-sm text-muted-foreground">No RSVP data yet.</p>;
+    return (
+      <p className="py-8 text-center text-xs uppercase tracking-[0.2em] text-[#8a7f7f]">
+        No RSVP data yet.
+      </p>
+    );
   }
 
   return (
@@ -28,12 +32,26 @@ export function AttendanceChart({ data }: Props) {
           {data.map((entry) => (
             <Cell
               key={entry.name}
-              fill={COLORS[entry.name as keyof typeof COLORS] ?? "#8884d8"}
+              fill={COLORS[entry.name as keyof typeof COLORS] ?? "#8a7f7f"}
             />
           ))}
         </Pie>
-        <Tooltip />
-        <Legend />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "#fff8f8",
+            border: "1px solid #f0e0e4",
+            borderRadius: 0,
+            fontSize: 11,
+            color: "#2c2424",
+          }}
+        />
+        <Legend
+          formatter={(value) => (
+            <span style={{ fontSize: 11, color: "#8a7f7f", textTransform: "uppercase", letterSpacing: "0.15em" }}>
+              {value}
+            </span>
+          )}
+        />
       </PieChart>
     </ResponsiveContainer>
   );

@@ -34,9 +34,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
   }
 
   const households = await prisma.household.findMany({
-    where: {
-      guests: { some: where },
-    },
+    where: { guests: { some: where } },
     include: {
       guests: {
         where,
@@ -49,25 +47,34 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
   const totalGuests = households.reduce((sum, h) => sum + h.guests.length, 0);
 
   return (
-    <main className="space-y-6">
+    <main className="space-y-10">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">Guests</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {households.length} household(s), {totalGuests} guest(s)
-            {(search || status) && " (filtered)"}
+          <p className="text-xs uppercase tracking-[0.3em] text-[#8a7f7f]">Manage</p>
+          <h1
+            className="mt-1 text-2xl tracking-wide text-[#2c2424]"
+            style={{ fontFamily: "var(--font-playfair), serif" }}
+          >
+            Guests
+          </h1>
+          <p className="mt-1 text-xs uppercase tracking-[0.15em] text-[#8a7f7f]/70">
+            {households.length} household(s) · {totalGuests} guest(s)
+            {(search || status) && " · filtered"}
           </p>
         </div>
         <CsvExportButton />
       </div>
 
+      {/* CSV Import */}
       <div className="space-y-2">
-        <h2 className="text-sm font-medium">Import from CSV</h2>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">Import from CSV</p>
+        <p className="text-[10px] tracking-wide text-[#8a7f7f]/60">
           Expected columns: household_name, first_name, last_name, is_primary, max_plus_ones
         </p>
         <CsvUpload />
       </div>
+
+      <div className="h-px bg-[#f0e0e4]" />
 
       <AddGuestForm />
 
@@ -76,68 +83,72 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
       </Suspense>
 
       {households.length > 0 && (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Household</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Primary</TableHead>
-              <TableHead>RSVP</TableHead>
-              <TableHead>Dietary</TableHead>
-              <TableHead className="w-[100px]" />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {households.flatMap((household) =>
-              household.guests.map((guest, guestIdx) => (
-                <TableRow key={guest.id}>
-                  <TableCell>
-                    {guestIdx === 0 ? (
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{household.name}</span>
-                        <span className="text-xs text-muted-foreground">
-                          (+{household.maxPlusOnes})
-                        </span>
-                        <DeleteHouseholdButton householdId={household.id} />
-                      </div>
-                    ) : null}
-                  </TableCell>
-                  <TableCell>
-                    {guest.firstName} {guest.lastName}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {guest.email ?? "—"}
-                  </TableCell>
-                  <TableCell>{guest.isPrimary ? "Yes" : "—"}</TableCell>
-                  <TableCell>
-                    <span
-                      className={
-                        guest.attending === "YES"
-                          ? "text-green-600"
-                          : guest.attending === "NO"
-                            ? "text-red-600"
-                            : "text-muted-foreground"
-                      }
-                    >
-                      {guest.attending ?? "PENDING"}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {guest.dietaryRestrictions ?? "—"}
-                  </TableCell>
-                  <TableCell>
-                    <DeleteGuestButton guestId={guest.id} />
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
+        <div className="border border-[#f0e0e4] bg-white/60">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-b border-[#f0e0e4] hover:bg-transparent">
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[#8a7f7f] font-normal">Household</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[#8a7f7f] font-normal">Name</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[#8a7f7f] font-normal">Email</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[#8a7f7f] font-normal">Primary</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[#8a7f7f] font-normal">RSVP</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[#8a7f7f] font-normal">Dietary</TableHead>
+                <TableHead className="w-[80px]" />
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {households.flatMap((household) =>
+                household.guests.map((guest, guestIdx) => (
+                  <TableRow key={guest.id} className="border-b border-[#f0e0e4] hover:bg-[#fff8f8]">
+                    <TableCell className="text-sm">
+                      {guestIdx === 0 ? (
+                        <div className="flex items-center gap-2">
+                          <span className="text-[#2c2424]">{household.name}</span>
+                          <span className="text-xs text-[#8a7f7f]/60">(+{household.maxPlusOnes})</span>
+                          <DeleteHouseholdButton householdId={household.id} />
+                        </div>
+                      ) : null}
+                    </TableCell>
+                    <TableCell className="text-sm text-[#2c2424]">
+                      {guest.firstName} {guest.lastName}
+                    </TableCell>
+                    <TableCell className="text-sm text-[#8a7f7f]">
+                      {guest.email ?? "—"}
+                    </TableCell>
+                    <TableCell className="text-sm text-[#8a7f7f]">
+                      {guest.isPrimary ? "Yes" : "—"}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className="text-xs uppercase tracking-[0.15em]"
+                        style={{
+                          color:
+                            guest.attending === "YES"
+                              ? "#2c2424"
+                              : guest.attending === "NO"
+                                ? "#d4a0b0"
+                                : "#8a7f7f",
+                        }}
+                      >
+                        {guest.attending ?? "PENDING"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-sm text-[#8a7f7f]">
+                      {guest.dietaryRestrictions ?? "—"}
+                    </TableCell>
+                    <TableCell>
+                      <DeleteGuestButton guestId={guest.id} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
       )}
 
       {households.length === 0 && (
-        <p className="py-8 text-center text-sm text-muted-foreground">
+        <p className="py-12 text-center text-xs uppercase tracking-[0.2em] text-[#8a7f7f]">
           {search || status
             ? "No guests match your filters."
             : "No guests yet. Import a CSV or add guests manually."}
