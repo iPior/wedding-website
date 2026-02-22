@@ -3,24 +3,39 @@ import { weddingConfig } from "../../../../../wedding.config";
 // Gradient palettes — one per milestone, evocative of each story beat
 const milestoneVisuals = [
   {
-    // 2019: Summer barbecue — warm golden afternoon
     gradient: "linear-gradient(145deg, #f5e6c8 0%, #e8c48a 55%, #d4a86c 100%)",
   },
   {
-    // 2020: Waterfront walk — soft coastal blue
     gradient: "linear-gradient(145deg, #d4e4f0 0%, #b0c8dc 55%, #8cafc8 100%)",
   },
   {
-    // 2022: First apartment — warm terracotta
     gradient: "linear-gradient(145deg, #f0d8cc 0%, #d8b0a0 55%, #c49488 100%)",
   },
   {
-    // 2025: Mountain proposal — lavender dusk
     gradient: "linear-gradient(145deg, #dcd4ec 0%, #b8acd0 55%, #9888b8 100%)",
   },
 ];
 
-function PhotoFrame({ gradient, year }: { gradient: string; year: string }) {
+// Alternating polaroid tilts
+const polaroidRotations = [-2.5, 1.8, -1.5, 2.2, -2, 5.5];
+
+function PhotoFrame({ gradient, year, image }: { gradient: string; year: string; image?: string }) {
+  if (image) {
+    return (
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt={year} className="absolute inset-0 w-full h-full object-cover" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.1) 100%)",
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative w-full overflow-hidden"
@@ -77,10 +92,6 @@ export default function OurStoryPage() {
       >
         {ourStory.title}
       </h1>
-      <p className="text-base leading-relaxed text-[#5a4f4f] mb-12">
-        {ourStory.intro}
-      </p>
-
       {/* Timeline — alternating left/right with photos on opposing side */}
       <div className="relative max-w-4xl mx-auto">
         {/* Center spine */}
@@ -92,9 +103,12 @@ export default function OurStoryPage() {
           }}
         />
 
-        {ourStory.milestones.map((m, i) => {
+        {(() => {
+          let polaroidCount = 0;
+          return ourStory.milestones.map((m, i) => {
           const isEven = i % 2 === 0;
           const visual = milestoneVisuals[i % milestoneVisuals.length];
+          const polaroidIndex = m.image ? polaroidCount++ : 0;
 
           return (
             <div key={m.year} className="relative mb-20">
@@ -127,20 +141,34 @@ export default function OurStoryPage() {
                   <p className="text-sm text-[#8a7f7f]">{m.description}</p>
                 </div>
 
-                {/* Photo side — visible on desktop, shown above text on mobile */}
-                <div
-                  className={`pl-12 md:pl-0 md:w-1/2 order-first md:order-none ${
-                    isEven ? "md:pl-12" : "md:pr-12"
-                  }`}
-                >
-                  <div className="ring-1 ring-[#f0e0e4] ring-offset-2 ring-offset-[#fff8f8] overflow-hidden">
-                    <PhotoFrame gradient={visual.gradient} year={m.year} />
+                {/* Photo side — only rendered when an image is set */}
+                {m.image && (
+                  <div
+                    className={`pl-12 md:pl-0 md:w-1/2 order-first md:order-none flex items-center justify-center ${
+                      isEven ? "md:pl-12" : "md:pr-12"
+                    }`}
+                  >
+                    {/* Polaroid frame */}
+                    <div
+                      style={{
+                        transform: `rotate(${polaroidRotations[polaroidIndex % polaroidRotations.length]}deg)`,
+                        backgroundColor: "#ffffff",
+                        padding: "10px 10px 40px 10px",
+                        boxShadow: "0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08)",
+                        display: "inline-block",
+                        width: "100%",
+                        maxWidth: "320px",
+                      }}
+                    >
+                      <PhotoFrame gradient={visual.gradient} year={m.year} image={m.image} />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           );
-        })}
+        });
+        })()}
       </div>
     </main>
   );

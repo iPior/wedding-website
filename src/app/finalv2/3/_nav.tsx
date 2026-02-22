@@ -9,11 +9,11 @@ const { person1, person2 } = weddingConfig.couple;
 
 const links = [
   { href: "/finalv2/3", label: "Home" },
+  { href: "/finalv2/3/home2", label: "Home 2" },
   { href: "/finalv2/3/our-story", label: "Our Story" },
   { href: "/finalv2/3/details", label: "Details" },
   { href: "/finalv2/3/faq", label: "FAQ" },
   { href: "/finalv2/3/bridal-party", label: "Party" },
-  { href: "/finalv2/3/rsvp", label: "RSVP" },
 ];
 
 export function Nav() {
@@ -37,15 +37,17 @@ export function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-xs tracking-[0.3em] uppercase text-[#8a7f7f] transition-colors duration-300 hover:text-[#2c2424] ${
-                l.label === "RSVP"
-                  ? "border-b border-[#2c2424] pb-0.5"
-                  : ""
-              }`}
+              className="text-xs tracking-[0.3em] uppercase text-[#8a7f7f] transition-colors duration-300 hover:text-[#2c2424]"
             >
               {l.label}
             </Link>
           ))}
+          <Link
+            href="/finalv2/3/rsvp"
+            className="text-xs tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-5 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0]"
+          >
+            RSVP
+          </Link>
         </div>
 
         {/* Mobile menu toggle */}
@@ -67,15 +69,18 @@ export function Nav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className={`text-xs tracking-[0.3em] uppercase text-[#8a7f7f] transition-colors duration-300 hover:text-[#2c2424] ${
-                  l.label === "RSVP"
-                    ? "border-b border-[#2c2424] pb-0.5"
-                    : ""
-                }`}
+                className="text-xs tracking-[0.3em] uppercase text-[#8a7f7f] transition-colors duration-300 hover:text-[#2c2424]"
               >
                 {l.label}
               </Link>
             ))}
+            <Link
+              href="/finalv2/3/rsvp"
+              onClick={() => setOpen(false)}
+              className="text-xs tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-8 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0]"
+            >
+              RSVP
+            </Link>
           </div>
         </div>
       )}

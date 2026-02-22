@@ -11,15 +11,15 @@ export default function FaqPage() {
     <main className="mx-auto max-w-3xl px-6 py-16">
       <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">001</p>
       <h2
-        className="text-5xl text-[#2c2424] mb-4"
+        className="text-5xl text-[#2c2424] mb-8 border-b border-[#f0e0e4] pb-4"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
-        Frequently Asked
+        Questions and Answers
       </h2>
-      <p className="text-base leading-relaxed text-[#5a4f4f] mb-12">
+      {/* <p className="text-base leading-relaxed text-[#5a4f4f] mb-12">
         We have gathered answers to some common questions. If you need anything
         else, do not hesitate to reach out.
-      </p>
+      </p> */}
 
       <Accordion type="single" collapsible className="w-full">
         {weddingConfig.faq.map((item, i) => (

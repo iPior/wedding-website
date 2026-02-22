@@ -1,5 +1,6 @@
 import { Playfair_Display, Lato } from "next/font/google";
 import { Nav } from "./_nav";
+import { PageTransition } from "./_page-transition";
 import { weddingConfig } from "../../../../wedding.config";
 
 const playfair = Playfair_Display({
@@ -31,6 +32,24 @@ export default function Variant11Layout({
       className={`${playfair.variable} ${lato.variable} min-h-screen bg-[#fff8f8] text-[#2c2424]`}
       style={{ fontFamily: "var(--font-lato), sans-serif" }}
     >
+      <style>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes grow {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+          from { opacity: 0; transform: scaleX(0); }
+          to { opacity: 1; transform: scaleX(1); }
+        }
+      `}</style>
       {/* Watercolor wash fixed background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {/* Top-right blob */}
@@ -68,13 +87,13 @@ export default function Variant11Layout({
       {/* Page content above watercolor layer */}
       <div className="relative z-10">
         <Nav />
-        {children}
+        <PageTransition>{children}</PageTransition>
 
         {/* Footer */}
-        <footer className="border-t border-[#f0e0e4] mt-24">
+        <footer className="bg-[#2c2424] mt-24">
           <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 flex items-center justify-between">
             <span
-              className="text-lg"
+              className="text-lg text-[#8a7f7f]"
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               {person1.firstName.charAt(0)}&nbsp;&&nbsp;

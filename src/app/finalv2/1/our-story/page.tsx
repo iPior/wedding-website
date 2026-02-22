@@ -28,11 +28,29 @@ function PhotoFrame({
   gradient,
   accent,
   year,
+  image,
 }: {
   gradient: string;
   accent: string;
   year: string;
+  image?: string;
 }) {
+  if (image) {
+    return (
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt={year} className="absolute inset-0 w-full h-full object-cover" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.12) 100%)",
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative w-full overflow-hidden"
@@ -113,14 +131,17 @@ export default function OurStoryPage() {
           const visual = milestoneVisuals[index % milestoneVisuals.length];
           return (
             <div key={milestone.year} className="space-y-5">
-              {/* Photo frame — mat border in neutral-200 */}
-              <div className="mx-auto max-w-sm border border-neutral-200 p-2 shadow-sm">
-                <PhotoFrame
-                  gradient={visual.gradient}
-                  accent={visual.accent}
-                  year={milestone.year}
-                />
-              </div>
+              {/* Photo frame — only rendered when an image is set */}
+              {milestone.image && (
+                <div className="mx-auto max-w-sm border border-neutral-200 p-2 shadow-sm">
+                  <PhotoFrame
+                    gradient={visual.gradient}
+                    accent={visual.accent}
+                    year={milestone.year}
+                    image={milestone.image}
+                  />
+                </div>
+              )}
 
               {/* Text block */}
               <div className="space-y-2">

@@ -23,10 +23,28 @@ const milestoneVisuals = [
 function PhotoFrame({
   gradient,
   year,
+  image,
 }: {
   gradient: string;
   year: string;
+  image?: string;
 }) {
+  if (image) {
+    return (
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "3/2" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt={year} className="absolute inset-0 w-full h-full object-cover" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.1) 100%)",
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative w-full overflow-hidden"
@@ -145,12 +163,14 @@ export default function OurStoryPage() {
                   </p>
                 </div>
 
-                {/* Photo */}
-                <div className="w-full sm:w-64 lg:w-80 flex-shrink-0">
-                  <div className="border border-[#f0e0e4] p-1.5">
-                    <PhotoFrame gradient={visual.gradient} year={milestone.year} />
+                {/* Photo — only rendered when an image is set */}
+                {milestone.image && (
+                  <div className="w-full sm:w-64 lg:w-80 flex-shrink-0">
+                    <div className="border border-[#f0e0e4] p-1.5">
+                      <PhotoFrame gradient={visual.gradient} year={milestone.year} image={milestone.image} />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </section>
