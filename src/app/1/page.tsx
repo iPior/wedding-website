@@ -1,202 +1,109 @@
-import Link from "next/link";
-import { CountdownTimer } from "@/components/countdown-timer";
 import { weddingConfig } from "../../../wedding.config";
+import { CountdownTimer } from "@/components/countdown-timer";
+import Link from "next/link";
 
-const { person1, person2 } = weddingConfig.couple;
-const weddingDate = new Date(weddingConfig.date);
-const formattedDate = weddingDate.toLocaleDateString("en-US", {
-  weekday: "long",
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
+function OrnamentalDivider({ delay = "0s" }: { delay?: string }) {
+  return (
+    <div
+      className="flex items-center justify-center gap-4"
+      style={{ animation: "scaleIn 1.2s ease-out forwards", animationDelay: delay, opacity: 0 }}
+    >
+      <div className="h-px flex-1 max-w-14 bg-neutral-300/50" />
+      <svg width="9" height="9" viewBox="0 0 14 14" className="text-neutral-300">
+        <path d="M7 1 L8.5 5.5 L13 7 L8.5 8.5 L7 13 L5.5 8.5 L1 7 L5.5 5.5 Z" fill="currentColor" />
+      </svg>
+      <div className="h-px flex-1 max-w-14 bg-neutral-300/50" />
+    </div>
+  );
+}
 
 export default function HomePage() {
+  const { couple, date, tagline } = weddingConfig;
+  const { person1, person2 } = couple;
+  const weddingDate = new Date(date);
+  const formattedDate = weddingDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
-    <div>
-      {/* Hero — left-aligned, massive type */}
-      <section className="mx-auto max-w-2xl px-6 pb-32 pt-20 sm:pt-32">
-        <div className="max-w-xl">
-          {/* Name line 1 */}
+    <div className="flex min-h-[calc(100vh-5rem)] items-center justify-center px-6 py-10">
+      {/* Invitation card */}
+      <div
+        className="w-full max-w-xs border border-neutral-200 px-10 py-12 text-center sm:max-w-sm sm:px-14 sm:py-16"
+        style={{ animation: "fadeIn 0.6s ease-out forwards", opacity: 0 }}
+      >
+        <div className="space-y-5">
+          {/* Name 1 */}
           <h1
-            className="text-[4.5rem] font-light leading-[0.85] tracking-[-0.04em] text-neutral-900 sm:text-[8rem]"
-            style={{
-              fontFamily: "var(--font-display)",
-              animation: "fadeInUp 0.8s ease forwards",
-              opacity: 0,
-            }}
+            className="font-[family-name:var(--font-display)] text-6xl font-light leading-tight tracking-wide text-neutral-800 sm:text-7xl"
+            style={{ animation: "fadeIn 1.2s ease-out 0.3s forwards", opacity: 0 }}
           >
             {person1.firstName}
           </h1>
 
-          {/* Ampersand — offset, lighter */}
-          <span
-            className="my-3 inline-block text-[1.5rem] font-light tracking-[-0.02em] text-neutral-300 sm:my-4 sm:text-[2rem]"
-            style={{
-              fontFamily: "var(--font-display)",
-              animation: "fadeInUp 0.8s ease forwards",
-              animationDelay: "0.08s",
-              opacity: 0,
-            }}
+          {/* "&" divider */}
+          <div
+            className="flex items-center justify-center gap-3"
+            style={{ animation: "scaleIn 1s ease-out 0.5s forwards", opacity: 0 }}
           >
-            &amp;
-          </span>
+            <div className="h-px w-10 bg-neutral-300/60" />
+            <span className="font-[family-name:var(--font-display)] text-base font-light text-neutral-400">&amp;</span>
+            <div className="h-px w-10 bg-neutral-300/60" />
+          </div>
 
-          {/* Name line 2 */}
+          {/* Name 2 */}
           <h1
-            className="text-[4.5rem] font-light leading-[0.85] tracking-[-0.04em] text-neutral-900 sm:text-[8rem]"
-            style={{
-              fontFamily: "var(--font-display)",
-              animation: "fadeInUp 0.8s ease forwards",
-              animationDelay: "0.15s",
-              opacity: 0,
-            }}
+            className="font-[family-name:var(--font-display)] text-6xl font-light leading-tight tracking-wide text-neutral-800 sm:text-7xl"
+            style={{ animation: "fadeIn 1.2s ease-out 0.6s forwards", opacity: 0 }}
           >
             {person2.firstName}
           </h1>
 
           {/* Date */}
           <p
-            className="mt-10 text-[0.7rem] font-light uppercase tracking-[0.2em] text-neutral-400 sm:mt-14"
-            style={{
-              fontFamily: "var(--font-body)",
-              animation: "fadeInUp 0.8s ease forwards",
-              animationDelay: "0.3s",
-              opacity: 0,
-            }}
+            className="font-[family-name:var(--font-body)] text-sm italic text-neutral-500"
+            style={{ animation: "fadeIn 1s ease-out 0.8s forwards", opacity: 0 }}
           >
             {formattedDate}
           </p>
 
-          {/* Thin rule */}
-          <div
-            className="mt-8 h-px bg-neutral-200"
-            style={{
-              animation: "revealLine 0.8s ease forwards",
-              animationDelay: "0.5s",
-              width: 0,
-            }}
-          />
-        </div>
-      </section>
-
-      {/* Countdown — narrow, understated */}
-      <section className="mx-auto max-w-xl px-6 pb-36">
-        <div
-          style={{
-            animation: "fadeInUp 0.8s ease forwards",
-            animationDelay: "0.6s",
-            opacity: 0,
-          }}
-        >
-          <CountdownTimer />
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="mx-auto max-w-2xl px-6">
-        <div className="border-t border-neutral-200" />
-      </div>
-
-      {/* Our Story — vertical line accent on left */}
-      <section className="mx-auto max-w-2xl px-6 py-36 sm:py-48">
-        <div
-          className="mb-16"
-          style={{
-            animation: "fadeInUp 0.8s ease forwards",
-            animationDelay: "0.1s",
-            opacity: 0,
-          }}
-        >
-          <h2
-            className="text-[3rem] font-light leading-[0.9] tracking-[-0.04em] text-neutral-900 sm:text-[4.5rem]"
-            style={{ fontFamily: "var(--font-display)" }}
+          {/* Tagline */}
+          <p
+            className="font-[family-name:var(--font-body)] text-xs italic text-neutral-400"
+            style={{ animation: "fadeIn 1s ease-out 0.95s forwards", opacity: 0 }}
           >
-            {weddingConfig.ourStory.title}
-          </h2>
-        </div>
+            {tagline}
+          </p>
 
-        {/* Milestones with left vertical line */}
-        <div className="relative border-l border-neutral-200 pl-8 sm:pl-12">
-          {/* The vertical line is the border-l itself */}
-          <div className="space-y-20 sm:space-y-28">
-            {weddingConfig.ourStory.milestones.map((milestone, i) => (
-              <div
-                key={milestone.year}
-                style={{
-                  animation: "fadeInUp 0.8s ease forwards",
-                  animationDelay: `${0.15 + i * 0.12}s`,
-                  opacity: 0,
-                }}
-              >
-                {/* Year — oversized display */}
-                <p
-                  className="text-[3.5rem] font-light leading-none tracking-[-0.04em] text-neutral-200 sm:text-[5rem]"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {milestone.year}
-                </p>
+          <OrnamentalDivider delay="1.1s" />
 
-                {/* Title */}
-                <h3
-                  className="mt-3 text-sm font-normal tracking-[-0.01em] text-neutral-900"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {milestone.title}
-                </h3>
+          {/* Countdown */}
+          <div style={{ animation: "fadeIn 1s ease-out 1.2s forwards", opacity: 0 }}>
+            <CountdownTimer numberClassName="font-[family-name:var(--font-display)]" />
+          </div>
 
-                {/* Description */}
-                <p
-                  className="mt-2 max-w-sm text-sm font-light leading-relaxed text-neutral-400"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {milestone.description}
-                </p>
-              </div>
-            ))}
+          <OrnamentalDivider delay="1.35s" />
+
+          {/* RSVP */}
+          <div
+            className="space-y-3"
+            style={{ animation: "fadeIn 1s ease-out 1.5s forwards", opacity: 0 }}
+          >
+            <p className="font-[family-name:var(--font-body)] text-xs italic text-neutral-500">
+              We would be honored by your presence.
+            </p>
+            <Link
+              href="/1/rsvp"
+              className="inline-block border border-neutral-300 bg-transparent px-8 py-3 font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.2em] text-neutral-700 transition-all duration-300 hover:border-neutral-500 hover:bg-neutral-800 hover:text-white"
+            >
+              Respond
+            </Link>
           </div>
         </div>
-      </section>
-
-      {/* Divider */}
-      <div className="mx-auto max-w-2xl px-6">
-        <div className="border-t border-neutral-200" />
       </div>
-
-      {/* RSVP CTA — just a text link, editorial */}
-      <section className="mx-auto max-w-2xl px-6 py-36 sm:py-48">
-        <div
-          style={{
-            animation: "fadeInUp 0.8s ease forwards",
-            animationDelay: "0.1s",
-            opacity: 0,
-          }}
-        >
-          <p
-            className="mb-4 text-[0.65rem] uppercase tracking-[0.25em] text-neutral-300"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Join us
-          </p>
-          <Link
-            href="/1/rsvp"
-            className="group inline-flex items-baseline gap-3"
-          >
-            <span
-              className="text-[1.8rem] font-light tracking-[-0.03em] text-neutral-900 underline decoration-neutral-200 underline-offset-8 transition-all duration-500 group-hover:decoration-neutral-900 sm:text-[2.5rem]"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Let us know if you can make it
-            </span>
-            <span
-              className="text-xl text-neutral-300 transition-all duration-500 group-hover:translate-x-1 group-hover:text-neutral-900"
-              aria-hidden
-            >
-              &rarr;
-            </span>
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }

@@ -4,34 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const VARIANTS = [1, 3, 5, 6, 7, 8, 9, 11];
+const VARIANTS = [1, 2, 3];
 
 const LABELS: Record<number, string> = {
-  1: "Editorial",
-  // 2: "Magazine",
-  3: "Cinematic",
-  // 4: "Utilitarian",
-  5: "Stationery",
-  6: "Botanical",
-  7: "Sunset",
-  8: "Coastal",
-  9: "Provincial",
-  // 10: "Art Deco",
-  11: "Watercolor",
-  // 12: "Mashup",
-};
-
-const FINAL_VARIANTS = [1, 2, 3];
-
-const FINAL_LABELS: Record<number, string> = {
-  1: "Stationery",
-  2: "Cinematic",
-  3: "Watercolor",
-};
-
-const FINALV2_VARIANTS = [1, 2, 3];
-
-const FINALV2_LABELS: Record<number, string> = {
   1: "Stationery",
   2: "Cinematic",
   3: "Watercolor",
@@ -40,55 +15,6 @@ const FINALV2_LABELS: Record<number, string> = {
 export function VariantSwitcher() {
   const pathname = usePathname();
 
-  // Check for /finalv2/N routes first
-  const finalv2Match = pathname.match(/^\/finalv2\/(\d{1,2})(\/|$)/);
-  if (finalv2Match) {
-    const current = parseInt(finalv2Match[1], 10);
-    if (!FINALV2_VARIANTS.includes(current)) return null;
-
-    const idx = FINALV2_VARIANTS.indexOf(current);
-    const prev = FINALV2_VARIANTS[(idx - 1 + FINALV2_VARIANTS.length) % FINALV2_VARIANTS.length];
-    const next = FINALV2_VARIANTS[(idx + 1) % FINALV2_VARIANTS.length];
-    const subRoute = pathname.replace(/^\/finalv2\/\d{1,2}/, "");
-
-    return (
-      <SwitcherUI
-        current={current}
-        total={FINALV2_VARIANTS.length}
-        label={FINALV2_LABELS[current]}
-        prevHref={`/finalv2/${prev}${subRoute}`}
-        prevLabel={FINALV2_LABELS[prev]}
-        nextHref={`/finalv2/${next}${subRoute}`}
-        nextLabel={FINALV2_LABELS[next]}
-      />
-    );
-  }
-
-  // Check for /final/N routes
-  const finalMatch = pathname.match(/^\/final\/(\d{1,2})(\/|$)/);
-  if (finalMatch) {
-    const current = parseInt(finalMatch[1], 10);
-    if (!FINAL_VARIANTS.includes(current)) return null;
-
-    const idx = FINAL_VARIANTS.indexOf(current);
-    const prev = FINAL_VARIANTS[(idx - 1 + FINAL_VARIANTS.length) % FINAL_VARIANTS.length];
-    const next = FINAL_VARIANTS[(idx + 1) % FINAL_VARIANTS.length];
-    const subRoute = pathname.replace(/^\/final\/\d{1,2}/, "");
-
-    return (
-      <SwitcherUI
-        current={current}
-        total={FINAL_VARIANTS.length}
-        label={FINAL_LABELS[current]}
-        prevHref={`/final/${prev}${subRoute}`}
-        prevLabel={FINAL_LABELS[prev]}
-        nextHref={`/final/${next}${subRoute}`}
-        nextLabel={FINAL_LABELS[next]}
-      />
-    );
-  }
-
-  // Extract variant number from pathname (e.g. /7/details -> 7)
   const match = pathname.match(/^\/(\d{1,2})(\/|$)/);
   if (!match) return null;
 
@@ -98,8 +24,6 @@ export function VariantSwitcher() {
   const idx = VARIANTS.indexOf(current);
   const prev = VARIANTS[(idx - 1 + VARIANTS.length) % VARIANTS.length];
   const next = VARIANTS[(idx + 1) % VARIANTS.length];
-
-  // Preserve sub-route (e.g. /details, /faq)
   const subRoute = pathname.replace(/^\/\d{1,2}/, "");
 
   return (

@@ -22,7 +22,7 @@ export const metadata = {
   title: `${person1.firstName} & ${person2.firstName} — Wedding`,
 };
 
-export default function Variant11Layout({
+export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;

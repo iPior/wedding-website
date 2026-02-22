@@ -1,82 +1,60 @@
+import { weddingConfig } from "../../../../wedding.config";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { weddingConfig } from "../../../../wedding.config";
 
-export default function FaqPage() {
+export default function Variant5Faq() {
+  const { faq } = weddingConfig;
+
   return (
-    <div>
+    <div className="space-y-16 text-center">
       {/* Page heading */}
-      <section className="mx-auto max-w-2xl px-6 pb-20 pt-16 sm:pt-24">
-        <div className="max-w-xl">
-          <h1
-            className="text-[3.5rem] font-light leading-[0.85] tracking-[-0.04em] text-neutral-900 sm:text-[6rem]"
-            style={{
-              fontFamily: "var(--font-display)",
-              animation: "fadeInUp 0.8s ease forwards",
-              opacity: 0,
-            }}
-          >
-            Questions
-          </h1>
-          <p
-            className="mt-8 max-w-sm text-sm font-light leading-relaxed text-neutral-400"
-            style={{
-              fontFamily: "var(--font-body)",
-              animation: "fadeInUp 0.8s ease forwards",
-              animationDelay: "0.15s",
-              opacity: 0,
-            }}
-          >
-            Everything you might need to know before the day.
-          </p>
-          <div
-            className="mt-8 h-px bg-neutral-200"
-            style={{
-              animation: "revealLine 0.8s ease forwards",
-              animationDelay: "0.3s",
-              width: 0,
-            }}
-          />
+      <div
+        className="space-y-4"
+        style={{ animation: "fadeIn 1s ease-out forwards", opacity: 0 }}
+      >
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-light tracking-wide text-neutral-800 sm:text-5xl">
+          Questions &amp; Answers
+        </h1>
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-px w-12 bg-neutral-300/50" />
+          <span className="text-xs text-neutral-300">✽</span>
+          <div className="h-px w-12 bg-neutral-300/50" />
         </div>
-      </section>
+        <p className="font-[family-name:var(--font-body)] text-sm italic text-neutral-500">
+          Everything you need to know about our celebration.
+        </p>
+      </div>
 
-      {/* FAQ Accordion */}
-      <section className="mx-auto max-w-2xl px-6 pb-32">
-        <div
-          style={{
-            animation: "fadeInUp 0.8s ease forwards",
-            animationDelay: "0.35s",
-            opacity: 0,
-          }}
-        >
-          <Accordion type="single" collapsible>
-            {weddingConfig.faq.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`faq-${index}`}
-                className="border-b border-neutral-100 first:border-t"
-              >
-                <AccordionTrigger
-                  className="py-6 text-left text-[0.95rem] font-light tracking-[-0.01em] text-neutral-900 hover:no-underline"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent
-                  className="pb-6 text-sm font-light leading-relaxed text-neutral-400"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
+      {/* Accordion */}
+      <div
+        className="mx-auto max-w-xl"
+        style={{
+          animation: "fadeIn 1s ease-out 0.3s forwards",
+          opacity: 0,
+        }}
+      >
+        <Accordion type="single" collapsible className="w-full">
+          {faq.map((item, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border-b border-neutral-200/60"
+            >
+              <AccordionTrigger className="py-5 text-left font-[family-name:var(--font-display)] text-base font-normal tracking-wide text-neutral-700 hover:text-neutral-900 [&>svg]:text-neutral-300">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="pb-5 font-[family-name:var(--font-body)] text-sm leading-relaxed text-neutral-500">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+
     </div>
   );
 }

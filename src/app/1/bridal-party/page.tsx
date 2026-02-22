@@ -1,101 +1,84 @@
-import Image from "next/image";
 import { weddingConfig } from "../../../../wedding.config";
+import Image from "next/image";
 
-function getInitials(name: string): string {
+function getInitials(name: string) {
   return name
     .split(" ")
-    .map((part) => part[0])
+    .map((n) => n[0])
     .join("")
     .toUpperCase();
 }
 
-export default function BridalPartyPage() {
+export default function Variant5BridalParty() {
+  const { bridalParty } = weddingConfig;
+
   return (
-    <div>
+    <div className="space-y-16 text-center">
       {/* Page heading */}
-      <section className="mx-auto max-w-2xl px-6 pb-20 pt-16 sm:pt-24">
-        <div className="max-w-xl">
-          <h1
-            className="text-[3.5rem] font-light leading-[0.85] tracking-[-0.04em] text-neutral-900 sm:text-[6rem]"
+      <div
+        className="space-y-4"
+        style={{ animation: "fadeIn 1s ease-out forwards", opacity: 0 }}
+      >
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-light tracking-wide text-neutral-800 sm:text-5xl">
+          Wedding Party
+        </h1>
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-px w-12 bg-neutral-300/50" />
+          <span className="text-xs text-neutral-300">✽</span>
+          <div className="h-px w-12 bg-neutral-300/50" />
+        </div>
+        <p className="font-[family-name:var(--font-body)] text-sm italic text-neutral-500">
+          The wonderful people standing by our side.
+        </p>
+      </div>
+
+      {/* Party members grid */}
+      <div className="grid grid-cols-1 gap-16 sm:grid-cols-2">
+        {bridalParty.map((member, index) => (
+          <div
+            key={member.name}
+            className="flex flex-col items-center space-y-4"
             style={{
-              fontFamily: "var(--font-display)",
-              animation: "fadeInUp 0.8s ease forwards",
+              animation: "fadeIn 1s ease-out forwards",
+              animationDelay: `${0.3 + index * 0.2}s`,
               opacity: 0,
             }}
           >
-            Bridal Party
-          </h1>
-          <div
-            className="mt-8 h-px bg-neutral-200"
-            style={{
-              animation: "revealLine 0.8s ease forwards",
-              animationDelay: "0.2s",
-              width: 0,
-            }}
-          />
-        </div>
-      </section>
-
-      {/* Members */}
-      <section className="mx-auto max-w-2xl px-6 pb-32">
-        <div className="space-y-0">
-          {weddingConfig.bridalParty.map((member, i) => (
-            <div
-              key={member.name}
-              className="group flex items-start gap-8 border-b border-neutral-100 py-10 first:border-t sm:gap-12"
-              style={{
-                animation: "fadeInUp 0.7s ease forwards",
-                animationDelay: `${0.25 + i * 0.1}s`,
-                opacity: 0,
-              }}
-            >
-              {/* Portrait / Initials */}
-              <div className="relative h-20 w-20 shrink-0 overflow-hidden bg-neutral-50 sm:h-24 sm:w-24">
-                {member.image ? (
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
-                    sizes="96px"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center">
-                    <span
-                      className="text-lg font-light tracking-[-0.02em] text-neutral-300"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {getInitials(member.name)}
-                    </span>
-                  </div>
-                )}
+            {/* Portrait circle */}
+            {member.image ? (
+              <div className="relative size-28 overflow-hidden rounded-full border border-neutral-200 sm:size-32">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
-
-              {/* Info */}
-              <div className="pt-1">
-                <p
-                  className="text-[1.4rem] font-light leading-[1] tracking-[-0.03em] text-neutral-900 sm:text-[1.7rem]"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {member.name}
-                </p>
-                <p
-                  className="mt-2 text-[0.6rem] uppercase tracking-[0.25em] text-neutral-300"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {member.role}
-                </p>
-                <p
-                  className="mt-3 max-w-xs text-sm font-light leading-relaxed text-neutral-400"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {member.bio}
-                </p>
+            ) : (
+              <div className="flex size-28 items-center justify-center rounded-full border border-neutral-200 bg-[#F8F6F1] sm:size-32">
+                <span className="font-[family-name:var(--font-display)] text-xl font-light tracking-wider text-neutral-400">
+                  {getInitials(member.name)}
+                </span>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            )}
+
+            {/* Name */}
+            <p className="font-[family-name:var(--font-display)] text-xl font-light tracking-wide text-neutral-700">
+              {member.name}
+            </p>
+
+            {/* Role — small caps treatment */}
+            <p className="font-[family-name:var(--font-body)] text-xs uppercase tracking-[0.2em] text-neutral-400">
+              {member.role}
+            </p>
+
+            {/* Bio — italic Lora */}
+            <p className="mx-auto max-w-xs font-[family-name:var(--font-body)] text-sm italic leading-relaxed text-neutral-500">
+              {member.bio}
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

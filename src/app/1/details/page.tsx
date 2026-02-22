@@ -1,165 +1,165 @@
 import { weddingConfig } from "../../../../wedding.config";
 
-const weddingDate = new Date(weddingConfig.date);
-const formattedDate = weddingDate.toLocaleDateString("en-US", {
-  weekday: "long",
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
+const CEREMONY_EMBED =
+  "https://maps.google.com/maps?q=4260+Cawthra+Rd+Mississauga+ON+L4Z+1V8&t=&z=16&ie=UTF8&iwloc=B&output=embed";
+const RECEPTION_EMBED =
+  "https://maps.google.com/maps?q=20+Polonia+Ave+Brampton+ON+L6Y+5W8&t=&z=16&ie=UTF8&iwloc=B&output=embed";
+const CEREMONY_LINK =
+  "https://maps.google.com/maps?q=4260+Cawthra+Rd+Mississauga+ON+L4Z+1V8";
+const RECEPTION_LINK =
+  "https://maps.google.com/maps?q=20+Polonia+Ave+Brampton+ON+L6Y+5W8";
 
-export default function DetailsPage() {
+function OrnamentalDivider({ delay = "0s" }: { delay?: string }) {
   return (
-    <div>
+    <div
+      className="flex items-center justify-center gap-4"
+      style={{
+        animation: "scaleIn 1.2s ease-out forwards",
+        animationDelay: delay,
+        opacity: 0,
+      }}
+    >
+      <div className="h-px flex-1 max-w-16 bg-neutral-300/50" />
+      <svg width="12" height="12" viewBox="0 0 14 14" className="text-neutral-300">
+        <path d="M7 1 L8.5 5.5 L13 7 L8.5 8.5 L7 13 L5.5 8.5 L1 7 L5.5 5.5 Z" fill="currentColor" />
+      </svg>
+      <div className="h-px flex-1 max-w-16 bg-neutral-300/50" />
+    </div>
+  );
+}
+
+function VenueMap({
+  embedSrc,
+  directionsHref,
+  title,
+}: {
+  embedSrc: string;
+  directionsHref: string;
+  title: string;
+}) {
+  return (
+    <div className="mt-8 text-left">
+      <div className="overflow-hidden border border-neutral-100">
+        <div className="relative w-full" style={{ paddingBottom: "52%" }}>
+          <iframe
+            src={embedSrc}
+            className="absolute inset-0 h-full w-full"
+            style={{ filter: "grayscale(0.15) contrast(0.92) sepia(0.08)" }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title={title}
+          />
+        </div>
+      </div>
+      <a
+        href={directionsHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 inline-flex items-center gap-1.5 font-[family-name:var(--font-body)] text-xs italic text-neutral-400 transition-colors duration-300 hover:text-neutral-700"
+      >
+        Get Directions
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M2 8 L8 2 M4 2 H8 V6" />
+        </svg>
+      </a>
+    </div>
+  );
+}
+
+export default function Variant5Details() {
+  const { schedule, venue } = weddingConfig;
+
+  return (
+    <div className="space-y-16 text-center">
       {/* Page heading */}
-      <section className="mx-auto max-w-2xl px-6 pb-24 pt-16 sm:pt-24">
-        <div className="max-w-xl">
-          <h1
-            className="text-[3.5rem] font-light leading-[0.85] tracking-[-0.04em] text-neutral-900 sm:text-[6rem]"
-            style={{
-              fontFamily: "var(--font-display)",
-              animation: "fadeInUp 0.8s ease forwards",
-              opacity: 0,
-            }}
-          >
-            Details
-          </h1>
-          <p
-            className="mt-8 text-[0.7rem] font-light uppercase tracking-[0.2em] text-neutral-400"
-            style={{
-              fontFamily: "var(--font-body)",
-              animation: "fadeInUp 0.8s ease forwards",
-              animationDelay: "0.15s",
-              opacity: 0,
-            }}
-          >
-            {formattedDate}
+      <div
+        className="space-y-4"
+        style={{ animation: "fadeIn 1s ease-out forwards", opacity: 0 }}
+      >
+        <h1 className="font-[family-name:var(--font-display)] text-4xl font-light tracking-wide text-neutral-800 sm:text-5xl">
+          Wedding Details
+        </h1>
+        <div className="flex items-center justify-center gap-4">
+          <div className="h-px w-12 bg-neutral-300/50" />
+          <span className="text-xs text-neutral-300">✽</span>
+          <div className="h-px w-12 bg-neutral-300/50" />
+        </div>
+      </div>
+
+      {/* Venues — bordered frames with embedded maps */}
+      <section
+        className="space-y-10"
+        style={{ animation: "fadeIn 1s ease-out 0.2s forwards", opacity: 0 }}
+      >
+        {/* Ceremony */}
+        <div className="border border-neutral-200 p-8 sm:p-12">
+          <h2 className="font-[family-name:var(--font-display)] text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
+            Ceremony
+          </h2>
+          <p className="mt-4 font-[family-name:var(--font-display)] text-2xl font-light tracking-wide text-neutral-700">
+            {venue.ceremony.name}
           </p>
-          <div
-            className="mt-8 h-px bg-neutral-200"
-            style={{
-              animation: "revealLine 0.8s ease forwards",
-              animationDelay: "0.3s",
-              width: 0,
-            }}
+          <p className="mt-2 font-[family-name:var(--font-body)] text-sm text-neutral-500">
+            {venue.ceremony.address}
+          </p>
+          <VenueMap
+            embedSrc={CEREMONY_EMBED}
+            directionsHref={CEREMONY_LINK}
+            title="Ceremony venue map"
+          />
+        </div>
+
+        {/* Reception */}
+        <div className="border border-neutral-200 p-8 sm:p-12">
+          <h2 className="font-[family-name:var(--font-display)] text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
+            Reception
+          </h2>
+          <p className="mt-4 font-[family-name:var(--font-display)] text-2xl font-light tracking-wide text-neutral-700">
+            {venue.reception.name}
+          </p>
+          <p className="mt-2 font-[family-name:var(--font-body)] text-sm text-neutral-500">
+            {venue.reception.address}
+          </p>
+          <VenueMap
+            embedSrc={RECEPTION_EMBED}
+            directionsHref={RECEPTION_LINK}
+            title="Reception venue map"
           />
         </div>
       </section>
 
-      {/* Ceremony */}
-      <section className="mx-auto max-w-2xl px-6 pb-20">
-        <div
-          style={{
-            animation: "fadeInUp 0.8s ease forwards",
-            animationDelay: "0.2s",
-            opacity: 0,
-          }}
-        >
-          <p
-            className="text-[0.6rem] uppercase tracking-[0.25em] text-neutral-300"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Ceremony
-          </p>
-          <p
-            className="mt-4 text-[1.8rem] font-light leading-[1] tracking-[-0.03em] text-neutral-900 sm:text-[2.2rem]"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            {weddingConfig.venue.ceremony.name}
-          </p>
-          <p
-            className="mt-3 text-sm font-light leading-relaxed text-neutral-400"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            {weddingConfig.venue.ceremony.address}
-          </p>
+      <OrnamentalDivider delay="0.4s" />
+
+      {/* Schedule — centered pairs */}
+      <section
+        className="space-y-8"
+        style={{ animation: "fadeIn 1s ease-out 0.6s forwards", opacity: 0 }}
+      >
+        <h2 className="font-[family-name:var(--font-display)] text-3xl font-light tracking-wide text-neutral-800">
+          Schedule
+        </h2>
+        <div className="space-y-4">
+          {schedule.map((item, index) => (
+            <div
+              key={item.time}
+              className="flex items-center justify-center gap-4"
+              style={{
+                animation: "fadeIn 1s ease-out forwards",
+                animationDelay: `${0.8 + index * 0.15}s`,
+                opacity: 0,
+              }}
+            >
+              <span className="w-24 text-right font-[family-name:var(--font-body)] text-sm text-neutral-500">
+                {item.time}
+              </span>
+              <span className="text-neutral-300">&mdash;</span>
+              <span className="w-24 text-left font-[family-name:var(--font-display)] text-sm font-semibold uppercase tracking-[0.1em] text-neutral-600">
+                {item.event}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
-
-      {/* Rule */}
-      <div className="mx-auto max-w-xl px-6">
-        <div className="border-t border-neutral-100" />
-      </div>
-
-      {/* Reception */}
-      <section className="mx-auto max-w-2xl px-6 py-20">
-        <div
-          style={{
-            animation: "fadeInUp 0.8s ease forwards",
-            animationDelay: "0.25s",
-            opacity: 0,
-          }}
-        >
-          <p
-            className="text-[0.6rem] uppercase tracking-[0.25em] text-neutral-300"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Reception
-          </p>
-          <p
-            className="mt-4 text-[1.8rem] font-light leading-[1] tracking-[-0.03em] text-neutral-900 sm:text-[2.2rem]"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            {weddingConfig.venue.reception.name}
-          </p>
-          <p
-            className="mt-3 text-sm font-light leading-relaxed text-neutral-400"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            {weddingConfig.venue.reception.address}
-          </p>
-        </div>
-      </section>
-
-      {/* Rule */}
-      <div className="mx-auto max-w-xl px-6">
-        <div className="border-t border-neutral-100" />
-      </div>
-
-      {/* Schedule */}
-      <section className="mx-auto max-w-2xl px-6 py-20 sm:py-28">
-        <div
-          style={{
-            animation: "fadeInUp 0.8s ease forwards",
-            animationDelay: "0.3s",
-            opacity: 0,
-          }}
-        >
-          <p
-            className="mb-10 text-[0.6rem] uppercase tracking-[0.25em] text-neutral-300"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            Schedule
-          </p>
-          <ul className="space-y-0">
-            {weddingConfig.schedule.map((item, i) => (
-              <li
-                key={item.event}
-                className="flex items-baseline border-b border-neutral-100 py-5 first:border-t"
-                style={{
-                  animation: "fadeInUp 0.6s ease forwards",
-                  animationDelay: `${0.35 + i * 0.08}s`,
-                  opacity: 0,
-                }}
-              >
-                <span
-                  className="w-28 shrink-0 text-[0.7rem] font-light uppercase tracking-[0.15em] text-neutral-400"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {item.time}
-                </span>
-                <span
-                  className="text-lg font-light tracking-[-0.02em] text-neutral-900"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {item.event}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
     </div>
   );
 }

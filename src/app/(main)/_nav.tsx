@@ -2,29 +2,33 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { weddingConfig } from "../../../wedding.config";
 
 const { person1, person2 } = weddingConfig.couple;
 
 const links = [
-  { href: "/3", label: "Home" },
-  { href: "/3/home2", label: "Home 2" },
-  { href: "/3/our-story", label: "Our Story" },
-  { href: "/3/details", label: "Details" },
-  { href: "/3/faq", label: "FAQ" },
-  { href: "/3/bridal-party", label: "Party" },
+  { href: "/", label: "Home" },
+  { href: "/our-story", label: "Our Story" },
+  { href: "/details", label: "Details" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/bridal-party", label: "Party" },
 ];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <nav className="relative z-20">
       <div className="flex items-center justify-between px-8 md:px-16 py-10">
         {/* Couple names — small-caps */}
         <Link
-          href="/3"
+          href="/"
           className="text-sm tracking-[0.5em] uppercase text-[#2c2424]"
           style={{ fontVariant: "small-caps" }}
         >
@@ -37,13 +41,18 @@ export function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-xs tracking-[0.3em] uppercase text-[#8a7f7f] transition-colors duration-300 hover:text-[#2c2424]"
+              className={`relative text-xs tracking-[0.3em] uppercase transition-colors duration-300 hover:text-[#2c2424] ${
+                isActive(l.href) ? "text-[#2c2424]" : "text-[#8a7f7f]"
+              }`}
             >
               {l.label}
+              {isActive(l.href) && (
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#d4a0b0]" />
+              )}
             </Link>
           ))}
           <Link
-            href="/3/rsvp"
+            href="/rsvp"
             className="text-xs tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-5 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0]"
           >
             RSVP
@@ -69,13 +78,17 @@ export function Nav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="text-xs tracking-[0.3em] uppercase text-[#8a7f7f] transition-colors duration-300 hover:text-[#2c2424]"
+                className={`text-xs tracking-[0.3em] uppercase transition-colors duration-300 hover:text-[#2c2424] ${
+                  isActive(l.href)
+                    ? "text-[#2c2424] underline decoration-[#d4a0b0] underline-offset-4"
+                    : "text-[#8a7f7f]"
+                }`}
               >
                 {l.label}
               </Link>
             ))}
             <Link
-              href="/3/rsvp"
+              href="/rsvp"
               onClick={() => setOpen(false)}
               className="text-xs tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-8 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0]"
             >

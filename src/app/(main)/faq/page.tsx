@@ -16,10 +16,6 @@ export default function FaqPage() {
       >
         Questions and Answers
       </h2>
-      {/* <p className="text-base leading-relaxed text-[#5a4f4f] mb-12">
-        We have gathered answers to some common questions. If you need anything
-        else, do not hesitate to reach out.
-      </p> */}
 
       <Accordion type="single" collapsible className="w-full">
         {weddingConfig.faq.map((item, i) => (

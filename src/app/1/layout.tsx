@@ -1,110 +1,106 @@
-import { Cormorant_Garamond, Karla } from "next/font/google";
-import { Nav1 } from "./_nav";
+import { Cormorant, Lora } from "next/font/google";
+import { Nav5 } from "./_nav";
 import { weddingConfig } from "../../../wedding.config";
 
-const cormorant = Cormorant_Garamond({
+const cormorant = Cormorant({
   subsets: ["latin"],
-  weight: ["300", "600"],
+  weight: ["300", "400", "600"],
   variable: "--font-display",
   display: "swap",
 });
 
-const karla = Karla({
+const lora = Lora({
   subsets: ["latin"],
-  weight: ["300", "400"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
   variable: "--font-body",
   display: "swap",
 });
 
-const { person1, person2 } = weddingConfig.couple;
-const weddingDate = new Date(weddingConfig.date);
-const formattedDate = weddingDate.toLocaleDateString("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
-
-export default function Variant1Layout({
+export default function Variant5Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { person1, person2 } = weddingConfig.couple;
+  const date = new Date(weddingConfig.date);
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
     <div
-      className={`${cormorant.variable} ${karla.variable} min-h-screen bg-[#fafaf8] text-neutral-900`}
-      style={{ fontFamily: "var(--font-body), sans-serif" }}
+      className={`${cormorant.variable} ${lora.variable} min-h-screen bg-[#FDFBF7] text-neutral-800`}
     >
-      <Nav1 />
-      <main>{children}</main>
-      <footer className="pb-16 pt-32">
-        <div className="mx-auto max-w-2xl px-6">
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+          from { opacity: 0; transform: scaleX(0.3); }
+          to { opacity: 1; transform: scaleX(1); }
+        }
+        @keyframes gentlePulse {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.7; }
+        }
+      `}</style>
+
+      <Nav5 />
+
+      <main className="mx-auto max-w-2xl px-6 py-20">
+        {children}
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-neutral-200/60 bg-[#FAF8F3]">
+        <div className="mx-auto max-w-2xl px-6 py-14 text-center">
+          {/* Ornamental flourish */}
           <div
-            className="border-t border-neutral-200 pt-12"
+            className="flex items-center justify-center gap-3"
             style={{
-              animation: "fadeIn 1s ease forwards",
-              animationDelay: "0.3s",
+              animation: "scaleIn 1.2s ease-out forwards",
               opacity: 0,
             }}
           >
-            <p
-              className="text-[0.65rem] uppercase tracking-[0.25em] text-neutral-400"
-              style={{ fontFamily: "var(--font-body)" }}
+            <div className="h-px w-12 bg-neutral-300/60" />
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              className="text-neutral-300"
             >
-              {person1.firstName} & {person2.firstName}
-            </p>
-            <p
-              className="mt-2 text-[0.6rem] tracking-[0.15em] text-neutral-300"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {formattedDate}
-            </p>
+              <path
+                d="M10 2 L12 8 L18 10 L12 12 L10 18 L8 12 L2 10 L8 8 Z"
+                fill="currentColor"
+              />
+            </svg>
+            <div className="h-px w-12 bg-neutral-300/60" />
           </div>
+
+          <p
+            className="mt-6 font-[family-name:var(--font-display)] text-xl font-light tracking-wide text-neutral-600"
+            style={{
+              animation: "fadeIn 1s ease-out 0.2s forwards",
+              opacity: 0,
+            }}
+          >
+            {person1.firstName} & {person2.firstName}
+          </p>
+          <p
+            className="mt-2 font-[family-name:var(--font-body)] text-sm italic text-neutral-400"
+            style={{
+              animation: "fadeIn 1s ease-out 0.4s forwards",
+              opacity: 0,
+            }}
+          >
+            {formattedDate}
+          </p>
         </div>
       </footer>
-
-      {/* Global keyframes for all variant 1 pages */}
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(24px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-16px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        @keyframes growDown {
-          from {
-            transform: scaleY(0);
-          }
-          to {
-            transform: scaleY(1);
-          }
-        }
-        @keyframes revealLine {
-          from {
-            width: 0;
-          }
-          to {
-            width: 100%;
-          }
-        }
-      `}</style>
     </div>
   );
 }
