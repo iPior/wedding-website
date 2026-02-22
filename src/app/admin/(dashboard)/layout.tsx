@@ -28,7 +28,7 @@ export default async function AdminDashboardLayout({
       style={{ fontFamily: "var(--font-lato), sans-serif" }}
     >
       <AdminNav userEmail={user.email ?? ""} />
-      <section className="mx-auto max-w-5xl px-6 py-10">{children}</section>
+      <section className="mx-auto max-w-7xl px-6 py-10">{children}</section>
     </div>
   );
 }

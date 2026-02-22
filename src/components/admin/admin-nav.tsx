@@ -18,7 +18,7 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
 
   return (
     <nav className="border-b border-[#f0e0e4] bg-[#fff8f8]">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-8">
           {/* Monogram */}
           <Link
