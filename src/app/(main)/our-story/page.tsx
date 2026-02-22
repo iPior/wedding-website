@@ -113,7 +113,7 @@ export default function OurStoryPage() {
           return (
             <div key={m.year} className="relative mb-20">
               {/* Spine dot */}
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 top-3 w-3 h-3 rounded-full border-2 border-[#d4a0b0] bg-[#fff8f8] z-10" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-[#d4a0b0] bg-[#fff8f8] z-10" />
 
               <div
                 className={`flex flex-col md:flex-row md:items-start gap-6 ${
@@ -144,7 +144,7 @@ export default function OurStoryPage() {
                 {/* Photo side — only rendered when an image is set */}
                 {m.image && (
                   <div
-                    className={`pl-12 md:pl-0 md:w-1/2 order-first md:order-none flex items-center justify-center ${
+                    className={`pl-12 md:pl-0 md:w-1/2 flex items-center justify-center ${
                       isEven ? "md:pl-12" : "md:pr-12"
                     }`}
                   >

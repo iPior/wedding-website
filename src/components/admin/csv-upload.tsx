@@ -2,8 +2,6 @@
 
 import { useState, useRef } from "react";
 import { importGuests, type ImportResult } from "@/actions/guests";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 export function CsvUpload() {
   const [result, setResult] = useState<ImportResult | null>(null);
@@ -16,34 +14,39 @@ export function CsvUpload() {
     const res = await importGuests(formData);
     setResult(res);
     setLoading(false);
-    if (res.success) {
-      formRef.current?.reset();
-    }
+    if (res.success) formRef.current?.reset();
   }
 
   return (
     <div className="space-y-3">
-      <form ref={formRef} action={handleSubmit} className="flex items-end gap-3">
-        <div className="flex-1">
-          <Input type="file" name="file" accept=".csv" required />
-        </div>
-        <Button type="submit" disabled={loading}>
+      <form ref={formRef} action={handleSubmit} className="flex items-center gap-3">
+        <input
+          type="file"
+          name="file"
+          accept=".csv"
+          required
+          className="flex-1 text-xs text-[#8a7f7f] file:mr-3 file:border-0 file:bg-[#f0e0e4] file:px-3 file:py-1.5 file:text-[11px] file:uppercase file:tracking-[0.2em] file:text-[#2c2424] file:cursor-pointer"
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-[#2c2424] px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-[#fff8f8] transition-colors hover:bg-[#d4a0b0] disabled:opacity-40 whitespace-nowrap"
+        >
           {loading ? "Importing..." : "Import CSV"}
-        </Button>
+        </button>
       </form>
 
       {result && (
         <div
-          className={`rounded-md border p-3 text-sm ${
+          className={`border p-3 text-xs uppercase tracking-[0.15em] ${
             result.success
-              ? "border-green-200 bg-green-50 text-green-800"
-              : "border-red-200 bg-red-50 text-red-800"
+              ? "border-[#d4a0b0]/40 bg-[#d4a0b0]/10 text-[#2c2424]"
+              : "border-red-200 bg-red-50 text-red-700"
           }`}
         >
           {result.success ? (
             <p>
-              Imported {result.householdsCreated} household(s) with{" "}
-              {result.guestsCreated} guest(s).
+              Imported {result.householdsCreated} household(s) with {result.guestsCreated} guest(s).
             </p>
           ) : (
             <ul className="list-inside list-disc space-y-1">

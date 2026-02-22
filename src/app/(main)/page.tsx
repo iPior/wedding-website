@@ -13,11 +13,11 @@ const formattedDate = weddingDate.toLocaleDateString("en-US", {
 
 export default function HomePage() {
   return (
-    <section className="flex min-h-[calc(100vh-15rem)] items-center justify-center px-6 text-center">
+    <section className="flex min-h-[calc(100vh-15rem)] items-center justify-center px-6 text-center py-12 md:py-0">
       <div className="w-full max-w-2xl space-y-12">
         {/* Tagline */}
         <p
-          className="text-md font-light uppercase tracking-[0.4em] text-[#8a7f7f]"
+          className="text-xs font-light uppercase tracking-[0.4em] text-[#8a7f7f] sm:text-md"
           style={{ animation: "fadeInUp 1s ease forwards", animationDelay: "0.2s", opacity: 0 }}
         >
           {weddingConfig.tagline}
@@ -43,10 +43,10 @@ export default function HomePage() {
 
         {/* Date + venue */}
         <div style={{ animation: "fadeInUp 1s ease forwards", animationDelay: "1.5s", opacity: 0 }}>
-          <p className="text-lg font-light uppercase tracking-[0.3em] text-[#8a7f7f]">
+          <p className="text-sm font-light uppercase tracking-[0.3em] text-[#8a7f7f] sm:text-lg">
             {formattedDate}
           </p>
-          <p className="mt-1 text-md tracking-[0.2em] text-[#8a7f7f]/60">
+          <p className="mt-1 text-xs tracking-[0.2em] text-[#8a7f7f]/60 sm:text-md">
             {weddingConfig.venue.ceremony.name}
           </p>
         </div>

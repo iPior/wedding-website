@@ -1,7 +1,6 @@
 "use client";
 
 import { deleteGuest, deleteHousehold } from "@/actions/guests";
-import { Button } from "@/components/ui/button";
 
 export function DeleteGuestButton({ guestId }: { guestId: string }) {
   async function handleDelete() {
@@ -10,9 +9,12 @@ export function DeleteGuestButton({ guestId }: { guestId: string }) {
   }
 
   return (
-    <Button variant="ghost" size="xs" onClick={handleDelete} className="text-destructive hover:text-destructive">
+    <button
+      onClick={handleDelete}
+      className="text-[10px] uppercase tracking-[0.15em] text-[#8a7f7f]/50 transition-colors hover:text-red-400"
+    >
       Delete
-    </Button>
+    </button>
   );
 }
 
@@ -23,8 +25,11 @@ export function DeleteHouseholdButton({ householdId }: { householdId: string }) 
   }
 
   return (
-    <Button variant="ghost" size="xs" onClick={handleDelete} className="text-destructive hover:text-destructive">
-      Delete Household
-    </Button>
+    <button
+      onClick={handleDelete}
+      className="text-[10px] uppercase tracking-[0.15em] text-[#8a7f7f]/50 transition-colors hover:text-red-400 whitespace-nowrap"
+    >
+      Delete
+    </button>
   );
 }

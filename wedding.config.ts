@@ -68,7 +68,7 @@ export const weddingConfig = {
     milestones: [
       {
         year: "1999",
-        title: "Where it all (unknowingly) began",
+        title: "Where it all began",
         description:
           "Long before we’d ever meet, we were baptized at the same mass, in the same church where we’ll soon be getting married.",
         image: "/images/our-story/1999.jpg",

@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logout } from "@/actions/auth";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { weddingConfig } from "../../../wedding.config";
+
+const { person1, person2 } = weddingConfig.couple;
 
 const navLinks = [
   { href: "/admin", label: "Dashboard" },
@@ -16,34 +17,52 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className="border-b bg-background">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-6">
-          <span className="text-sm font-semibold">Admin</span>
-          <div className="flex gap-4">
+    <nav className="border-b border-[#f0e0e4] bg-[#fff8f8]">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <div className="flex items-center gap-8">
+          {/* Monogram */}
+          <Link
+            href="/admin"
+            className="text-base text-[#8a7f7f]"
+            style={{ fontFamily: "var(--font-playfair), serif" }}
+          >
+            {person1.firstName[0]}&nbsp;&amp;&nbsp;{person2.firstName[0]}
+          </Link>
+
+          {/* Divider */}
+          <span className="h-4 w-px bg-[#f0e0e4]" />
+
+          {/* Nav links */}
+          <div className="flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={cn(
-                  "text-sm transition-colors hover:text-foreground",
-                  pathname === link.href
-                    ? "text-foreground font-medium"
-                    : "text-muted-foreground"
-                )}
+                className="relative text-xs uppercase tracking-[0.25em] transition-colors duration-200"
+                style={{
+                  color: pathname === link.href ? "#2c2424" : "#8a7f7f",
+                }}
               >
                 {link.label}
+                {pathname === link.href && (
+                  <span className="absolute -bottom-[17px] left-0 right-0 h-px bg-[#d4a0b0]" />
+                )}
               </Link>
             ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-muted-foreground">{userEmail}</span>
+        <div className="flex items-center gap-4">
+          <span className="hidden text-[11px] uppercase tracking-[0.15em] text-[#8a7f7f]/60 sm:block">
+            {userEmail}
+          </span>
           <form action={logout}>
-            <Button variant="ghost" size="sm" type="submit">
+            <button
+              type="submit"
+              className="text-xs uppercase tracking-[0.25em] text-[#8a7f7f] transition-colors duration-200 hover:text-[#2c2424]"
+            >
               Logout
-            </Button>
+            </button>
           </form>
         </div>
       </div>

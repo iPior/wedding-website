@@ -99,16 +99,14 @@ export default function MainLayout({
               {person1.firstName.charAt(0)}&nbsp;&&nbsp;
               {person2.firstName.charAt(0)}
             </span>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f]">
-              {new Date(weddingConfig.date).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
-            <span className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f]">
-              Toronto, ON
-            </span>
+            <a
+              href="https://piotrszaran.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f]/50 transition-colors duration-300 hover:text-[#8a7f7f]"
+            >
+              Developed by the groom
+            </a>
           </div>
         </footer>
       </div>

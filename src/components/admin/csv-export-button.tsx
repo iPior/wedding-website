@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { exportGuestsCsv } from "@/actions/guests";
-import { Button } from "@/components/ui/button";
 
 export function CsvExportButton() {
   const [loading, setLoading] = useState(false);
@@ -22,8 +21,12 @@ export function CsvExportButton() {
   }
 
   return (
-    <Button variant="outline" size="sm" onClick={handleExport} disabled={loading}>
+    <button
+      onClick={handleExport}
+      disabled={loading}
+      className="border border-[#d4a0b0] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#8a7f7f] transition-colors hover:border-[#2c2424] hover:text-[#2c2424] disabled:opacity-40"
+    >
       {loading ? "Exporting..." : "Export CSV"}
-    </Button>
+    </button>
   );
 }
