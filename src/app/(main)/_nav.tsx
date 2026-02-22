@@ -26,7 +26,7 @@ export function Nav() {
   return (
     <>
       <nav className="relative z-50">
-        <div className="flex items-center justify-between px-8 md:px-16 py-10">
+        <div className="flex items-center justify-between px-6 md:px-16 py-10">
           {/* Couple names */}
           <Link
             href="/"
@@ -93,9 +93,7 @@ export function Nav() {
               href={l.href}
               onClick={() => setOpen(false)}
               className={`text-2xl tracking-[0.3em] uppercase transition-colors duration-300 hover:text-[#2c2424] ${
-                isActive(l.href)
-                  ? "text-[#2c2424] underline decoration-[#d4a0b0] underline-offset-4"
-                  : "text-[#8a7f7f]"
+                isActive(l.href) ? "text-[#2c2424]" : "text-[#8a7f7f]"
               }`}
               style={{
                 transitionDelay: open ? `${i * 60 + 150}ms` : "0ms",

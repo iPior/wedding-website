@@ -41,7 +41,7 @@ function VenueCard({
   mapTitle: string;
 }) {
   return (
-    <div className="border border-[#f0e0e4] bg-[#fff8f8] p-6 sm:p-8">
+    <div className="sm:border sm:border-[#f0e0e4] sm:bg-[#fff8f8] sm:p-8">
         {/* Label + time */}
         <div className="flex items-baseline justify-between mb-4">
           <p className="text-xs uppercase tracking-[0.2em] text-[#d4a0b0]">{label}</p>
@@ -100,12 +100,12 @@ export default function DetailsPage() {
         >
           When & Where
         </h2>
-        <p className="text-base leading-relaxed text-[#5a4f4f] mb-10">
+        <p className="text-base leading-relaxed text-[#5a4f4f] mb-14 md:mb-10">
           Join us on {formatDate(weddingDate)} as we celebrate our love with
           family and friends.
         </p>
 
-        <div className="space-y-8">
+        <div className="space-y-16 md:space-y-8">
           <VenueCard
             label="Ceremony"
             time={ceremonyTime}
