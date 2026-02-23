@@ -146,13 +146,13 @@ export async function getHouseholdForRsvp(householdId: string): Promise<Househol
 const guestRsvpSchema = z.object({
   id: z.string().uuid(),
   attending: z.enum(["YES", "NO"]),
-  dietaryRestrictions: z.string().optional(),
+  dietaryRestrictions: z.string().max(500).optional(),
 });
 
 const plusOneSchema = z.object({
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  dietaryRestrictions: z.string().optional(),
+  firstName: z.string().min(1).max(100),
+  lastName: z.string().min(1).max(100),
+  dietaryRestrictions: z.string().max(500).optional(),
 });
 
 const submitRsvpSchema = z.object({
@@ -180,19 +180,6 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
 
   const { householdId, email, guests, plusOnes } = parsed.data;
 
-  // Check if already submitted
-  const existingSubmission = await prisma.guest.findFirst({
-    where: { householdId, rsvpSubmittedAt: { not: null } },
-  });
-
-  if (existingSubmission) {
-    return {
-      success: false,
-      error: "This household has already submitted an RSVP. Check your email for a link to modify it.",
-      alreadySubmitted: true,
-    };
-  }
-
   // Verify household exists and guests belong to it
   const household = await prisma.household.findUnique({
     where: { id: householdId },
@@ -218,10 +205,22 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
   const primaryGuest = household.guests.find((g) => g.isPrimary);
   const now = new Date();
 
-  await prisma.$transaction(async (tx) => {
+  let txResult: { alreadySubmitted: boolean };
+  try {
+  txResult = await prisma.$transaction(async (tx) => {
+    // Check for existing submission inside the transaction to prevent race conditions
+    const existingSubmission = await tx.guest.findFirst({
+      where: { householdId, rsvpSubmittedAt: { not: null } },
+    });
+
+    if (existingSubmission) {
+      return { alreadySubmitted: true } as const;
+    }
+
+    // Update guests with optimistic concurrency guard: only update where rsvpSubmittedAt is null
     for (const guestInput of guests) {
-      await tx.guest.update({
-        where: { id: guestInput.id },
+      const result = await tx.guest.updateMany({
+        where: { id: guestInput.id, householdId, rsvpSubmittedAt: null },
         data: {
           attending: guestInput.attending,
           dietaryRestrictions: guestInput.attending === "YES" ? (guestInput.dietaryRestrictions ?? null) : null,
@@ -231,6 +230,10 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
             : {}),
         },
       });
+
+      if (result.count === 0) {
+        throw new Error("RSVP_RACE_CONDITION");
+      }
     }
 
     // Create plus-ones
@@ -256,7 +259,27 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         update: {},
       });
     }
+
+    return { alreadySubmitted: false } as const;
   });
+  } catch (error) {
+    if (error instanceof Error && error.message === "RSVP_RACE_CONDITION") {
+      return {
+        success: false,
+        error: "This household has already submitted an RSVP. Check your email for a link to modify it.",
+        alreadySubmitted: true,
+      };
+    }
+    throw error;
+  }
+
+  if (txResult.alreadySubmitted) {
+    return {
+      success: false,
+      error: "This household has already submitted an RSVP. Check your email for a link to modify it.",
+      alreadySubmitted: true,
+    };
+  }
 
   // Send confirmation email
   const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/rsvp/modify/${rsvpToken}`;
@@ -351,6 +374,13 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
     return { success: false, error: "Household not found" };
   }
 
+  const householdGuestIds = new Set(household.guests.map((g) => g.id));
+  for (const g of guests) {
+    if (!householdGuestIds.has(g.id)) {
+      return { success: false, error: "Guest does not belong to this household" };
+    }
+  }
+
   if (plusOnes.length > household.maxPlusOnes) {
     return { success: false, error: `Maximum ${household.maxPlusOnes} plus-one(s) allowed` };
   }
@@ -389,8 +419,15 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
       });
     }
 
-    // Update mailing list email
+    // Update mailing list email — remove stale entries with different emails first
     if (primaryGuest) {
+      await tx.mailingListEntry.deleteMany({
+        where: {
+          guestId: primaryGuest.id,
+          email: { not: email },
+        },
+      });
+
       await tx.mailingListEntry.upsert({
         where: {
           guestId_email: { guestId: primaryGuest.id, email },
