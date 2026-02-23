@@ -3,7 +3,7 @@ import { weddingConfig } from "../../../../wedding.config";
 
 export default function BridalPartyPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
       <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">001</p>
       <h2
         className="text-5xl text-[#2c2424] mb-4"
@@ -26,7 +26,7 @@ export default function BridalPartyPage() {
                   alt={member.name}
                   width={300}
                   height={400}
-                  className="w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               ) : null}
             </div>

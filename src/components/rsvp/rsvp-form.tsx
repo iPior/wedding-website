@@ -8,11 +8,6 @@ import {
   type SubmitRsvpInput,
   type RsvpResult,
 } from "@/actions/rsvp";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
 
 type GuestFormData = {
   id: string;
@@ -85,7 +80,6 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     e.preventDefault();
     setError(null);
 
-    // Validate
     if (!email.trim()) {
       setError("Email is required");
       return;
@@ -142,139 +136,191 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Header */}
       <div>
-        <h2 className="text-xl font-semibold">{household.householdName}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {modifyToken ? "Update your RSVP below." : "Please respond for each guest in your household."}
+        <h2
+          className="text-3xl text-[#2c2424]"
+          style={{ fontFamily: "var(--font-playfair), serif" }}
+        >
+          {household.householdName}
+        </h2>
+        <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+          {modifyToken ? "Update your RSVP below" : "Please respond for each guest in your household"}
         </p>
       </div>
 
       {/* Email */}
       <div className="space-y-2">
-        <Label htmlFor="email">Your Email</Label>
-        <Input
+        <label
+          htmlFor="email"
+          className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
+        >
+          Your Email
+        </label>
+        <input
           id="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           required
+          className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
         />
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-[#8a7f7f]">
           We&apos;ll send a confirmation with a link to modify your RSVP.
         </p>
       </div>
 
-      <Separator />
+      <div className="h-px bg-[#f0e0e4]" />
 
       {/* Guests */}
-      {guests.map((guest, index) => (
-        <div key={guest.id} className="space-y-4 rounded-lg border p-4">
-          <h3 className="font-medium">
-            {guest.firstName} {guest.lastName}
-            {household.guests[index]?.isPrimary && (
-              <span className="ml-2 text-xs text-muted-foreground">(Primary)</span>
-            )}
-          </h3>
+      <div className="space-y-8">
+        {guests.map((guest, index) => (
+          <div key={guest.id}>
+            {index > 0 && <div className="h-px bg-[#f0e0e4] mb-8" />}
+            <div className="space-y-5">
+              <div className="flex items-baseline gap-3">
+                <h3
+                  className="text-xl text-[#2c2424]"
+                  style={{ fontFamily: "var(--font-playfair), serif" }}
+                >
+                  {guest.firstName} {guest.lastName}
+                </h3>
+                {household.guests[index]?.isPrimary && (
+                  <span className="text-[0.6rem] uppercase tracking-[0.15em] text-[#d4a0b0]">
+                    Primary
+                  </span>
+                )}
+              </div>
 
-          <div className="space-y-2">
-            <Label>Will you be attending?</Label>
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                variant={guest.attending === "YES" ? "default" : "outline"}
-                size="sm"
-                onClick={() => updateGuest(index, "attending", "YES")}
-              >
-                Yes
-              </Button>
-              <Button
-                type="button"
-                variant={guest.attending === "NO" ? "default" : "outline"}
-                size="sm"
-                onClick={() => updateGuest(index, "attending", "NO")}
-              >
-                No
-              </Button>
+              <div className="space-y-2">
+                <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                  Will you be attending?
+                </label>
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => updateGuest(index, "attending", "YES")}
+                    className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
+                      guest.attending === "YES"
+                        ? "bg-[#2c2424] text-white border-[#2c2424]"
+                        : "bg-[#d4a0b0] text-white border-[#d4a0b0] hover:bg-[#c8909e]"
+                    }`}
+                  >
+                    Joyfully Accepts
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateGuest(index, "attending", "NO")}
+                    className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
+                      guest.attending === "NO"
+                        ? "bg-[#8a6060] text-white border-[#8a6060]"
+                        : "bg-[#c4a0a0] text-white border-[#c4a0a0] hover:bg-[#b08888]"
+                    }`}
+                  >
+                    Regretfully Declines
+                  </button>
+                </div>
+              </div>
+
+              {guest.attending === "YES" && (
+                <div className="space-y-2">
+                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                    Dietary Restrictions
+                  </label>
+                  <textarea
+                    value={guest.dietaryRestrictions}
+                    onChange={(e) => updateGuest(index, "dietaryRestrictions", e.target.value)}
+                    placeholder="Any allergies or dietary restrictions..."
+                    rows={2}
+                    className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors resize-none"
+                  />
+                </div>
+              )}
             </div>
           </div>
-
-          {guest.attending === "YES" && (
-            <div className="space-y-2">
-              <Label>Dietary Restrictions</Label>
-              <Textarea
-                value={guest.dietaryRestrictions}
-                onChange={(e) => updateGuest(index, "dietaryRestrictions", e.target.value)}
-                placeholder="Any allergies or dietary restrictions..."
-                rows={2}
-              />
-            </div>
-          )}
-
-        </div>
-      ))}
+        ))}
+      </div>
 
       {/* Plus-Ones */}
       {household.maxPlusOnes > 0 && (
         <>
-          <Separator />
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="h-px bg-[#f0e0e4]" />
+          <div className="space-y-6">
+            <div className="flex items-baseline justify-between">
               <div>
-                <h3 className="font-medium">Plus Ones</h3>
-                <p className="text-xs text-muted-foreground">
-                  You may bring up to {household.maxPlusOnes} additional guest(s).
+                <h3
+                  className="text-xl text-[#2c2424]"
+                  style={{ fontFamily: "var(--font-playfair), serif" }}
+                >
+                  Additional Guests
+                </h3>
+                <p className="mt-1 text-xs text-[#8a7f7f]">
+                  You may bring up to {household.maxPlusOnes} additional guest{household.maxPlusOnes > 1 ? "s" : ""}.
                 </p>
               </div>
               {plusOnes.length < household.maxPlusOnes && (
-                <Button type="button" variant="outline" size="sm" onClick={addPlusOne}>
+                <button
+                  type="button"
+                  onClick={addPlusOne}
+                  className="bg-[#f0e0e4] border border-[#f0e0e4] px-4 py-2 text-[0.65rem] uppercase tracking-[0.15em] text-[#5a4f4f] transition-colors hover:bg-[#e8d0d6]"
+                >
                   + Add Guest
-                </Button>
+                </button>
               )}
             </div>
 
             {plusOnes.map((po, index) => (
-              <div key={index} className="space-y-3 rounded-lg border p-4">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-medium">Plus One #{index + 1}</h4>
-                  <Button
+              <div key={index} className="space-y-4 border-l-2 border-[#f0e0e4] pl-5">
+                <div className="flex items-baseline justify-between">
+                  <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                    Guest {index + 1}
+                  </p>
+                  <button
                     type="button"
-                    variant="ghost"
-                    size="xs"
                     onClick={() => removePlusOne(index)}
-                    className="text-destructive hover:text-destructive"
+                    className="text-[0.62rem] uppercase tracking-[0.15em] text-[#d4a0b0] hover:text-[#2c2424] transition-colors"
                   >
                     Remove
-                  </Button>
+                  </button>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <Label>First Name</Label>
-                    <Input
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                      First Name
+                    </label>
+                    <input
                       value={po.firstName}
                       onChange={(e) => updatePlusOne(index, "firstName", e.target.value)}
                       required
+                      className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
                     />
                   </div>
-                  <div className="space-y-1">
-                    <Label>Last Name</Label>
-                    <Input
+                  <div className="space-y-2">
+                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                      Last Name
+                    </label>
+                    <input
                       value={po.lastName}
                       onChange={(e) => updatePlusOne(index, "lastName", e.target.value)}
                       required
+                      className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Dietary Restrictions</Label>
-                  <Textarea
+                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                    Dietary Restrictions
+                  </label>
+                  <textarea
                     value={po.dietaryRestrictions}
                     onChange={(e) => updatePlusOne(index, "dietaryRestrictions", e.target.value)}
                     placeholder="Any allergies or dietary restrictions..."
                     rows={2}
+                    className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors resize-none"
                   />
                 </div>
               </div>
@@ -284,18 +330,22 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       )}
 
       {error && (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+        <div className="border border-[#f0e0e4] bg-[#fdf6f8] px-5 py-4 text-sm text-[#5a4f4f]">
           {error}
         </div>
       )}
 
-      <Button type="submit" className="w-full" disabled={loading}>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-[#2c2424] py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#d4a0b0] disabled:opacity-50"
+      >
         {loading
           ? "Submitting..."
           : modifyToken
             ? "Update RSVP"
             : "Submit RSVP"}
-      </Button>
+      </button>
     </form>
   );
 }

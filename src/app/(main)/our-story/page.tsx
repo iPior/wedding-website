@@ -84,10 +84,10 @@ export default function OurStoryPage() {
   const { ourStory } = weddingConfig;
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
       <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">001</p>
       <h1
-        className="text-5xl text-[#2c2424] mb-4"
+        className="text-5xl text-[#2c2424] mb-8 md:mb-4"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {ourStory.title}
@@ -113,7 +113,7 @@ export default function OurStoryPage() {
           return (
             <div key={m.year} className="relative mb-20">
               {/* Spine dot */}
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2 translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-[#d4a0b0] bg-[#fff8f8] z-10" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2  translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-[#d4a0b0] bg-[#fff8f8] z-10" />
 
               <div
                 className={`flex flex-col md:flex-row md:items-start gap-6 ${

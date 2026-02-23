@@ -8,7 +8,7 @@ import { weddingConfig } from "../../../../wedding.config";
 
 export default function FaqPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
       <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">001</p>
       <h2
         className="text-5xl text-[#2c2424] mb-8 border-b border-[#f0e0e4] pb-4"

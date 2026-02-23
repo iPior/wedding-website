@@ -57,7 +57,7 @@ export function Nav() {
               >
                 {l.label}
                 {isActive(l.href) && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#d4a0b0]" />
+                  <span className="absolute -bottom-1 left-0 right-[0.3em] h-px bg-[#d4a0b0]" />
                 )}
               </Link>
             ))}
@@ -92,7 +92,7 @@ export function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className={`text-2xl tracking-[0.3em] uppercase transition-colors duration-300 hover:text-[#2c2424] ${
+              className={`relative text-2xl tracking-[0.3em] uppercase transition-colors duration-300 hover:text-[#2c2424] ${
                 isActive(l.href) ? "text-[#2c2424]" : "text-[#8a7f7f]"
               }`}
               style={{
@@ -105,12 +105,15 @@ export function Nav() {
               }}
             >
               {l.label}
+              {isActive(l.href) && (
+                <span className="block mt-1 mr-[0.3em] h-[1.5px] bg-[#d4a0b0]" />
+              )}
             </Link>
           ))}
           <Link
             href="/rsvp"
             onClick={() => setOpen(false)}
-            className="mt-4 text-xs tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-10 py-3 transition-colors duration-300 hover:bg-[#d4a0b0]"
+            className="mt-4 text-sm tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-12 py-4 transition-colors duration-300 hover:bg-[#d4a0b0]"
             style={{
               transitionDelay: open ? `${links.length * 60 + 150}ms` : "0ms",
               transform: open ? "translateY(0)" : "translateY(-16px)",
