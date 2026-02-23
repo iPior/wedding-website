@@ -31,12 +31,13 @@ export function RsvpFlow() {
 
   if (step === "form" && household) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-6">
         <button
           onClick={handleBack}
-          className="text-sm text-muted-foreground hover:text-foreground transition"
+          className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f] transition-colors hover:text-[#2c2424]"
         >
-          &larr; Back to search
+          <span aria-hidden="true">&larr;</span>
+          Back to search
         </button>
         <RsvpForm household={household} onSuccess={handleSuccess} />
       </div>
@@ -45,14 +46,23 @@ export function RsvpFlow() {
 
   if (step === "confirmed") {
     return (
-      <div className="space-y-4 text-center">
-        <h2 className="text-2xl font-semibold">Thank You!</h2>
-        <p className="text-muted-foreground">
+      <div className="py-8 text-center">
+        <p className="text-[#d4a0b0] text-3xl mb-6" style={{ fontFamily: "var(--font-playfair), serif" }}>
+          &amp;
+        </p>
+        <h2
+          className="text-4xl text-[#2c2424] mb-4"
+          style={{ fontFamily: "var(--font-playfair), serif" }}
+        >
+          Thank You
+        </h2>
+        <div className="mx-auto my-6 h-px w-16 bg-[#f0e0e4]" />
+        <p className="text-sm leading-relaxed text-[#5a4f4f] max-w-md mx-auto">
           Your RSVP has been submitted. You&apos;ll receive a confirmation email
           with a link to modify your response if needed.
         </p>
-        <p className="text-sm text-muted-foreground">
-          We are excited to celebrate with you!
+        <p className="mt-4 text-xs uppercase tracking-[0.22em] text-[#8a7f7f]">
+          We are excited to celebrate with you
         </p>
       </div>
     );

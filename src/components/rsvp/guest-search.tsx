@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 import { searchGuests, getHouseholdForRsvp, type SearchResult, type HouseholdData } from "@/actions/rsvp";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 type Props = {
   onHouseholdFound: (data: HouseholdData) => void;
@@ -51,71 +48,86 @@ export function GuestSearch({ onHouseholdFound }: Props) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h1 className="text-2xl font-semibold">RSVP</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Search for your name to find your invitation.
-        </p>
-      </div>
-
-      <form onSubmit={handleSearch} className="space-y-4">
-        <div className="grid grid-cols-2 gap-3">
+    <div className="space-y-8">
+      <form onSubmit={handleSearch} className="space-y-6">
+        <div className="grid grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="firstName">First Name</Label>
-            <Input
+            <label
+              htmlFor="firstName"
+              className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
+            >
+              First Name
+            </label>
+            <input
               id="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="First name"
               required
+              className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="lastName">Last Name</Label>
-            <Input
+            <label
+              htmlFor="lastName"
+              className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
+            >
+              Last Name
+            </label>
+            <input
               id="lastName"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Last name"
               required
+              className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
             />
           </div>
         </div>
-        <Button type="submit" className="w-full" disabled={loading}>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-[#2c2424] py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#d4a0b0] disabled:opacity-50"
+        >
           {loading ? "Searching..." : "Find My Invitation"}
-        </Button>
+        </button>
       </form>
 
       {notPrimaryMessage && (
-        <div className="rounded-md border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800">
+        <div className="border border-[#f0e0e4] bg-[#fdf6f8] px-5 py-4 text-sm text-[#5a4f4f]">
           {notPrimaryMessage}
         </div>
       )}
 
       {results && results.guests.length === 0 && (
-        <div className="rounded-md border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+        <div className="border border-[#f0e0e4] bg-[#fdf6f8] px-5 py-4 text-sm text-[#5a4f4f]">
           We couldn&apos;t find your name. Please check the spelling and try again,
           or contact the couple for help.
         </div>
       )}
 
       {results && results.guests.length > 0 && !notPrimaryMessage && (
-        <div className="space-y-2">
-          <p className="text-sm font-medium">Select your name:</p>
+        <div className="space-y-3">
+          <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+            Select your name
+          </p>
           {results.guests.map((guest) => (
             <button
               key={guest.id}
               onClick={() => handleSelectGuest(guest)}
               disabled={loadingHousehold}
-              className="w-full rounded-md border p-3 text-left transition hover:border-primary hover:bg-accent disabled:opacity-50"
+              className="group w-full border border-[#f0e0e4] px-5 py-4 text-left transition-all hover:border-[#d4a0b0] hover:shadow-sm hover:-translate-y-px disabled:opacity-50"
             >
-              <span className="font-medium">
+              <span
+                className="text-lg text-[#2c2424]"
+                style={{ fontFamily: "var(--font-playfair), serif" }}
+              >
                 {guest.firstName} {guest.lastName}
               </span>
               {!guest.isPrimary && (
-                <span className="ml-2 text-xs text-muted-foreground">
-                  (household member)
+                <span className="ml-3 text-[0.62rem] uppercase tracking-[0.15em] text-[#8a7f7f]">
+                  household member
                 </span>
               )}
             </button>
