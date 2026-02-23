@@ -107,7 +107,7 @@ export const weddingConfig = {
     {
       name: "Jacob Chmura",
       role: "Best Man",
-      image: "",
+      image: "/images/bridal-party/jacob.jpeg",
       bio: "",
     },
     {

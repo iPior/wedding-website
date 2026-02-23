@@ -86,7 +86,7 @@ function VenueCard({
 
 export default function DetailsPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
 
       {/* ───────── 001 — When & Where ───────── */}
       <section className="mb-14">
