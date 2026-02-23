@@ -1,4 +1,5 @@
 import { weddingConfig } from "../../../../wedding.config";
+import { LazyMap } from "@/components/lazy-map";
 
 const CEREMONY_EMBED =
   "https://maps.google.com/maps?q=4260+Cawthra+Rd+Mississauga+ON+L4Z+1V8&t=&z=16&ie=UTF8&iwloc=B&output=embed";
@@ -29,6 +30,7 @@ function VenueCard({
   name,
   address,
   embedSrc,
+  screenshotSrc,
   directionsHref,
   mapTitle,
 }: {
@@ -37,6 +39,7 @@ function VenueCard({
   name: string;
   address: string;
   embedSrc: string;
+  screenshotSrc: string;
   directionsHref: string;
   mapTitle: string;
 }) {
@@ -59,18 +62,12 @@ function VenueCard({
         </h3>
         <p className="text-sm leading-relaxed text-[#8a7f7f] mb-6">{address}</p>
 
-        {/* Embedded map */}
-        <div className="ring-1 ring-[#f0e0e4] overflow-hidden">
-          <div className="relative w-full" style={{ paddingBottom: "52%" }}>
-            <iframe
-              src={embedSrc}
-              className="absolute inset-0 h-full w-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title={mapTitle}
-            />
-          </div>
-        </div>
+        {/* Map — static screenshot, click to load interactive */}
+        <LazyMap
+          embedSrc={embedSrc}
+          screenshotSrc={screenshotSrc}
+          title={mapTitle}
+        />
 
         <a
           href={directionsHref}
@@ -112,6 +109,7 @@ export default function DetailsPage() {
             name={weddingConfig.venue.ceremony.name}
             address={weddingConfig.venue.ceremony.address}
             embedSrc={CEREMONY_EMBED}
+            screenshotSrc="/maps/ceremony-map.png"
             directionsHref={CEREMONY_LINK}
             mapTitle="Ceremony venue map"
           />
@@ -121,6 +119,7 @@ export default function DetailsPage() {
             name={weddingConfig.venue.reception.name}
             address={weddingConfig.venue.reception.address}
             embedSrc={RECEPTION_EMBED}
+            screenshotSrc="/maps/reception-map.png"
             directionsHref={RECEPTION_LINK}
             mapTitle="Reception venue map"
           />

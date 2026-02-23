@@ -91,7 +91,7 @@ export default function MainLayout({
 
         {/* Footer */}
         <footer className="bg-[#2c2424] mt-24">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 flex items-center justify-center">
             <span
               className="text-lg text-[#8a7f7f]"
               style={{ fontFamily: "var(--font-playfair), serif" }}
@@ -99,14 +99,14 @@ export default function MainLayout({
               {person1.firstName.charAt(0)}&nbsp;&&nbsp;
               {person2.firstName.charAt(0)}
             </span>
-            <a
+            {/* <a
               href="https://piotrszaran.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f]/50 transition-colors duration-300 hover:text-[#8a7f7f]"
             >
               Developed by the groom
-            </a>
+            </a> */}
           </div>
         </footer>
       </div>
