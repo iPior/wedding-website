@@ -44,6 +44,8 @@ export function GuestSearch({ onHouseholdFound }: Props) {
 
     if (household) {
       onHouseholdFound(household);
+    } else {
+      setNotPrimaryMessage("Something went wrong loading your household. Please try again.");
     }
   }
 

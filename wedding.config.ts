@@ -15,7 +15,7 @@ export const weddingConfig = {
       address: "20 Polonia Ave, Brampton, ON L6Y 5W8",
     },
   },
-  rsvpDeadline: "2026-09-01T23:59:59",
+  rsvpDeadline: "2026-06-01T23:59:59",
   theme: {
     primaryColor: "#8B7355",
     accentColor: "#D4C5A9",
