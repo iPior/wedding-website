@@ -1,19 +1,21 @@
 import Image from "next/image";
-import { weddingConfig } from "../../../../wedding.config";
+import { weddingConfig } from "../../../../../wedding.config";
+import { getTranslations } from "next-intl/server";
 
-export default function BridalPartyPage() {
+export default async function BridalPartyPage() {
+  const t = await getTranslations("BridalParty");
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
-      <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">001</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("sectionNumber")}</p>
       <h2
         className="text-5xl text-[#2c2424] mb-4"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
-        The Wedding Party
+        {t("title")}
       </h2>
       <p className="text-base leading-relaxed text-[#5a4f4f] mb-12">
-        The people who have stood by us through it all, and who we are honored
-        to have by our side on the big day.
+        {t("subtitle")}
       </p>
 
       <div className="grid grid-cols-2 gap-8">
@@ -37,7 +39,7 @@ export default function BridalPartyPage() {
               {member.name}
             </h3>
             <p className="text-xs uppercase tracking-[0.2em] text-[#8a7f7f] mb-1">
-              {member.role}
+              {t(`roles.${member.role}`)}
             </p>
           </div>
         ))}

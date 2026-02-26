@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { getHouseholdByToken } from "@/actions/rsvp";
 import { ModifyRsvpClient } from "@/components/rsvp/modify-rsvp-client";
 
@@ -7,6 +8,7 @@ type Props = {
 
 export default async function ModifyRsvpPage({ params }: Props) {
   const { token } = await params;
+  const t = await getTranslations("ModifyRsvp");
   const data = await getHouseholdByToken(token);
 
   if (!data) {
@@ -16,11 +18,10 @@ export default async function ModifyRsvpPage({ params }: Props) {
           className="text-3xl text-[#2c2424] mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          Invalid Link
+          {t("invalidTitle")}
         </h1>
         <p className="text-sm leading-relaxed text-[#8a7f7f]">
-          This RSVP modification link is invalid or has expired. Please
-          contact the couple if you need to update your RSVP.
+          {t("invalidMessage")}
         </p>
       </main>
     );
@@ -33,11 +34,10 @@ export default async function ModifyRsvpPage({ params }: Props) {
           className="text-3xl text-[#2c2424] mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          Modifications Closed
+          {t("closedTitle")}
         </h1>
         <p className="text-sm leading-relaxed text-[#8a7f7f]">
-          The RSVP deadline has passed. Please contact the couple directly if
-          you need to make changes.
+          {t("closedMessage")}
         </p>
       </main>
     );

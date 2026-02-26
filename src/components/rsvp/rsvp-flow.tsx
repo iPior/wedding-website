@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { HouseholdData } from "@/actions/rsvp";
 import { GuestSearch } from "./guest-search";
 import { RsvpForm } from "./rsvp-form";
@@ -8,6 +9,7 @@ import { RsvpForm } from "./rsvp-form";
 type Step = "search" | "form" | "confirmed";
 
 export function RsvpFlow() {
+  const tConf = useTranslations("RsvpConfirmation");
   const [step, setStep] = useState<Step>("search");
   const [household, setHousehold] = useState<HouseholdData | null>(null);
 
@@ -37,7 +39,7 @@ export function RsvpFlow() {
           className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f] transition-colors hover:text-[#2c2424]"
         >
           <span aria-hidden="true">&larr;</span>
-          Back to search
+          {tConf("backToSearch")}
         </button>
         <RsvpForm household={household} onSuccess={handleSuccess} />
       </div>
@@ -54,15 +56,14 @@ export function RsvpFlow() {
           className="text-4xl text-[#2c2424] mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          Thank You
+          {tConf("thankYou")}
         </h2>
         <div className="mx-auto my-6 h-px w-16 bg-[#f0e0e4]" />
         <p className="text-sm leading-relaxed text-[#5a4f4f] max-w-md mx-auto">
-          Your RSVP has been submitted. You&apos;ll receive a confirmation email
-          with a link to modify your response if needed.
+          {tConf("submitted")}
         </p>
         <p className="mt-4 text-xs uppercase tracking-[0.22em] text-[#8a7f7f]">
-          We are excited to celebrate with you
+          {tConf("excited")}
         </p>
       </div>
     );

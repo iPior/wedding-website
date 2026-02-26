@@ -1,20 +1,25 @@
 import { PasswordForm } from "@/components/layout/password-form";
-import { weddingConfig } from "../../../wedding.config";
+import { weddingConfig } from "../../../../wedding.config";
+import { getTranslations } from "next-intl/server";
 
 type PasswordPageProps = {
   searchParams: Promise<{ error?: string }>;
 };
 
-const ERROR_MESSAGES: Record<string, string> = {
-  invalid: "Incorrect password. Please try again.",
-  misconfigured: "SITE_PASSWORD is not configured yet.",
+const ERROR_MAP: Record<string, string> = {
+  invalid: "invalidPassword",
+  misconfigured: "misconfigured",
 };
 
 const { person1, person2 } = weddingConfig.couple;
 
 export default async function PasswordPage({ searchParams }: PasswordPageProps) {
   const { error } = await searchParams;
-  const errorMessage = error ? ERROR_MESSAGES[error] ?? "Something went wrong." : undefined;
+  const t = await getTranslations("Password");
+  const tErr = await getTranslations("Errors");
+
+  const errorKey = error ? ERROR_MAP[error] : undefined;
+  const errorMessage = errorKey ? tErr(errorKey) : error ? tErr("UNKNOWN") : undefined;
 
   return (
     <main
@@ -68,7 +73,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
           className="text-xs font-light uppercase tracking-[0.4em] text-[#8a7f7f]"
           style={{ animation: "fadeInUp 0.8s ease forwards", opacity: 0 }}
         >
-          You&apos;re invited
+          {t("youreInvited")}
         </p>
 
         {/* Names */}
@@ -108,7 +113,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
             opacity: 0,
           }}
         >
-          Enter the password from your invitation
+          {t("enterPassword")}
         </p>
 
         {/* Form */}

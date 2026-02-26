@@ -1,4 +1,5 @@
-import { weddingConfig } from "../../../../wedding.config";
+import { weddingConfig } from "../../../../../wedding.config";
+import { getTranslations } from "next-intl/server";
 
 // Gradient palettes — one per milestone, evocative of each story beat
 const milestoneVisuals = [
@@ -80,17 +81,18 @@ function PhotoFrame({ gradient, year, image }: { gradient: string; year: string;
   );
 }
 
-export default function OurStoryPage() {
-  const { ourStory } = weddingConfig;
+export default async function OurStoryPage() {
+  const t = await getTranslations("OurStory");
+  const { milestones } = weddingConfig.ourStory;
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
-      <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">001</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("sectionNumber")}</p>
       <h1
         className="text-5xl text-[#2c2424] mb-8 md:mb-4"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
-        {ourStory.title}
+        {t("title")}
       </h1>
       {/* Timeline — alternating left/right with photos on opposing side */}
       <div className="relative max-w-4xl mx-auto">
@@ -105,7 +107,7 @@ export default function OurStoryPage() {
 
         {(() => {
           let polaroidCount = 0;
-          return ourStory.milestones.map((m, i) => {
+          return milestones.map((m, i) => {
           const isEven = i % 2 === 0;
           const visual = milestoneVisuals[i % milestoneVisuals.length];
           const polaroidIndex = m.image ? polaroidCount++ : 0;
@@ -136,9 +138,9 @@ export default function OurStoryPage() {
                     className="text-2xl text-[#2c2424] mb-2"
                     style={{ fontFamily: "var(--font-playfair), serif" }}
                   >
-                    {m.title}
+                    {t(`milestones.${i}.title`)}
                   </h2>
-                  <p className="text-sm text-[#8a7f7f]">{m.description}</p>
+                  <p className="text-sm text-[#8a7f7f]">{t(`milestones.${i}.description`)}</p>
                 </div>
 
                 {/* Photo side — only rendered when an image is set */}

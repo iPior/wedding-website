@@ -3,6 +3,7 @@
 import { randomUUID } from "crypto";
 import Fuse from "fuse.js";
 import { z } from "zod";
+import { getLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
 import { weddingConfig } from "../../wedding.config";
@@ -282,7 +283,8 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
   }
 
   // Send confirmation email
-  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/rsvp/modify/${rsvpToken}`;
+  const locale = await getLocale();
+  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/rsvp/modify/${rsvpToken}`;
   const attendingGuests = guests.filter((g) => g.attending === "YES");
   const guestDetails = guests.map((g) => {
     const fullGuest = household.guests.find((hg) => hg.id === g.id);
@@ -439,7 +441,8 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
   });
 
   // Send modified email
-  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/rsvp/modify/${newToken}`;
+  const locale = await getLocale();
+  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/rsvp/modify/${newToken}`;
   const guestDetails = guests.map((g) => {
     const fullGuest = household.guests.find((hg) => hg.id === g.id);
     return {

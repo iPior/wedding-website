@@ -1,5 +1,6 @@
-import { weddingConfig } from "../../../../wedding.config";
+import { weddingConfig } from "../../../../../wedding.config";
 import { LazyMap } from "@/components/lazy-map";
+import { getTranslations, getLocale } from "next-intl/server";
 
 const CEREMONY_EMBED =
   "https://maps.google.com/maps?q=4260+Cawthra+Rd+Mississauga+ON+L4Z+1V8&t=&z=16&ie=UTF8&iwloc=B&output=embed";
@@ -12,18 +13,6 @@ const RECEPTION_LINK =
 
 const weddingDate = new Date(weddingConfig.date);
 
-function formatDate(d: Date) {
-  return d.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
-const ceremonyTime = weddingConfig.schedule.find((s) => s.event === "Ceremony")?.time;
-const receptionTime = weddingConfig.schedule.find((s) => s.event === "Cocktail Hour")?.time;
-
 function VenueCard({
   label,
   time,
@@ -33,6 +22,7 @@ function VenueCard({
   screenshotSrc,
   directionsHref,
   mapTitle,
+  openInMapsText,
 }: {
   label: string;
   time?: string;
@@ -42,6 +32,7 @@ function VenueCard({
   screenshotSrc: string;
   directionsHref: string;
   mapTitle: string;
+  openInMapsText: string;
 }) {
   return (
     <div className="sm:border sm:border-[#f0e0e4] sm:bg-[#fff8f8] sm:p-8">
@@ -75,7 +66,7 @@ function VenueCard({
           rel="noopener noreferrer"
           className="mt-3 inline-flex items-center gap-1.5 text-xs tracking-[0.15em] text-[#8a7f7f] transition-colors hover:text-[#2c2424]"
         >
-          Open in Maps
+          {openInMapsText}
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M2 8 L8 2 M4 2 H8 V6" />
           </svg>
@@ -84,44 +75,58 @@ function VenueCard({
   );
 }
 
-export default function DetailsPage() {
+export default async function DetailsPage() {
+  const t = await getTranslations("Details");
+  const locale = await getLocale();
+
+  const formattedDate = weddingDate.toLocaleDateString(
+    locale === "pl" ? "pl-PL" : "en-US",
+    {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
 
       {/* ───────── 001 — When & Where ───────── */}
       <section className="mb-14">
-        <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">001</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("sectionNumber")}</p>
         <h2
           className="text-5xl text-[#2c2424] mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          When & Where
+          {t("title")}
         </h2>
         <p className="text-base leading-relaxed text-[#5a4f4f] mb-14 md:mb-10">
-          Join us on {formatDate(weddingDate)} as we celebrate our love with
-          family and friends.
+          {t("subtitle", { date: formattedDate })}
         </p>
 
         <div className="space-y-16 md:space-y-8">
           <VenueCard
-            label="Ceremony"
-            time={ceremonyTime}
+            label={t("ceremony")}
+            time={weddingConfig.schedule[0].time}
             name={weddingConfig.venue.ceremony.name}
             address={weddingConfig.venue.ceremony.address}
             embedSrc={CEREMONY_EMBED}
             screenshotSrc="/maps/ceremony-map.png"
             directionsHref={CEREMONY_LINK}
             mapTitle="Ceremony venue map"
+            openInMapsText={t("openInMaps")}
           />
           <VenueCard
-            label="Reception"
-            time={receptionTime}
+            label={t("reception")}
+            time={weddingConfig.schedule[1].time}
             name={weddingConfig.venue.reception.name}
             address={weddingConfig.venue.reception.address}
             embedSrc={RECEPTION_EMBED}
             screenshotSrc="/maps/reception-map.png"
             directionsHref={RECEPTION_LINK}
             mapTitle="Reception venue map"
+            openInMapsText={t("openInMaps")}
           />
         </div>
       </section>
@@ -130,24 +135,24 @@ export default function DetailsPage() {
 
       {/* ───────── 002 — Schedule ───────── */}
       <section>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">002</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("scheduleNumber")}</p>
         <h2
           className="text-5xl text-[#2c2424] mb-10"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          Schedule
+          {t("scheduleTitle")}
         </h2>
         <div>
-          {weddingConfig.schedule.map((item) => (
+          {weddingConfig.schedule.map((item, i) => (
             <div
-              key={item.event}
+              key={i}
               className="flex items-baseline justify-between border-b border-[#f0e0e4] py-5 last:border-b-0"
             >
               <span
                 className="text-lg text-[#2c2424]"
                 style={{ fontFamily: "var(--font-playfair), serif" }}
               >
-                {item.event}
+                {t(`schedule.${i}`)}
               </span>
               <span className="text-xs tracking-[0.2em] text-[#8a7f7f]">
                 {item.time}

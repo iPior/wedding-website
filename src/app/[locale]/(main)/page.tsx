@@ -1,17 +1,25 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { CountdownTimer } from "@/components/countdown-timer";
-import { weddingConfig } from "../../../wedding.config";
+import { weddingConfig } from "../../../../wedding.config";
+import { getTranslations, getLocale } from "next-intl/server";
 
 const { person1, person2 } = weddingConfig.couple;
 const weddingDate = new Date(weddingConfig.date);
-const formattedDate = weddingDate.toLocaleDateString("en-US", {
-  weekday: "long",
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
 
-export default function HomePage() {
+export default async function HomePage() {
+  const t = await getTranslations("Home");
+  const locale = await getLocale();
+
+  const formattedDate = weddingDate.toLocaleDateString(
+    locale === "pl" ? "pl-PL" : "en-US",
+    {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
+
   return (
     <section className="flex min-h-[calc(100vh-15rem)] items-center justify-center px-6 text-center py-12 md:py-0">
       <div className="w-full max-w-2xl space-y-12">
@@ -20,7 +28,7 @@ export default function HomePage() {
           className="text-xs font-light uppercase tracking-[0.4em] text-[#8a7f7f] sm:text-md"
           style={{ animation: "fadeInUp 1s ease forwards", animationDelay: "0.2s", opacity: 0 }}
         >
-          {weddingConfig.tagline}
+          {t("tagline")}
         </p>
 
         {/* Names */}
@@ -65,7 +73,7 @@ export default function HomePage() {
             className="mb-5 text-sm uppercase tracking-[0.35em] text-[#d4a0b0]"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
-            Counting Down
+            {t("countingDown")}
           </p>
           <CountdownTimer numberClassName="font-[family-name:var(--font-playfair)]" />
         </div>
@@ -76,7 +84,7 @@ export default function HomePage() {
             href="/rsvp"
             className="inline-block bg-[#2c2424] px-12 py-4 text-[11px] uppercase tracking-[0.3em] text-[#fff8f8] transition-all duration-300 hover:bg-[#d4a0b0]"
           >
-            RSVP Now
+            {t("rsvpNow")}
           </Link>
         </div>
       </div>

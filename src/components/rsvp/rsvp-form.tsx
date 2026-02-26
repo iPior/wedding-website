@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   submitRsvp,
   modifyRsvp,
@@ -30,6 +31,9 @@ type Props = {
 };
 
 export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
+  const t = useTranslations("RsvpForm");
+  const tSearch = useTranslations("RsvpSearch");
+  const tErr = useTranslations("Errors");
   const primaryGuest = household.guests.find((g) => g.isPrimary);
 
   const [email, setEmail] = useState(primaryGuest?.email ?? "");
@@ -81,13 +85,13 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     setError(null);
 
     if (!email.trim()) {
-      setError("Email is required");
+      setError(t("emailRequired"));
       return;
     }
 
     for (const guest of guests) {
       if (!guest.attending) {
-        setError(`Please select attending status for ${guest.firstName} ${guest.lastName}`);
+        setError(t("selectAttending", { name: `${guest.firstName} ${guest.lastName}` }));
         return;
       }
     }
@@ -95,7 +99,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     for (let i = 0; i < plusOnes.length; i++) {
       const po = plusOnes[i];
       if (!po.firstName.trim() || !po.lastName.trim()) {
-        setError(`Please enter a name for plus-one #${i + 1}`);
+        setError(t("plusOneName", { number: i + 1 }));
         return;
       }
     }
@@ -131,7 +135,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     if (result.success) {
       onSuccess();
     } else {
-      setError(result.error ?? "Something went wrong");
+      setError(result.error ?? tErr("UNKNOWN"));
     }
   }
 
@@ -146,7 +150,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
           {household.householdName}
         </h2>
         <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-          {modifyToken ? "Update your RSVP below" : "Please respond for each guest in your household"}
+          {modifyToken ? t("updateSubtitle") : t("respondSubtitle")}
         </p>
       </div>
 
@@ -156,19 +160,19 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
           htmlFor="email"
           className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
         >
-          Your Email
+          {t("yourEmail")}
         </label>
         <input
           id="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
+          placeholder={t("emailPlaceholder")}
           required
           className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
         />
         <p className="text-xs text-[#8a7f7f]">
-          We&apos;ll send a confirmation with a link to modify your RSVP.
+          {t("emailHelp")}
         </p>
       </div>
 
@@ -189,14 +193,14 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                 </h3>
                 {household.guests[index]?.isPrimary && (
                   <span className="text-[0.6rem] uppercase tracking-[0.15em] text-[#d4a0b0]">
-                    Primary
+                    {t("primary")}
                   </span>
                 )}
               </div>
 
               <div className="space-y-2">
                 <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-                  Will you be attending?
+                  {t("willYouAttend")}
                 </label>
                 <div className="flex gap-3">
                   <button
@@ -208,7 +212,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                         : "bg-[#d4a0b0] text-white border-[#d4a0b0] hover:bg-[#c8909e]"
                     }`}
                   >
-                    Joyfully Accepts
+                    {t("joyfullyAccepts")}
                   </button>
                   <button
                     type="button"
@@ -219,7 +223,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                         : "bg-[#c4a0a0] text-white border-[#c4a0a0] hover:bg-[#b08888]"
                     }`}
                   >
-                    Regretfully Declines
+                    {t("regretfullyDeclines")}
                   </button>
                 </div>
               </div>
@@ -227,12 +231,12 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
               {guest.attending === "YES" && (
                 <div className="space-y-2">
                   <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-                    Dietary Restrictions
+                    {t("dietaryRestrictions")}
                   </label>
                   <textarea
                     value={guest.dietaryRestrictions}
                     onChange={(e) => updateGuest(index, "dietaryRestrictions", e.target.value)}
-                    placeholder="Any allergies or dietary restrictions..."
+                    placeholder={t("dietaryPlaceholder")}
                     rows={2}
                     className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors resize-none"
                   />
@@ -254,10 +258,10 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   className="text-xl text-[#2c2424]"
                   style={{ fontFamily: "var(--font-playfair), serif" }}
                 >
-                  Additional Guests
+                  {t("additionalGuests")}
                 </h3>
                 <p className="mt-1 text-xs text-[#8a7f7f]">
-                  You may bring up to {household.maxPlusOnes} additional guest{household.maxPlusOnes > 1 ? "s" : ""}.
+                  {t("plusOneAllowance", { count: household.maxPlusOnes })}
                 </p>
               </div>
               {plusOnes.length < household.maxPlusOnes && (
@@ -266,7 +270,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   onClick={addPlusOne}
                   className="bg-[#f0e0e4] border border-[#f0e0e4] px-4 py-2 text-[0.65rem] uppercase tracking-[0.15em] text-[#5a4f4f] transition-colors hover:bg-[#e8d0d6]"
                 >
-                  + Add Guest
+                  {t("addGuest")}
                 </button>
               )}
             </div>
@@ -275,21 +279,21 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
               <div key={index} className="space-y-4 border-l-2 border-[#f0e0e4] pl-5">
                 <div className="flex items-baseline justify-between">
                   <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-                    Guest {index + 1}
+                    {t("guestNumber", { number: index + 1 })}
                   </p>
                   <button
                     type="button"
                     onClick={() => removePlusOne(index)}
                     className="text-[0.62rem] uppercase tracking-[0.15em] text-[#d4a0b0] hover:text-[#2c2424] transition-colors"
                   >
-                    Remove
+                    {t("remove")}
                   </button>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-                      First Name
+                      {tSearch("firstName")}
                     </label>
                     <input
                       value={po.firstName}
@@ -300,7 +304,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   </div>
                   <div className="space-y-2">
                     <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-                      Last Name
+                      {tSearch("lastName")}
                     </label>
                     <input
                       value={po.lastName}
@@ -313,12 +317,12 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
 
                 <div className="space-y-2">
                   <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-                    Dietary Restrictions
+                    {t("dietaryRestrictions")}
                   </label>
                   <textarea
                     value={po.dietaryRestrictions}
                     onChange={(e) => updatePlusOne(index, "dietaryRestrictions", e.target.value)}
-                    placeholder="Any allergies or dietary restrictions..."
+                    placeholder={t("dietaryPlaceholder")}
                     rows={2}
                     className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors resize-none"
                   />
@@ -341,10 +345,10 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
         className="w-full bg-[#2c2424] py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#d4a0b0] disabled:opacity-50"
       >
         {loading
-          ? "Submitting..."
+          ? t("submitting")
           : modifyToken
-            ? "Update RSVP"
-            : "Submit RSVP"}
+            ? t("updateRsvp")
+            : t("submitRsvp")}
       </button>
     </form>
   );

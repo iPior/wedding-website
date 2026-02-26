@@ -1,0 +1,214 @@
+{
+  "Nav": {
+    "home": "Home",
+    "ourStory": "Our Story",
+    "details": "Details",
+    "faq": "FAQ",
+    "party": "Party",
+    "rsvp": "RSVP"
+  },
+  "Home": {
+    "tagline": "We're getting married!",
+    "countingDown": "Counting Down",
+    "rsvpNow": "RSVP Now"
+  },
+  "Countdown": {
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "bigDay": "The big day is here!"
+  },
+  "Details": {
+    "sectionNumber": "001",
+    "title": "When & Where",
+    "subtitle": "Join us on {date} as we celebrate our love with family and friends.",
+    "ceremony": "Ceremony",
+    "reception": "Reception",
+    "openInMaps": "Open in Maps",
+    "scheduleNumber": "002",
+    "scheduleTitle": "Schedule",
+    "schedule": {
+      "0": "Ceremony",
+      "1": "Cocktail Hour",
+      "2": "Reception"
+    }
+  },
+  "FAQ": {
+    "sectionNumber": "001",
+    "title": "Questions and Answers",
+    "items": {
+      "0": {
+        "question": "What is the deadline to RSVP?",
+        "answer": "We kindly ask guests to respond no later than June 1, 2026."
+      },
+      "1": {
+        "question": "What is the dress code?",
+        "answer": "We invite our guests to dress in formal attire for the day."
+      },
+      "2": {
+        "question": "What time should I arrive?",
+        "answer": "The ceremony will begin promptly at 2:30pm. We suggest arriving 15 minutes early. Cocktail hour will begin at 6:00pm and guests are welcome to arrive anytime after."
+      },
+      "3": {
+        "question": "What happens between the ceremony and reception?",
+        "answer": "The bridal team will be using the 2.5 hour block to take photos and soak in that \"just married\" feeling. Feel free to head back home to relax, refresh, and prepare for a full evening of celebrating."
+      },
+      "4": {
+        "question": "Can I bring a plus one?",
+        "answer": "Plus-ones have been pre-assigned. Your plus one will pop-up when you RSVP."
+      },
+      "5": {
+        "question": "Is there parking?",
+        "answer": "Yes. There is free parking at both the ceremony and reception."
+      },
+      "6": {
+        "question": "What if I have dietary restrictions?",
+        "answer": "You can note any dietary restrictions when you RSVP and we will make sure you are taken care of."
+      }
+    }
+  },
+  "OurStory": {
+    "sectionNumber": "001",
+    "title": "Our Story",
+    "milestones": {
+      "0": {
+        "title": "Where it all began",
+        "description": "Long before we'd ever meet, we were baptized at the same mass, in the same church where we'll soon be getting married."
+      },
+      "1": {
+        "title": "The night we first met",
+        "description": "We met at a mutual friend's party. A few casual conversations, nothing too striking."
+      },
+      "2": {
+        "title": "Our First Date",
+        "description": "What was supposed to be a casual first date turned into hours of conversation. Right before Natalie left the country for a whole year."
+      },
+      "3": {
+        "title": "The End of Long Distance",
+        "description": "After a year of endless facetime calls and Piotr's trip to visit Natalie in New Zealand, we were finally reunited and ready to start our lives together."
+      },
+      "4": {
+        "title": "The Proposal",
+        "description": "An exciting trip to Europe started off with an unforgettable proposal on a beautiful island in Greece during sunset."
+      }
+    }
+  },
+  "BridalParty": {
+    "sectionNumber": "001",
+    "title": "The Wedding Party",
+    "subtitle": "The people who have stood by us through it all, and who we are honored to have by our side on the big day.",
+    "roles": {
+      "Best Man": "Best Man",
+      "Maid of Honor": "Maid of Honor",
+      "Groomsman": "Groomsman",
+      "Bridesmaid": "Bridesmaid"
+    }
+  },
+  "Rsvp": {
+    "sectionNumber": "001",
+    "title": "Kindly Respond",
+    "subtitle": "We would love to celebrate with you. Search for your name below to let us know if you can make it."
+  },
+  "RsvpSearch": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "firstNamePlaceholder": "First name",
+    "lastNamePlaceholder": "Last name",
+    "findInvitation": "Find My Invitation",
+    "searching": "Searching...",
+    "selectName": "Select your name",
+    "householdMember": "household member",
+    "notFound": "We couldn't find your name. Please check the spelling and try again, or contact the couple for help.",
+    "notPrimaryWithName": "{name} is managing the RSVP for your household. Please contact them to submit your RSVP.",
+    "notPrimaryGeneric": "The primary contact for your household manages the RSVP. Please contact them.",
+    "loadError": "Something went wrong loading your household. Please try again."
+  },
+  "RsvpForm": {
+    "updateSubtitle": "Update your RSVP below",
+    "respondSubtitle": "Please respond for each guest in your household",
+    "yourEmail": "Your Email",
+    "emailPlaceholder": "you@example.com",
+    "emailHelp": "We'll send a confirmation with a link to modify your RSVP.",
+    "willYouAttend": "Will you be attending?",
+    "joyfullyAccepts": "Joyfully Accepts",
+    "regretfullyDeclines": "Regretfully Declines",
+    "dietaryRestrictions": "Dietary Restrictions",
+    "dietaryPlaceholder": "Any allergies or dietary restrictions...",
+    "primary": "Primary",
+    "additionalGuests": "Additional Guests",
+    "plusOneAllowance": "You may bring up to {count} additional guest{count, plural, one {} other {s}}.",
+    "addGuest": "+ Add Guest",
+    "guestNumber": "Guest {number}",
+    "remove": "Remove",
+    "submitting": "Submitting...",
+    "updateRsvp": "Update RSVP",
+    "submitRsvp": "Submit RSVP",
+    "emailRequired": "Email is required",
+    "selectAttending": "Please select attending status for {name}",
+    "plusOneName": "Please enter a name for plus-one #{number}"
+  },
+  "RsvpConfirmation": {
+    "thankYou": "Thank You",
+    "submitted": "Your RSVP has been submitted. You'll receive a confirmation email with a link to modify your response if needed.",
+    "excited": "We are excited to celebrate with you",
+    "backToSearch": "Back to search"
+  },
+  "ModifyRsvp": {
+    "title": "Modify RSVP",
+    "subtitle": "Update your responses below",
+    "updatedTitle": "RSVP Updated",
+    "updatedMessage": "Your changes have been saved. You'll receive an updated confirmation email with a new modification link.",
+    "invalidTitle": "Invalid Link",
+    "invalidMessage": "This RSVP modification link is invalid or has expired. Please contact the couple if you need to update your RSVP.",
+    "closedTitle": "Modifications Closed",
+    "closedMessage": "The RSVP deadline has passed. Please contact the couple directly if you need to make changes."
+  },
+  "Password": {
+    "youreInvited": "You're invited",
+    "enterPassword": "Enter the password from your invitation",
+    "placeholder": "password",
+    "enter": "Enter"
+  },
+  "Errors": {
+    "INVALID_FORM_DATA": "Invalid form data",
+    "DEADLINE_PASSED": "The RSVP deadline has passed. Please contact the couple directly.",
+    "HOUSEHOLD_NOT_FOUND": "Household not found",
+    "GUEST_NOT_IN_HOUSEHOLD": "Guest does not belong to this household",
+    "MAX_PLUS_ONES": "Maximum {count} plus-one(s) allowed",
+    "ALREADY_SUBMITTED": "This household has already submitted an RSVP. Check your email for a link to modify it.",
+    "INVALID_TOKEN": "Invalid modification link",
+    "UNKNOWN": "Something went wrong",
+    "invalidPassword": "Incorrect password. Please try again.",
+    "misconfigured": "SITE_PASSWORD is not configured yet."
+  },
+  "Email": {
+    "confirmationSubject": "RSVP Confirmation",
+    "confirmationPreview": "Your RSVP was received — {count} attending",
+    "confirmationLabel": "RSVP CONFIRMATION",
+    "confirmationHeading": "Thank You",
+    "confirmationBody": "Your response has been received for {household}. Here is a summary of your RSVP.",
+    "modifiedSubject": "RSVP Updated",
+    "modifiedPreview": "Your RSVP has been updated",
+    "modifiedLabel": "RSVP UPDATED",
+    "modifiedHeading": "Changes Received",
+    "modifiedBody": "Your RSVP for {household} has been updated. Here is your revised summary.",
+    "guests": "GUESTS",
+    "plusOnes": "PLUS ONES",
+    "attending": "Attending",
+    "notAttending": "Not Attending",
+    "needChanges": "Need to make changes?",
+    "needMoreChanges": "Need to make more changes?",
+    "modifyButton": "Modify Your RSVP",
+    "closing": "We are excited to celebrate with you!",
+    "broadcastLabel": "WEDDING UPDATE",
+    "broadcastClosing": "With love, {couple}",
+    "broadcastUnsubscribe": "You are receiving this email because you RSVPed to our wedding."
+  },
+  "LanguageModal": {
+    "title": "Welcome",
+    "subtitle": "Choose your preferred language",
+    "english": "English",
+    "polish": "Polski"
+  }
+}

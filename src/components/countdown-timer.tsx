@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { useTranslations } from "next-intl";
 import { weddingConfig } from "../../wedding.config";
 
 function calculateTimeLeft(targetDate: string) {
@@ -30,19 +31,20 @@ function getServerSnapshot() {
 export function CountdownTimer({ numberClassName = "font-playfair" }: { numberClassName?: string }) {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const timeLeft = JSON.parse(snapshot) as ReturnType<typeof calculateTimeLeft>;
+  const t = useTranslations("Countdown");
 
   if (!timeLeft)
     return (
       <p className="text-center text-lg text-muted-foreground">
-        The big day is here!
+        {t("bigDay")}
       </p>
     );
 
   const units = [
-    { label: "Days", value: timeLeft.days },
-    { label: "Hours", value: timeLeft.hours },
-    { label: "Minutes", value: timeLeft.minutes },
-    { label: "Seconds", value: timeLeft.seconds },
+    { label: t("days"), value: timeLeft.days },
+    { label: t("hours"), value: timeLeft.hours },
+    { label: t("minutes"), value: timeLeft.minutes },
+    { label: t("seconds"), value: timeLeft.seconds },
   ];
 
   return (

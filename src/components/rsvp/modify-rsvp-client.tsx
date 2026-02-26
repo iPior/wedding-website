@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { HouseholdData } from "@/actions/rsvp";
 import { RsvpForm } from "./rsvp-form";
 
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export function ModifyRsvpClient({ household, token }: Props) {
+  const t = useTranslations("ModifyRsvp");
   const [confirmed, setConfirmed] = useState(false);
 
   if (confirmed) {
@@ -22,12 +24,11 @@ export function ModifyRsvpClient({ household, token }: Props) {
           className="text-4xl text-[#2c2424] mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          RSVP Updated
+          {t("updatedTitle")}
         </h2>
         <div className="mx-auto my-6 h-px w-16 bg-[#f0e0e4]" />
         <p className="text-sm leading-relaxed text-[#5a4f4f] max-w-md mx-auto">
-          Your changes have been saved. You&apos;ll receive an updated
-          confirmation email with a new modification link.
+          {t("updatedMessage")}
         </p>
       </div>
     );
@@ -40,10 +41,10 @@ export function ModifyRsvpClient({ household, token }: Props) {
           className="text-4xl text-[#2c2424] mb-3"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          Modify RSVP
+          {t("title")}
         </h1>
         <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-          Update your responses below
+          {t("subtitle")}
         </p>
       </div>
       <div className="h-px bg-[#f0e0e4]" />

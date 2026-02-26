@@ -1,24 +1,25 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { weddingConfig } from "../../../wedding.config";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
+import { weddingConfig } from "../../../../wedding.config";
 
 const { person1, person2 } = weddingConfig.couple;
-
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/our-story", label: "Our Story" },
-  { href: "/details", label: "Details" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/bridal-party", label: "Party" },
-];
 
 export function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations("Nav");
+
+  const links = [
+    { href: "/", label: t("home") },
+    { href: "/our-story", label: t("ourStory") },
+    { href: "/details", label: t("details") },
+    { href: "/faq", label: t("faq") },
+    { href: "/bridal-party", label: t("party") },
+  ];
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -65,7 +66,7 @@ export function Nav() {
               href="/rsvp"
               className="text-xs tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-5 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0]"
             >
-              RSVP
+              {t("rsvp")}
             </Link>
           </div>
 
@@ -123,7 +124,7 @@ export function Nav() {
                 : "transform 0s, opacity 0s",
             }}
           >
-            RSVP
+            {t("rsvp")}
           </Link>
         </nav>
       </div>

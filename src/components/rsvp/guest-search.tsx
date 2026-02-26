@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { searchGuests, getHouseholdForRsvp, type SearchResult, type HouseholdData } from "@/actions/rsvp";
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export function GuestSearch({ onHouseholdFound }: Props) {
+  const t = useTranslations("RsvpSearch");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [results, setResults] = useState<SearchResult | null>(null);
@@ -32,8 +34,8 @@ export function GuestSearch({ onHouseholdFound }: Props) {
     if (!guest.isPrimary) {
       setNotPrimaryMessage(
         guest.primaryGuestName
-          ? `${guest.primaryGuestName} is managing the RSVP for your household. Please contact them to submit your RSVP.`
-          : "The primary contact for your household manages the RSVP. Please contact them."
+          ? t("notPrimaryWithName", { name: guest.primaryGuestName })
+          : t("notPrimaryGeneric")
       );
       return;
     }
@@ -45,7 +47,7 @@ export function GuestSearch({ onHouseholdFound }: Props) {
     if (household) {
       onHouseholdFound(household);
     } else {
-      setNotPrimaryMessage("Something went wrong loading your household. Please try again.");
+      setNotPrimaryMessage(t("loadError"));
     }
   }
 
@@ -58,13 +60,13 @@ export function GuestSearch({ onHouseholdFound }: Props) {
               htmlFor="firstName"
               className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
             >
-              First Name
+              {t("firstName")}
             </label>
             <input
               id="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              placeholder="First name"
+              placeholder={t("firstNamePlaceholder")}
               required
               className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
             />
@@ -74,13 +76,13 @@ export function GuestSearch({ onHouseholdFound }: Props) {
               htmlFor="lastName"
               className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
             >
-              Last Name
+              {t("lastName")}
             </label>
             <input
               id="lastName"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              placeholder="Last name"
+              placeholder={t("lastNamePlaceholder")}
               required
               className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
             />
@@ -92,7 +94,7 @@ export function GuestSearch({ onHouseholdFound }: Props) {
           disabled={loading}
           className="w-full bg-[#2c2424] py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#d4a0b0] disabled:opacity-50"
         >
-          {loading ? "Searching..." : "Find My Invitation"}
+          {loading ? t("searching") : t("findInvitation")}
         </button>
       </form>
 
@@ -104,15 +106,14 @@ export function GuestSearch({ onHouseholdFound }: Props) {
 
       {results && results.guests.length === 0 && (
         <div className="border border-[#f0e0e4] bg-[#fdf6f8] px-5 py-4 text-sm text-[#5a4f4f]">
-          We couldn&apos;t find your name. Please check the spelling and try again,
-          or contact the couple for help.
+          {t("notFound")}
         </div>
       )}
 
       {results && results.guests.length > 0 && !notPrimaryMessage && (
         <div className="space-y-3">
           <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
-            Select your name
+            {t("selectName")}
           </p>
           {results.guests.map((guest) => (
             <button
@@ -129,7 +130,7 @@ export function GuestSearch({ onHouseholdFound }: Props) {
               </span>
               {!guest.isPrimary && (
                 <span className="ml-3 text-[0.62rem] uppercase tracking-[0.15em] text-[#8a7f7f]">
-                  household member
+                  {t("householdMember")}
                 </span>
               )}
             </button>
