@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import {
@@ -12,20 +12,16 @@ import {
 } from "@/components/ui/dialog";
 import { setLocale } from "@/actions/locale";
 
+function shouldShowModal() {
+  if (typeof document === "undefined") return false;
+  return !document.cookie.split("; ").some((c) => c.startsWith("NEXT_LOCALE="));
+}
+
 export function LanguageModal() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(shouldShowModal);
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("LanguageModal");
-
-  useEffect(() => {
-    const hasLocale = document.cookie
-      .split("; ")
-      .some((c) => c.startsWith("NEXT_LOCALE="));
-    if (!hasLocale) {
-      setOpen(true);
-    }
-  }, []);
 
   async function handleSelect(locale: "en" | "pl") {
     await setLocale(locale);

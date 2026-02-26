@@ -22,6 +22,9 @@ vi.mock("@/lib/resend", () => ({
 }));
 vi.mock("@/emails/rsvp-confirmation", () => ({ default: vi.fn() }));
 vi.mock("@/emails/rsvp-modified", () => ({ default: vi.fn() }));
+vi.mock("next-intl/server", () => ({
+  getLocale: vi.fn().mockResolvedValue("en"),
+}));
 
 // The "use server" directive is a no-op in test context but the module imports fine
 import { submitRsvp, modifyRsvp } from "@/actions/rsvp";
