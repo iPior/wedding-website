@@ -43,29 +43,29 @@
         "answer": "We kindly ask guests to respond no later than June 1, 2026."
       },
       "1": {
-        "question": "What is the dress code?",
-        "answer": "We invite our guests to dress in formal attire for the day."
-      },
-      "2": {
         "question": "What time should I arrive?",
         "answer": "The ceremony will begin promptly at 2:30pm. We suggest arriving 15 minutes early. Cocktail hour will begin at 6:00pm and guests are welcome to arrive anytime after."
       },
-      "3": {
+      "2": {
         "question": "What happens between the ceremony and reception?",
         "answer": "The bridal team will be using the 2.5 hour block to take photos and soak in that \"just married\" feeling. Feel free to head back home to relax, refresh, and prepare for a full evening of celebrating."
       },
-      "4": {
+      "3": {
         "question": "Can I bring a plus one?",
-        "answer": "Plus-ones have been pre-assigned. Your plus one will pop-up when you RSVP."
+        "answer": "Plus-ones have been pre-assigned. Your designated guest will be listed on your invitation and will also appear when you RSVP online. "
       },
-      "5": {
-        "question": "Is there parking?",
-        "answer": "Yes. There is free parking at both the ceremony and reception."
-      },
-      "6": {
+      "4": {
         "question": "What if I have dietary restrictions?",
         "answer": "You can note any dietary restrictions when you RSVP and we will make sure you are taken care of."
-      }
+      },
+      "5": {
+        "question": "What is the dress code?",
+        "answer": "We invite our guests to dress in formal attire for the day."
+      },
+      "6": {
+        "question": "Is there parking?",
+        "answer": "Yes. There is free parking at both the ceremony and reception."
+      }     
     }
   },
   "OurStory": {
@@ -78,19 +78,31 @@
       },
       "1": {
         "title": "The night we first met",
-        "description": "We met at a mutual friend's party. A few casual conversations, nothing too striking."
+        "description": "We met at a mutual friend's party. Exchanged a few words and thought nothing of it."
       },
       "2": {
-        "title": "Our First Date",
-        "description": "What was supposed to be a casual first date turned into hours of conversation. Right before Natalie left the country for a whole year."
+        "title": "Our first date",
+        "description": "We went to a bar for our first date and instantly clicked. What was supposed to be a casual night out turned into hours of effortless conversation."
       },
       "3": {
-        "title": "The End of Long Distance",
-        "description": "After a year of endless facetime calls and Piotr's trip to visit Natalie in New Zealand, we were finally reunited and ready to start our lives together."
+        "title": "The start of something special",
+        "description": "A week after our first date, Natalie leaves for New Zealand to complete her masters degree. The two of us starting texting more and more."
       },
       "4": {
-        "title": "The Proposal",
-        "description": "An exciting trip to Europe started off with an unforgettable proposal on a beautiful island in Greece during sunset."
+        "title": "We officially become a couple",
+        "description": "A few months of texting and facetime calls later, we realize this is something more than casual. We decided to make it official"
+      },
+      "5": {
+        "title": "Piotr travels across the world to visit Natalie",
+        "description": "No longer content with facetime calls, Piotr travels across the world to visit Natalie in New Zealand. The two of us spend time together and fall in love all over again."
+      },
+      "6": {
+        "title": "The end of long distance",
+        "description": "Natalie finally finishes her masters degree and returns to Canada."
+      },
+      "7": {
+        "title": "The proposal",
+        "description": "An exciting trip to Europe started off on the island of Milos with an unforgettable proposal while the sun was setting."
       }
     }
   },
@@ -204,6 +216,9 @@
     "broadcastLabel": "WEDDING UPDATE",
     "broadcastClosing": "With love, {couple}",
     "broadcastUnsubscribe": "You are receiving this email because you RSVPed to our wedding."
+  },
+  "Buzz": {
+    "title": "You found the secret page!"
   },
   "LanguageModal": {
     "title": "Welcome",

@@ -43,28 +43,28 @@
         "answer": "[PL] We kindly ask guests to respond no later than June 1, 2026."
       },
       "1": {
-        "question": "[PL] What is the dress code?",
-        "answer": "[PL] We invite our guests to dress in formal attire for the day."
-      },
-      "2": {
         "question": "[PL] What time should I arrive?",
         "answer": "[PL] The ceremony will begin promptly at 2:30pm. We suggest arriving 15 minutes early. Cocktail hour will begin at 6:00pm and guests are welcome to arrive anytime after."
       },
-      "3": {
+      "2": {
         "question": "[PL] What happens between the ceremony and reception?",
         "answer": "[PL] The bridal team will be using the 2.5 hour block to take photos and soak in that \"just married\" feeling. Feel free to head back home to relax, refresh, and prepare for a full evening of celebrating."
       },
-      "4": {
+      "3": {
         "question": "[PL] Can I bring a plus one?",
-        "answer": "[PL] Plus-ones have been pre-assigned. Your plus one will pop-up when you RSVP."
+        "answer": "[PL] Plus-ones have been pre-assigned. Your designated guest will be listed on your invitation and will also appear when you RSVP online."
       },
-      "5": {
-        "question": "[PL] Is there parking?",
-        "answer": "[PL] Yes. There is free parking at both the ceremony and reception."
-      },
-      "6": {
+      "4": {
         "question": "[PL] What if I have dietary restrictions?",
         "answer": "[PL] You can note any dietary restrictions when you RSVP and we will make sure you are taken care of."
+      },
+      "5": {
+        "question": "[PL] What is the dress code?",
+        "answer": "[PL] We invite our guests to dress in formal attire for the day."
+      },
+      "6": {
+        "question": "[PL] Is there parking?",
+        "answer": "[PL] Yes. There is free parking at both the ceremony and reception."
       }
     }
   },
@@ -78,19 +78,31 @@
       },
       "1": {
         "title": "[PL] The night we first met",
-        "description": "[PL] We met at a mutual friend's party. A few casual conversations, nothing too striking."
+        "description": "[PL] We met at a mutual friend's party. Exchanged a few words and thought nothing of it."
       },
       "2": {
-        "title": "[PL] Our First Date",
-        "description": "[PL] What was supposed to be a casual first date turned into hours of conversation. Right before Natalie left the country for a whole year."
+        "title": "[PL] Our first date",
+        "description": "[PL] We went to a bar for our first date and instantly clicked. What was supposed to be a casual night out turned into hours of effortless conversation."
       },
       "3": {
-        "title": "[PL] The End of Long Distance",
-        "description": "[PL] After a year of endless facetime calls and Piotr's trip to visit Natalie in New Zealand, we were finally reunited and ready to start our lives together."
+        "title": "[PL] The start of something special",
+        "description": "[PL] A week after our first date, Natalie leaves for New Zealand to complete her masters degree. The two of us starting texting more and more."
       },
       "4": {
-        "title": "[PL] The Proposal",
-        "description": "[PL] An exciting trip to Europe started off with an unforgettable proposal on a beautiful island in Greece during sunset."
+        "title": "[PL] We officially become a couple",
+        "description": "[PL] A few months of texting and facetime calls later, we realize this is something more than casual. We officially become a couple."
+      },
+      "5": {
+        "title": "[PL] Piotr travels across the world to visit Natalie",
+        "description": "[PL] No longer content with facetime calls, Piotr travels across the world to visit Natalie in New Zealand. The two of us spend time together and fall in love all over again."
+      },
+      "6": {
+        "title": "[PL] The end of long distance",
+        "description": "[PL] Natalie finally finishes her masters degree and returns to Canada."
+      },
+      "7": {
+        "title": "[PL] The proposal",
+        "description": "[PL] An exciting trip to Europe started off on the island of Milos with an unforgettable proposal while the sun was setting."
       }
     }
   },
@@ -204,6 +216,9 @@
     "broadcastLabel": "[PL] WEDDING UPDATE",
     "broadcastClosing": "[PL] With love, {couple}",
     "broadcastUnsubscribe": "[PL] You are receiving this email because you RSVPed to our wedding."
+  },
+  "Buzz": {
+    "title": "[PL] You found the secret page!"
   },
   "LanguageModal": {
     "title": "[PL] Welcome",

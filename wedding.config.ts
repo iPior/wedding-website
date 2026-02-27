@@ -28,23 +28,35 @@ export const weddingConfig = {
   ourStory: {
     milestones: [
       {
-        year: "1999",
+        year: "June 1999",
         image: "/images/our-story/1999.jpg",
       },
       {
-        year: "2022",
+        year: "September 2022",
         image: "",
       },
       {
-        year: "2023",
+        year: "January 2023",
         image: "",
       },
       {
-        year: "2024",
+        year: "February 2023",
         image: "",
       },
       {
-        year: "2025",
+        year: "June 2023",
+        image: "",
+      },
+      {
+        year: "October 2023",
+        image: "/images/our-story/2023.JPEG",
+      },
+      {
+        year: "January 2024",
+        image: "",
+      },
+      {
+        year: "July 2025",
         image: "/images/our-story/2025.JPG",
       },
     ],

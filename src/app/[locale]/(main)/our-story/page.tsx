@@ -89,7 +89,7 @@ export default async function OurStoryPage() {
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
       <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("sectionNumber")}</p>
       <h1
-        className="text-5xl text-[#2c2424] mb-8 md:mb-4"
+        className="text-5xl text-[#2c2424] mb-8 md:mb-16"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {t("title")}
@@ -113,7 +113,7 @@ export default async function OurStoryPage() {
           const polaroidIndex = m.image ? polaroidCount++ : 0;
 
           return (
-            <div key={m.year} className="relative mb-20">
+            <div key={i} className="relative mb-20">
               {/* Spine dot */}
               <div className="absolute left-4 md:left-1/2 -translate-x-1/2  translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-[#d4a0b0] bg-[#fff8f8] z-10" />
 
