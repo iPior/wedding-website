@@ -1,228 +1,228 @@
 {
   "Nav": {
-    "home": "[PL] Home",
-    "ourStory": "[PL] Our Story",
-    "details": "[PL] Details",
-    "faq": "[PL] FAQ",
-    "party": "[PL] Party",
-    "rsvp": "RSVP"
+    "home": "Strona główna",
+    "ourStory": "Nasza historia",
+    "details": "Szczegóły",
+    "faq": "Często zadawane pytania",
+    "party": "Druhny i Drużbowie ",
+    "rsvp": "Potwierdź Udział"
   },
   "Home": {
-    "tagline": "[PL] We're getting married!",
-    "countingDown": "[PL] Counting Down",
-    "rsvpNow": "[PL] RSVP Now"
+    "tagline": "Bierzemy ślub!",
+    "countingDown": "Odliczanie do ślubu",
+    "rsvpNow": "Potwierdź Udział"
   },
   "Countdown": {
-    "days": "[PL] Days",
-    "hours": "[PL] Hours",
-    "minutes": "[PL] Minutes",
-    "seconds": "[PL] Seconds",
-    "bigDay": "[PL] The big day is here!"
+    "days": "Dni",
+    "hours": "Godziny",
+    "minutes": "Minuty",
+    "seconds": "Sekundy",
+    "bigDay": "Dzień ślubny jest tu!"
   },
   "Details": {
     "sectionNumber": "001",
-    "title": "[PL] When & Where",
-    "subtitle": "[PL] Join us on {date} as we celebrate our love with family and friends.",
-    "ceremony": "[PL] Ceremony",
-    "reception": "[PL] Reception",
-    "openInMaps": "[PL] Open in Maps",
+    "title": "Kiedy i Gdzie",
+    "subtitle": "Dołącz do nas {date}, aby świętować naszą miłość wraz z rodziną i przyjaciółmi.",
+    "ceremony": "Ceremonia",
+    "reception": "Przyjęcie",
+    "openInMaps": "Otwórz w Mapach",
     "scheduleNumber": "002",
-    "scheduleTitle": "[PL] Schedule",
+    "scheduleTitle": "Harmonogram",
     "schedule": {
-      "0": "[PL] Ceremony",
-      "1": "[PL] Cocktail Hour",
-      "2": "[PL] Reception"
+      "0": "Ceremonia",
+      "1": "Koktajl",
+      "2": "Przyjęcie"
     }
   },
   "FAQ": {
     "sectionNumber": "001",
-    "title": "[PL] Questions and Answers",
+    "title": "Często zadawane pytania",
     "items": {
       "0": {
-        "question": "[PL] What is the deadline to RSVP?",
-        "answer": "[PL] We kindly ask guests to respond no later than June 1, 2026."
+        "question": "Jaki jest termin potwierdzenia udziału?",
+        "answer": "Uprzejmie prosimy gości o potwierdzenie udziału najpóźniej do 1 czerwca 2026 r."
       },
       "1": {
-        "question": "[PL] What time should I arrive?",
-        "answer": "[PL] The ceremony will begin promptly at 2:30pm. We suggest arriving 15 minutes early. Cocktail hour will begin at 6:00pm and guests are welcome to arrive anytime after."
+        "question": "O której godzinie należy przybyć?",
+        "answer": "Ceremonia rozpocznie się punktualnie o godz. 14:30. Sugerujemy przybycie 15 minut wcześniej. Koktajl rozpocznie się o godz. 18:00, a goście mogą przybyć w dowolnym momencie po tej godzinie."
       },
       "2": {
-        "question": "[PL] What happens between the ceremony and reception?",
-        "answer": "[PL] The bridal team will be using the 2.5 hour block to take photos and soak in that \"just married\" feeling. Feel free to head back home to relax, refresh, and prepare for a full evening of celebrating."
+        "question": "Co dzieje się między ceremonią a przyjęciem?",
+        "answer": "Drużyna ślubna wykorzysta 2,5 godziny na sesję zdjęciową i cieszenie się uczuciem „świeżo poślubionych”. Możecie wrócić do domu, aby się zrelaksować, odświeżyć i przygotować na wieczór pełen uroczystości."
       },
       "3": {
-        "question": "[PL] Can I bring a plus one?",
-        "answer": "[PL] Plus-ones have been pre-assigned. Your designated guest will be listed on your invitation and will also appear when you RSVP online."
+        "question": "Czy mogę przyprowadzić osobę towarzyszącą?",
+        "answer": "Osoby towarzyszące zostały wcześniej przypisane. Wskazany gość będzie wymieniony na zaproszeniu, a także pojawi się podczas potwierdzania udziału online."
       },
       "4": {
-        "question": "[PL] What if I have dietary restrictions?",
-        "answer": "[PL] You can note any dietary restrictions when you RSVP and we will make sure you are taken care of."
+        "question": "Co zrobić, jeśli mam ograniczenia dietetyczne?",
+        "answer": "Podczas potwierdzania udziału można zaznaczyć wszelkie ograniczenia dietetyczne, a my zadbamy o to, aby zostały one uwzględnione."
       },
       "5": {
-        "question": "[PL] What is the dress code?",
-        "answer": "[PL] We invite our guests to dress in formal attire for the day."
+        "question": "Jakie są wymagania dotyczące stroju?",
+        "answer": "Zapraszamy naszych gości do ubrania się tego dnia w stroje formalne."
       },
       "6": {
-        "question": "[PL] Is there parking?",
-        "answer": "[PL] Yes. There is free parking at both the ceremony and reception."
+        "question": "Czy jest parking?",
+        "answer": "Tak. Zarówno podczas ceremonii, jak i przyjęcia dostępny jest bezpłatny parking."
       }
     }
   },
   "OurStory": {
     "sectionNumber": "001",
-    "title": "[PL] Our Story",
+    "title": "Nasza Historia",
     "milestones": {
       "0": {
-        "title": "[PL] Where it all began",
-        "description": "[PL] Long before we'd ever meet, we were baptized at the same mass, in the same church where we'll soon be getting married."
+        "title": "Gdzie wszystko się zaczęło",
+        "description": "Na długo przed naszym spotkaniem zostaliśmy ochrzczeni podczas tej samej mszy, w tym samym kościele, w którym wkrótce weźmiemy ślub."
       },
       "1": {
-        "title": "[PL] The night we first met",
-        "description": "[PL] We met at a mutual friend's party. Exchanged a few words and thought nothing of it."
+        "title": "Noc, w której się poznaliśmy",
+        "description": "Poznaliśmy się na imprezie u wspólnego znajomego. Wymieniliśmy kilka słów i nie przywiązywaliśmy do tego żadnej wagi."
       },
       "2": {
-        "title": "[PL] Our first date",
-        "description": "[PL] We went to a bar for our first date and instantly clicked. What was supposed to be a casual night out turned into hours of effortless conversation."
+        "title": "Nasza pierwsza randka",
+        "description": "Na pierwszą randkę poszliśmy do baru i od razu się dogadaliśmy. To, co miało być zwykłym wieczorem, zamieniło się w wiele godzin swobodnej rozmowy."
       },
       "3": {
-        "title": "[PL] The start of something special",
-        "description": "[PL] A week after our first date, Natalie leaves for New Zealand to complete her masters degree. The two of us starting texting more and more."
+        "title": "Początek czegoś wyjątkowego",
+        "description": "Tydzień po naszej pierwszej randce Natalie wyjeżdża do Nowej Zelandii, aby ukończyć studia magisterskie. Coraz częściej piszemy do siebie SMS-y."
       },
       "4": {
-        "title": "[PL] We officially become a couple",
-        "description": "[PL] A few months of texting and facetime calls later, we realize this is something more than casual. We officially become a couple."
+        "title": "Oficjalnie stajemy się parą",
+        "description": "Po kilku miesiącach wysyłania SMS-ów i rozmów przez FaceTime zdajemy sobie sprawę, że to coś więcej niż zwykła znajomość. Oficjalnie staliśmy się parą."
       },
       "5": {
-        "title": "[PL] Piotr travels across the world to visit Natalie",
-        "description": "[PL] No longer content with facetime calls, Piotr travels across the world to visit Natalie in New Zealand. The two of us spend time together and fall in love all over again."
+        "title": "Piotr podróżuje przez pół świata, aby odwiedzić Natalie",
+        "description": "Nie zadowalając się już rozmowami przez FaceTime, Piotr podróżuje przez pół świata, aby odwiedzić Natalie w Nowej Zelandii. Spędzamy razem czas i ponownie się zakochujemy."
       },
       "6": {
-        "title": "[PL] The end of long distance",
-        "description": "[PL] Natalie finally finishes her masters degree and returns to Canada."
+        "title": "Koniec związku na odległość",
+        "description": "Natalie w końcu kończy studia magisterskie i wraca do Kanady."
       },
       "7": {
-        "title": "[PL] The proposal",
-        "description": "[PL] An exciting trip to Europe started off on the island of Milos with an unforgettable proposal while the sun was setting."
+        "title": "Oświadczyny",
+        "description": "Ekscytująca podróż do Europy rozpoczęła się na wyspie Milos od niezapomnianych oświadczyn o zachodzie słońca."
       }
     }
   },
   "BridalParty": {
     "sectionNumber": "001",
-    "title": "[PL] The Wedding Party",
-    "subtitle": "[PL] The people who have stood by us through it all, and who we are honored to have by our side on the big day.",
+    "title": "Drużba i Drużbowie",
+    "subtitle": "Osoby, które towarzyszyły nam przez cały czas i które mamy zaszczyt mieć u naszego boku w tym wielkim dniu",
     "roles": {
-      "Best Man": "[PL] Best Man",
-      "Maid of Honor": "[PL] Maid of Honor",
-      "Groomsman": "[PL] Groomsman",
-      "Bridesmaid": "[PL] Bridesmaid"
+      "Best Man": "Drużba",
+      "Maid of Honor": "Druhna",
+      "Groomsman": "Drużba",
+      "Bridesmaid": "Druhna"
     }
   },
   "Rsvp": {
     "sectionNumber": "001",
-    "title": "[PL] Kindly Respond",
-    "subtitle": "[PL] We would love to celebrate with you. Search for your name below to let us know if you can make it."
-  },
-  "RsvpSearch": {
-    "firstName": "[PL] First Name",
-    "lastName": "[PL] Last Name",
-    "firstNamePlaceholder": "[PL] First name",
-    "lastNamePlaceholder": "[PL] Last name",
-    "findInvitation": "[PL] Find My Invitation",
-    "searching": "[PL] Searching...",
-    "selectName": "[PL] Select your name",
-    "householdMember": "[PL] household member",
-    "notFound": "[PL] We couldn't find your name. Please check the spelling and try again, or contact the couple for help.",
-    "notPrimaryWithName": "[PL] {name} is managing the RSVP for your household. Please contact them to submit your RSVP.",
-    "notPrimaryGeneric": "[PL] The primary contact for your household manages the RSVP. Please contact them.",
-    "loadError": "[PL] Something went wrong loading your household. Please try again."
+    "title": "Potwierdź Udział",
+    "subtitle": "Bardzo chcielibyśmy świętować razem z Tobą. Wyszukaj swoje imię poniżej i daj nam znać, czy możesz przyjść."
+  },  
+   "RsvpSearch": {
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "firstNamePlaceholder": "Imię",
+    "lastNamePlaceholder": "Nazwisko",
+    "findInvitation": "Znajdź moje zaproszenie",
+    "searching": "Szukam . . ",
+    "selectName": "Wybierz swoje imię",
+    "householdMember": "Członek gospodarstwa domowego",
+    "notFound": "Nie znaleźliśmy Twojego imienia. Sprawdź pisownię i spróbuj ponownie lub skontaktuj się z parą, aby uzyskać pomoc.",
+    "notPrimaryWithName": "{name} zarządza potwierdzeniami udziału w Twoim gospodarstwie domowym. Skontaktuj się z nimi, aby przesłać swoje potwierdzenie udziału.",
+    "notPrimaryGeneric": "Główny kontakt dla Twojego gospodarstwa domowego zarządza potwierdzeniami udziału. Skontaktuj się z nim.",
+    "loadError": "Wystąpił błąd podczas ładowania Twojego gospodarstwa domowego. Spróbuj ponownie."
   },
   "RsvpForm": {
-    "updateSubtitle": "[PL] Update your RSVP below",
-    "respondSubtitle": "[PL] Please respond for each guest in your household",
-    "yourEmail": "[PL] Your Email",
+    "updateSubtitle": "Zaktualizuj swoje potwierdzenie udziału poniżej",
+    "respondSubtitle": "Proszę odpowiedzieć za każdą osobę w swoim gospodarstwie domowym",
+    "yourEmail": "Twój adres e-mail",
     "emailPlaceholder": "you@example.com",
-    "emailHelp": "[PL] We'll send a confirmation with a link to modify your RSVP.",
-    "willYouAttend": "[PL] Will you be attending?",
-    "joyfullyAccepts": "[PL] Joyfully Accepts",
-    "regretfullyDeclines": "[PL] Regretfully Declines",
-    "dietaryRestrictions": "[PL] Dietary Restrictions",
-    "dietaryPlaceholder": "[PL] Any allergies or dietary restrictions...",
-    "primary": "[PL] Primary",
-    "additionalGuests": "[PL] Additional Guests",
-    "plusOneAllowance": "[PL] You may bring up to {count} additional guest{count, plural, one {} other {s}}.",
-    "addGuest": "[PL] + Add Guest",
-    "guestNumber": "[PL] Guest {number}",
-    "remove": "[PL] Remove",
-    "submitting": "[PL] Submitting...",
-    "updateRsvp": "[PL] Update RSVP",
-    "submitRsvp": "[PL] Submit RSVP",
-    "emailRequired": "[PL] Email is required",
-    "selectAttending": "[PL] Please select attending status for {name}",
-    "plusOneName": "[PL] Please enter a name for plus-one #{number}"
+    "emailHelp": "Wyślemy potwierdzenie z linkiem umożliwiającym zmianę potwierdzenia udziału.",
+    "willYouAttend": "Czy weźmiesz udział?",
+    "joyfullyAccepts": "Z radością potwierdzam",
+    "regretfullyDeclines": "Z przykrością odmawiam",
+    "dietaryRestrictions": "Ograniczenia dietetyczne",
+    "dietaryPlaceholder": "Alergie lub ograniczenia dietetyczne...",
+    "primary": "Główny",
+    "additionalGuests": "Dodatkowi goście",
+    "plusOneAllowance": "Możesz przyprowadzić do {count} dodatkowych gości{count, liczba mnoga, jeden {} inni {s}}.",
+    "addGuest": "+ Dodaj gościa",
+    "guestNumber": "Gość {number}",
+    "remove": "Usuń",
+    "submitting": "Przesyłanie...",
+    "updateRsvp": "Aktualizuj RSVP",
+    "submitRsvp": "Prześlij RSVP",
+    "emailRequired": "Adres e-mail jest wymagany",
+    "selectAttending": "Wybierz status uczestnictwa dla {name}",
+    "plusOneName": "Wprowadź imię i nazwisko osoby towarzyszącej nr {number}"
   },
   "RsvpConfirmation": {
-    "thankYou": "[PL] Thank You",
-    "submitted": "[PL] Your RSVP has been submitted. You'll receive a confirmation email with a link to modify your response if needed.",
-    "excited": "[PL] We are excited to celebrate with you",
-    "backToSearch": "[PL] Back to search"
+    "thankYou": "Dziękujemy",
+    "submitted": "Twoja odpowiedź została przesłana. Otrzymasz wiadomość e-mail z potwierdzeniem i linkiem umożliwiającym zmianę odpowiedzi w razie potrzeby.",
+    "excited": "Cieszymy się, że będziemy mogli świętować razem z Tobą",
+    "backToSearch": "Powrót do wyszukiwania"
   },
   "ModifyRsvp": {
-    "title": "[PL] Modify RSVP",
-    "subtitle": "[PL] Update your responses below",
-    "updatedTitle": "[PL] RSVP Updated",
-    "updatedMessage": "[PL] Your changes have been saved. You'll receive an updated confirmation email with a new modification link.",
-    "invalidTitle": "[PL] Invalid Link",
-    "invalidMessage": "[PL] This RSVP modification link is invalid or has expired. Please contact the couple if you need to update your RSVP.",
-    "closedTitle": "[PL] Modifications Closed",
-    "closedMessage": "[PL] The RSVP deadline has passed. Please contact the couple directly if you need to make changes."
+    "title": "Modyfikuj potwierdzenie udziału",
+    "subtitle": "Zaktualizuj swoje odpowiedzi poniżej",
+    "updatedTitle": "Potwierdzenie udziału zaktualizowane",
+    "updatedMessage": "Twoje zmiany zostały zapisane. Otrzymasz zaktualizowaną wiadomość e-mail z potwierdzeniem zawierającą nowy link do modyfikacji.",
+    "invalidTitle": "Nieprawidłowy link",
+    "invalidMessage": "Ten link do modyfikacji RSVP jest nieprawidłowy lub wygasł. Jeśli chcesz zaktualizować swoje RSVP, skontaktuj się z parą młodą.",
+    "closedTitle": "Modyfikacje zamknięte",
+    "closedMessage": "Termin RSVP minął. Jeśli chcesz wprowadzić zmiany, skontaktuj się bezpośrednio z parą młodą."
   },
   "Password": {
-    "youreInvited": "[PL] You're invited",
-    "enterPassword": "[PL] Enter the password from your invitation",
-    "placeholder": "[PL] password",
-    "enter": "[PL] Enter"
+    "youreInvited": "Jesteś zaproszony",
+    "enterPassword": "Wprowadź hasło z zaproszenia",
+    "placeholder": "hasło",
+    "enter": "Wprowadź"
   },
   "Errors": {
-    "INVALID_FORM_DATA": "[PL] Invalid form data",
-    "DEADLINE_PASSED": "[PL] The RSVP deadline has passed. Please contact the couple directly.",
-    "HOUSEHOLD_NOT_FOUND": "[PL] Household not found",
-    "GUEST_NOT_IN_HOUSEHOLD": "[PL] Guest does not belong to this household",
-    "MAX_PLUS_ONES": "[PL] Maximum {count} plus-one(s) allowed",
-    "ALREADY_SUBMITTED": "[PL] This household has already submitted an RSVP. Check your email for a link to modify it.",
-    "INVALID_TOKEN": "[PL] Invalid modification link",
-    "UNKNOWN": "[PL] Something went wrong",
-    "invalidPassword": "[PL] Incorrect password. Please try again.",
-    "misconfigured": "[PL] SITE_PASSWORD is not configured yet."
+    "INVALID_FORM_DATA": "Nieprawidłowe dane formularza",
+    "DEADLINE_PASSED": "Termin potwierdzenia udziału upłynął. Skontaktuj się bezpośrednio z parą",
+    "HOUSEHOLD_NOT_FOUND": "Nie znaleziono gospodarstwa domowego",
+    "GUEST_NOT_IN_HOUSEHOLD": "Gość nie należy do tego gospodarstwa domowego",
+    "MAX_PLUS_ONES": "Dopuszczalna maksymalna liczba osób towarzyszących to {count}",
+    "ALREADY_SUBMITTED": "To gospodarstwo domowe już przesłało potwierdzenie udziału. Sprawdź swoją skrzynkę e-mail, aby znaleźć link umożliwiający zmianę odpowiedzi.",
+    "INVALID_TOKEN": "Nieprawidłowy link do modyfikacji",
+    "UNKNOWN": "Coś poszło nie tak",
+    "invalidPassword": "Nieprawidłowe hasło. Spróbuj ponownie.",
+    "misconfigured": "SITE_PASSWORD nie zostało jeszcze skonfigurowane."
   },
   "Email": {
-    "confirmationSubject": "[PL] RSVP Confirmation",
-    "confirmationPreview": "[PL] Your RSVP was received — {count} attending",
-    "confirmationLabel": "[PL] RSVP CONFIRMATION",
-    "confirmationHeading": "[PL] Thank You",
-    "confirmationBody": "[PL] Your response has been received for {household}. Here is a summary of your RSVP.",
-    "modifiedSubject": "[PL] RSVP Updated",
-    "modifiedPreview": "[PL] Your RSVP has been updated",
-    "modifiedLabel": "[PL] RSVP UPDATED",
-    "modifiedHeading": "[PL] Changes Received",
-    "modifiedBody": "[PL] Your RSVP for {household} has been updated. Here is your revised summary.",
-    "guests": "[PL] GUESTS",
-    "plusOnes": "[PL] PLUS ONES",
-    "attending": "[PL] Attending",
-    "notAttending": "[PL] Not Attending",
-    "needChanges": "[PL] Need to make changes?",
-    "needMoreChanges": "[PL] Need to make more changes?",
-    "modifyButton": "[PL] Modify Your RSVP",
-    "closing": "[PL] We are excited to celebrate with you!",
-    "broadcastLabel": "[PL] WEDDING UPDATE",
-    "broadcastClosing": "[PL] With love, {couple}",
-    "broadcastUnsubscribe": "[PL] You are receiving this email because you RSVPed to our wedding."
+    "confirmationSubject": "Potwierdzenie RSVP",
+    "confirmationPreview": "Otrzymaliśmy Twoje RSVP — {count} osób weźmie udział",
+    "confirmationLabel": "POTWIERDZENIE RSVP",
+    "confirmationHeading": "Dziękujemy",
+    "confirmationBody": "Otrzymaliśmy Twoją odpowiedź dla {household}. Oto podsumowanie Twojego RSVP.",
+    "modifiedSubject": "RSVP zaktualizowane",
+    "modifiedPreview": "Twoje RSVP zostało zaktualizowane",
+    "modifiedLabel": "AKTUALIZACJA ODPOWIEDZI",
+    "modifiedHeading": "OTRZYMANO ZMIANY",
+    "modifiedBody": "Twoja odpowiedź dla {household} została zaktualizowana. Oto poprawione podsumowanie.",
+    "guests": "GOŚCIE",
+    "plusOnes": "OSOBY TOWARZYSZĄCE",
+    "attending": "Uczestnicy",
+    "notAttending": "Nieobecni",
+    "needChanges": "Czy chcesz wprowadzić zmiany?",
+    "needMoreChanges": "Czy chcesz wprowadzić więcej zmian?",
+    "modifyButton": "Modyfikuj swoją odpowiedź",
+    "closing": "Cieszymy się, że będziemy mogli świętować razem z Tobą!",
+    "broadcastLabel": "AKTUALIZACJA ŚLUBU",
+    "broadcastClosing": "Z miłością, {para}",
+    "broadcastUnsubscribe": "Otrzymujesz tę wiadomość e-mail, ponieważ potwierdziłeś udział w naszym ślubie."
   },
   "Buzz": {
-    "title": "[PL] You found the secret page!"
+    "title": "Znalazłeś tajną stronę!"
   },
   "LanguageModal": {
-    "title": "[PL] Welcome",
-    "subtitle": "[PL] Choose your preferred language",
+    "title": "Witamy",
+    "subtitle": "Wybierz preferowany język",
     "english": "English",
     "polish": "Polski"
   }
