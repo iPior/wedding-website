@@ -15,6 +15,18 @@ App runs at `http://localhost:3000`.
 
 Copy `.env.example` to `.env.local` and fill values.
 
+## Observability (Sentry)
+
+This project includes Sentry for production error monitoring.
+
+1. Create a Next.js project in Sentry.
+2. Add `SENTRY_DSN` and `NEXT_PUBLIC_SENTRY_DSN`.
+3. Add `SENTRY_ORG`, `SENTRY_PROJECT`, and `SENTRY_AUTH_TOKEN` for source map uploads.
+4. Set `SENTRY_ENVIRONMENT` (`production`, `preview`, etc.).
+5. Add a Sentry alert for new issues and error spikes.
+
+Sensitive guest fields are redacted from structured logs by default.
+
 ## Available Scripts
 
 - `bun run dev` - start Next.js dev server

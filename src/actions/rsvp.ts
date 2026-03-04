@@ -4,8 +4,10 @@ import { randomUUID } from "crypto";
 import Fuse from "fuse.js";
 import { z } from "zod";
 import { getLocale } from "next-intl/server";
+import * as Sentry from "@sentry/nextjs";
 import { prisma } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
+import { logger } from "@/lib/logger";
 import { weddingConfig } from "../../wedding.config";
 import RsvpConfirmationEmail from "@/emails/rsvp-confirmation";
 import RsvpModifiedEmail from "@/emails/rsvp-modified";
@@ -170,6 +172,7 @@ function isDeadlinePassed(): boolean {
 }
 
 export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
+  const requestId = randomUUID();
   const parsed = submitRsvpSchema.safeParse(input);
   if (!parsed.success) {
     return { success: false, error: "Invalid form data" };
@@ -271,6 +274,13 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         alreadySubmitted: true,
       };
     }
+
+    logger.error("rsvp.submit.transaction_failed", { requestId, householdId }, error);
+    Sentry.captureException(error, {
+      tags: { action: "submitRsvp" },
+      extra: { requestId, householdId },
+    });
+
     throw error;
   }
 
@@ -309,9 +319,13 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         attendingCount: attendingGuests.length + plusOnes.length,
       }),
     });
-  } catch {
+  } catch (error) {
     // Don't fail the RSVP if email fails — the data is saved
-    console.error("Failed to send confirmation email");
+    logger.error("rsvp.submit.confirmation_email_failed", { requestId, householdId }, error);
+    Sentry.captureException(error, {
+      tags: { action: "submitRsvp", integration: "resend" },
+      extra: { requestId, householdId },
+    });
   }
 
   return { success: true };
@@ -346,6 +360,7 @@ const modifyRsvpSchema = submitRsvpSchema.extend({
 export type ModifyRsvpInput = z.infer<typeof modifyRsvpSchema>;
 
 export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
+  const requestId = randomUUID();
   const parsed = modifyRsvpSchema.safeParse(input);
   if (!parsed.success) {
     return { success: false, error: "Invalid form data" };
@@ -391,54 +406,63 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
   const primaryGuest = household.guests.find((g) => g.isPrimary);
   const now = new Date();
 
-  await prisma.$transaction(async (tx) => {
-    for (const guestInput of guests) {
-      await tx.guest.update({
-        where: { id: guestInput.id },
-        data: {
-          attending: guestInput.attending,
-          dietaryRestrictions: guestInput.attending === "YES" ? (guestInput.dietaryRestrictions ?? null) : null,
-          rsvpSubmittedAt: now,
-          ...(primaryGuest && guestInput.id === primaryGuest.id
-            ? { email, rsvpToken: newToken }
-            : {}),
-        },
-      });
-    }
+  try {
+    await prisma.$transaction(async (tx) => {
+      for (const guestInput of guests) {
+        await tx.guest.update({
+          where: { id: guestInput.id },
+          data: {
+            attending: guestInput.attending,
+            dietaryRestrictions: guestInput.attending === "YES" ? (guestInput.dietaryRestrictions ?? null) : null,
+            rsvpSubmittedAt: now,
+            ...(primaryGuest && guestInput.id === primaryGuest.id
+              ? { email, rsvpToken: newToken }
+              : {}),
+          },
+        });
+      }
 
-    // Delete old plus-ones and re-create
-    await tx.plusOne.deleteMany({ where: { householdId } });
+      // Delete old plus-ones and re-create
+      await tx.plusOne.deleteMany({ where: { householdId } });
 
-    if (plusOnes.length > 0 && primaryGuest) {
-      await tx.plusOne.createMany({
-        data: plusOnes.map((p) => ({
-          householdId,
-          confirmedBy: primaryGuest.id,
-          firstName: p.firstName,
-          lastName: p.lastName,
-          dietaryRestrictions: p.dietaryRestrictions ?? null,
-        })),
-      });
-    }
+      if (plusOnes.length > 0 && primaryGuest) {
+        await tx.plusOne.createMany({
+          data: plusOnes.map((p) => ({
+            householdId,
+            confirmedBy: primaryGuest.id,
+            firstName: p.firstName,
+            lastName: p.lastName,
+            dietaryRestrictions: p.dietaryRestrictions ?? null,
+          })),
+        });
+      }
 
-    // Update mailing list email — remove stale entries with different emails first
-    if (primaryGuest) {
-      await tx.mailingListEntry.deleteMany({
-        where: {
-          guestId: primaryGuest.id,
-          email: { not: email },
-        },
-      });
+      // Update mailing list email — remove stale entries with different emails first
+      if (primaryGuest) {
+        await tx.mailingListEntry.deleteMany({
+          where: {
+            guestId: primaryGuest.id,
+            email: { not: email },
+          },
+        });
 
-      await tx.mailingListEntry.upsert({
-        where: {
-          guestId_email: { guestId: primaryGuest.id, email },
-        },
-        create: { guestId: primaryGuest.id, email },
-        update: {},
-      });
-    }
-  });
+        await tx.mailingListEntry.upsert({
+          where: {
+            guestId_email: { guestId: primaryGuest.id, email },
+          },
+          create: { guestId: primaryGuest.id, email },
+          update: {},
+        });
+      }
+    });
+  } catch (error) {
+    logger.error("rsvp.modify.transaction_failed", { requestId, householdId }, error);
+    Sentry.captureException(error, {
+      tags: { action: "modifyRsvp" },
+      extra: { requestId, householdId },
+    });
+    throw error;
+  }
 
   // Send modified email
   const locale = await getLocale();
@@ -465,8 +489,12 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
         modifyUrl,
       }),
     });
-  } catch {
-    console.error("Failed to send modification email");
+  } catch (error) {
+    logger.error("rsvp.modify.email_failed", { requestId, householdId }, error);
+    Sentry.captureException(error, {
+      tags: { action: "modifyRsvp", integration: "resend" },
+      extra: { requestId, householdId },
+    });
   }
 
   return { success: true };

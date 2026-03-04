@@ -105,7 +105,7 @@ export const weddingConfig = {
     {
       name: "Jakub Szaran",
       role: "Groomsman",
-      image: "",
+      image: "/images/bridal-party/cuba.JPG",
     },
     {
       name: "Julia Szaran",

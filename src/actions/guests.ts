@@ -1,8 +1,11 @@
 "use server";
 
+import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import * as Sentry from "@sentry/nextjs";
 import { prisma } from "@/lib/prisma";
+import { logger } from "@/lib/logger";
 
 // --- CSV Import ---
 
@@ -46,6 +49,7 @@ export type ImportResult = {
 };
 
 export async function importGuests(formData: FormData): Promise<ImportResult> {
+  const requestId = randomUUID();
   const file = formData.get("file") as File | null;
 
   if (!file || file.size === 0) {
@@ -122,31 +126,49 @@ export async function importGuests(formData: FormData): Promise<ImportResult> {
   let householdsCreated = 0;
   let guestsCreated = 0;
 
-  await prisma.$transaction(async (tx) => {
-    for (const [householdName, members] of householdMap) {
-      const maxPlusOnes = Math.max(...members.map((m) => m.max_plus_ones));
+  try {
+    await prisma.$transaction(async (tx) => {
+      for (const [householdName, members] of householdMap) {
+        const maxPlusOnes = Math.max(...members.map((m) => m.max_plus_ones));
 
-      const household = await tx.household.create({
-        data: {
-          name: householdName,
-          maxPlusOnes,
-          guests: {
-            create: members.map((m) => ({
-              firstName: m.first_name,
-              lastName: m.last_name,
-              isPrimary: m.is_primary,
-            })),
+        const household = await tx.household.create({
+          data: {
+            name: householdName,
+            maxPlusOnes,
+            guests: {
+              create: members.map((m) => ({
+                firstName: m.first_name,
+                lastName: m.last_name,
+                isPrimary: m.is_primary,
+              })),
+            },
           },
-        },
-      });
+        });
 
-      householdsCreated++;
-      guestsCreated += members.length;
+        householdsCreated++;
+        guestsCreated += members.length;
 
-      // Suppress unused variable warning
-      void household;
-    }
-  });
+        void household;
+      }
+    });
+  } catch (error) {
+    logger.error(
+      "guests.import.transaction_failed",
+      { requestId, householdsAttempted: householdMap.size, validRows: validRows.length },
+      error,
+    );
+    Sentry.captureException(error, {
+      tags: { action: "importGuests" },
+      extra: { requestId, householdsAttempted: householdMap.size, validRows: validRows.length },
+    });
+
+    return {
+      success: false,
+      householdsCreated,
+      guestsCreated,
+      errors: ["Unexpected error while importing guests. Please try again."],
+    };
+  }
 
   revalidatePath("/admin/guests");
 

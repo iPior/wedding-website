@@ -37,6 +37,7 @@
     "@prisma/adapter-pg": "^7.4.0",
     "@prisma/client": "^7.4.0",
     "@react-email/components": "^1.0.7",
+    "@sentry/nextjs": "^10.40.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.95.3",
     "class-variance-authority": "^0.7.1",

@@ -62,7 +62,7 @@ export default function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all paths except static files, _next, admin, and auth
-    "/((?!_next|admin|auth|api|favicon.ico|.*\\..*).*)",
+    // Match all paths except static files, _next, admin, auth, and Sentry tunnel route
+    "/((?!_next|admin|auth|api|monitoring|favicon.ico|.*\\..*).*)",
   ],
 };

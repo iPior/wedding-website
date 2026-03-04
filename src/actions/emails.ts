@@ -1,9 +1,12 @@
 "use server";
 
+import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import * as Sentry from "@sentry/nextjs";
 import { prisma } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
+import { logger } from "@/lib/logger";
 import { weddingConfig } from "../../wedding.config";
 import BroadcastEmail from "@/emails/broadcast";
 
@@ -19,6 +22,7 @@ export type BroadcastResult = {
 };
 
 export async function sendBroadcastEmail(formData: FormData): Promise<BroadcastResult> {
+  const requestId = randomUUID();
   const parsed = broadcastSchema.safeParse({
     subject: formData.get("subject"),
     body: formData.get("body"),
@@ -75,7 +79,15 @@ export async function sendBroadcastEmail(formData: FormData): Promise<BroadcastR
       );
       sentCount += batch.length;
     } catch (err) {
-      console.error("Batch send failed:", err);
+      logger.error(
+        "emails.broadcast.batch_failed",
+        { requestId, batchStart: i, sentCount, totalRecipients: emailList.length },
+        err,
+      );
+      Sentry.captureException(err, {
+        tags: { action: "sendBroadcastEmail", integration: "resend" },
+        extra: { requestId, batchStart: i, sentCount, totalRecipients: emailList.length },
+      });
       return {
         success: false,
         sentCount,

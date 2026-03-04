@@ -4,7 +4,7 @@
     "ourStory": "Nasza historia",
     "details": "Szczegóły",
     "faq": "Często zadawane pytania",
-    "party": "Druhny i Drużbowie ",
+    "party": "Świadkowie/Drużba",
     "rsvp": "Potwierdź Udział"
   },
   "Home": {
@@ -21,7 +21,7 @@
   },
   "Details": {
     "sectionNumber": "001",
-    "title": "Kiedy i Gdzie",
+    "title": "Kiedy & Gdzie",
     "subtitle": "Dołącz do nas {date}, aby świętować naszą miłość wraz z rodziną i przyjaciółmi.",
     "ceremony": "Ceremonia",
     "reception": "Przyjęcie",
@@ -44,23 +44,23 @@
       },
       "1": {
         "question": "O której godzinie należy przybyć?",
-        "answer": "Ceremonia rozpocznie się punktualnie o godz. 14:30. Sugerujemy przybycie 15 minut wcześniej. Koktajl rozpocznie się o godz. 18:00, a goście mogą przybyć w dowolnym momencie po tej godzinie."
+        "answer": "Slub kościelny rozpocznie się punktualnie o godz. 14:30. Sugerujemy przybycie 15 minut wcześniej. Koktajl w sali bankietowej rozpocznie się o godz. 18:00, zaproszeni goście mogą przybyć w dowolnym momencie po tej godzinie."
       },
       "2": {
         "question": "Co dzieje się między ceremonią a przyjęciem?",
-        "answer": "Drużyna ślubna wykorzysta 2,5 godziny na sesję zdjęciową i cieszenie się uczuciem „świeżo poślubionych”. Możecie wrócić do domu, aby się zrelaksować, odświeżyć i przygotować na wieczór pełen uroczystości."
+        "answer": "Panstwo młodzie i drużbowie pojadą na sesję zdjęciową. W tym czasie, zaproszeni goscie mogą wrócić do domu, aby się zrelaksować, odświeżyć i przygotować na wieczór pełen wrażeń (będzie się działo)."
       },
       "3": {
         "question": "Czy mogę przyprowadzić osobę towarzyszącą?",
-        "answer": "Osoby towarzyszące zostały wcześniej przypisane. Wskazany gość będzie wymieniony na zaproszeniu, a także pojawi się podczas potwierdzania udziału online."
+        "answer": "Zaproszeni osoby towarzyszące zostanie wyszczególnione w zaproszeniu."
       },
       "4": {
         "question": "Co zrobić, jeśli mam ograniczenia dietetyczne?",
-        "answer": "Podczas potwierdzania udziału można zaznaczyć wszelkie ograniczenia dietetyczne, a my zadbamy o to, aby zostały one uwzględnione."
+        "answer": "Podczas potwierdzania udziału, prosze zaznaczyć wszelkie ograniczenia dietetyczne, a my zadbamy o to, aby zostały one uwzględnione."
       },
       "5": {
         "question": "Jakie są wymagania dotyczące stroju?",
-        "answer": "Zapraszamy naszych gości do ubrania się tego dnia w stroje formalne."
+        "answer": "Zapraszamy naszych gości do przybycia w strojach formalnych/weselnych."
       },
       "6": {
         "question": "Czy jest parking?",
@@ -74,7 +74,7 @@
     "milestones": {
       "0": {
         "title": "Gdzie wszystko się zaczęło",
-        "description": "Na długo przed naszym spotkaniem zostaliśmy ochrzczeni podczas tej samej mszy, w tym samym kościele, w którym wkrótce weźmiemy ślub."
+        "description": "Na długo przed naszym spotkaniem zostaliśmy ochrzczeni podczas tej samej Mszy Świętej, w tym samym Kościele, w którym wkrótce weźmiemy ślub."
       },
       "1": {
         "title": "Noc, w której się poznaliśmy",
@@ -111,8 +111,8 @@
     "title": "Drużba i Drużbowie",
     "subtitle": "Osoby, które towarzyszyły nam przez cały czas i które mamy zaszczyt mieć u naszego boku w tym wielkim dniu",
     "roles": {
-      "Best Man": "Drużba",
-      "Maid of Honor": "Druhna",
+      "Best Man": "Swiadek",
+      "Maid of Honor": "Swiadkowa",
       "Groomsman": "Drużba",
       "Bridesmaid": "Druhna"
     }
@@ -138,8 +138,8 @@
   },
   "RsvpForm": {
     "updateSubtitle": "Zaktualizuj swoje potwierdzenie udziału poniżej",
-    "respondSubtitle": "Proszę odpowiedzieć za każdą osobę w swoim gospodarstwie domowym",
-    "yourEmail": "Twój adres e-mail",
+    "respondSubtitle": "Proszę potwierdz każdą osobę z rodziny",
+    "yourEmail": "Twój e-mail adres",
     "emailPlaceholder": "you@example.com",
     "emailHelp": "Wyślemy potwierdzenie z linkiem umożliwiającym zmianę potwierdzenia udziału.",
     "willYouAttend": "Czy weźmiesz udział?",
@@ -149,7 +149,7 @@
     "dietaryPlaceholder": "Alergie lub ograniczenia dietetyczne...",
     "primary": "Główny",
     "additionalGuests": "Dodatkowi goście",
-    "plusOneAllowance": "Możesz przyprowadzić do {count} dodatkowych gości{count, liczba mnoga, jeden {} inni {s}}.",
+    "plusOneAllowance": "Możesz przyprowadzić do {count} dodatkowych gości.",
     "addGuest": "+ Dodaj gościa",
     "guestNumber": "Gość {number}",
     "remove": "Usuń",
@@ -163,7 +163,7 @@
   "RsvpConfirmation": {
     "thankYou": "Dziękujemy",
     "submitted": "Twoja odpowiedź została przesłana. Otrzymasz wiadomość e-mail z potwierdzeniem i linkiem umożliwiającym zmianę odpowiedzi w razie potrzeby.",
-    "excited": "Cieszymy się, że będziemy mogli świętować razem z Tobą",
+    "excited": "Cieszymy się, że będziemy mogli świętować razem z wami",
     "backToSearch": "Powrót do wyszukiwania"
   },
   "ModifyRsvp": {
@@ -177,7 +177,7 @@
     "closedMessage": "Termin RSVP minął. Jeśli chcesz wprowadzić zmiany, skontaktuj się bezpośrednio z parą młodą."
   },
   "Password": {
-    "youreInvited": "Jesteś zaproszony",
+    "youreInvited": "Zapraszamy!",
     "enterPassword": "Wprowadź hasło z zaproszenia",
     "placeholder": "hasło",
     "enter": "Wprowadź"
