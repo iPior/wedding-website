@@ -1,7 +1,8 @@
 import { defineRouting } from "next-intl/routing";
+import { weddingConfig } from "../../wedding.config";
 
 export const routing = defineRouting({
-  locales: ["en", "pl"],
-  defaultLocale: "en",
+  locales: weddingConfig.locales,
+  defaultLocale: weddingConfig.defaultLocale,
   localePrefix: "as-needed",
 });

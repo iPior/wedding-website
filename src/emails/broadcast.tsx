@@ -10,6 +10,8 @@ import {
   Text,
 } from "@react-email/components";
 import { weddingConfig } from "../../wedding.config";
+import { getEmailMessages } from "@/emails/i18n";
+import { type AppLocale } from "@/lib/locale";
 
 const { person1, person2 } = weddingConfig.couple;
 
@@ -17,13 +19,16 @@ interface BroadcastEmailProps {
   subject: string;
   body: string;
   coupleName: string;
+  locale?: AppLocale;
 }
 
 export default function BroadcastEmail({
   subject = "Wedding Update",
   body = "We have an exciting update to share with you!",
   coupleName = `${person1.firstName} & ${person2.firstName}`,
+  locale = "en",
 }: BroadcastEmailProps) {
+  const m = getEmailMessages(locale).broadcast;
   const paragraphs = body.split(/\n\n+/).filter(Boolean);
 
   return (
@@ -45,7 +50,7 @@ export default function BroadcastEmail({
 
           {/* Content */}
           <Section style={content}>
-            <Text style={label}>WEDDING UPDATE</Text>
+            <Text style={label}>{m.label}</Text>
             <Heading style={mainHeading}>{subject}</Heading>
 
             {paragraphs.map((paragraph, i) => (
@@ -57,11 +62,11 @@ export default function BroadcastEmail({
             <Hr style={divider} />
 
             <Text style={closing}>
-              With love, {coupleName}
+              {m.closing(coupleName)}
             </Text>
 
             <Text style={unsubscribe}>
-              You are receiving this email because you RSVPed to our wedding.
+              {m.unsubscribe}
             </Text>
           </Section>
 

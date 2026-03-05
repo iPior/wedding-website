@@ -1,4 +1,6 @@
 export const weddingConfig = {
+  locales: ["en", "pl"],
+  defaultLocale: "en",
   couple: {
     person1: { firstName: "Natalie", lastName: "Sikora" },
     person2: { firstName: "Piotr", lastName: "Szaran" },
@@ -49,7 +51,8 @@ export const weddingConfig = {
       },
       {
         year: "October 2023",
-        image: "/images/our-story/2023.JPEG",
+        // image: "/images/our-story/2023.JPEG",
+        image: "",
       },
       {
         year: "January 2024",
@@ -75,7 +78,7 @@ export const weddingConfig = {
     {
       name: "Peter Lewy",
       role: "Groomsman",
-      image: "",
+      image: "/images/bridal-party/lewy.jpeg",
     },
     {
       name: "Lilianna Mikuljan",

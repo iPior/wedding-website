@@ -7,6 +7,7 @@ import * as Sentry from "@sentry/nextjs";
 import { prisma } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
 import { logger } from "@/lib/logger";
+import { normalizeLocale } from "@/lib/locale";
 import { weddingConfig } from "../../wedding.config";
 import BroadcastEmail from "@/emails/broadcast";
 
@@ -41,7 +42,15 @@ export async function sendBroadcastEmail(formData: FormData): Promise<BroadcastR
     select: {
       email: true,
       guest: {
-        select: { firstName: true, lastName: true },
+        select: {
+          firstName: true,
+          lastName: true,
+          household: {
+            select: {
+              preferredLocale: true,
+            },
+          },
+        },
       },
     },
   });
@@ -51,10 +60,12 @@ export async function sendBroadcastEmail(formData: FormData): Promise<BroadcastR
   }
 
   // Deduplicate by email address
-  const uniqueEmails = new Map<string, string>();
+  const uniqueEmails = new Map<string, { locale: "en" | "pl" }>();
   for (const sub of subscribers) {
     if (!uniqueEmails.has(sub.email)) {
-      uniqueEmails.set(sub.email, `${sub.guest.firstName} ${sub.guest.lastName}`);
+      uniqueEmails.set(sub.email, {
+        locale: normalizeLocale(sub.guest.household.preferredLocale),
+      });
     }
   }
 
@@ -70,11 +81,16 @@ export async function sendBroadcastEmail(formData: FormData): Promise<BroadcastR
 
     try {
       await resend.batch.send(
-        batch.map(([email]) => ({
+        batch.map(([email, recipient]) => ({
           from: process.env.EMAIL_FROM!,
           to: email,
           subject,
-          react: BroadcastEmail({ subject, body, coupleName }),
+          react: BroadcastEmail({
+            subject,
+            body,
+            coupleName,
+            locale: recipient.locale,
+          }),
         }))
       );
       sentCount += batch.length;
