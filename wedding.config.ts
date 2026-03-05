@@ -78,7 +78,7 @@ export const weddingConfig = {
     {
       name: "Peter Lewy",
       role: "Groomsman",
-      image: "",
+      image: "/images/bridal-party/lewy.jpeg",
     },
     {
       name: "Lilianna Mikuljan",
