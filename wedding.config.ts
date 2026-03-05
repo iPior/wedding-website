@@ -49,7 +49,8 @@ export const weddingConfig = {
       },
       {
         year: "October 2023",
-        image: "/images/our-story/2023.JPEG",
+        // image: "/images/our-story/2023.JPEG",
+        image: "",
       },
       {
         year: "January 2024",
