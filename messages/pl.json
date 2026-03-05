@@ -120,7 +120,8 @@
   "Rsvp": {
     "sectionNumber": "001",
     "title": "Potwierdź Udział",
-    "subtitle": "Bardzo chcielibyśmy świętować razem z Tobą. Wyszukaj swoje imię poniżej i daj nam znać, czy możesz przyjść."
+    "subtitle": "Bardzo chcielibyśmy świętować razem z Tobą. Wyszukaj swoje imię poniżej i daj nam znać, czy możesz przyjść.",
+    "issuesHelp": "[TODO: Jeśli coś nie działa z RSVP, napisz/zadzwoń do nas: ...]"
   },  
    "RsvpSearch": {
     "firstName": "Imię",
@@ -225,5 +226,8 @@
     "subtitle": "Wybierz preferowany język",
     "english": "English",
     "polish": "Polski"
+  },
+  "Venues": {
+    "ceremonyName": "[TODO: POLISH CHURCH NAME]"
   }
 }

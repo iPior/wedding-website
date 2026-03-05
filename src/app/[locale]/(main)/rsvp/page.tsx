@@ -20,6 +20,10 @@ export default async function RsvpPage() {
       <div className="h-px bg-[#f0e0e4] mb-10" />
 
       <RsvpFlow />
+
+      <p className="mt-10 text-xs uppercase tracking-[0.16em] w-2/3 mx-auto text-center text-[#8a7f7f]">
+        {t("issuesHelp")}
+      </p>
     </main>
   );
 }

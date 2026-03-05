@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { setLocale } from "@/actions/locale";
 import { weddingConfig } from "../../../../wedding.config";
@@ -9,6 +9,7 @@ const { person1, person2 } = weddingConfig.couple;
 
 export function Footer() {
   const locale = useLocale();
+  const tVenue = useTranslations("Venues");
   const pathname = usePathname();
   const router = useRouter();
 
@@ -17,6 +18,7 @@ export function Footer() {
     locale === "pl" ? "pl-PL" : "en-US",
     { year: "numeric", month: "long", day: "numeric" }
   );
+  const ceremonyName = tVenue("ceremonyName");
 
   async function handleSwitchLocale(newLocale: "en" | "pl") {
     if (newLocale === locale) return;
@@ -65,7 +67,7 @@ export function Footer() {
           {formattedDate}
         </span>
         <div className="flex flex-col gap-0.5 text-xs tracking-[0.1em] text-[#8a7f7f]/70">
-          <span>{weddingConfig.venue.ceremony.name}</span>
+          <span>{ceremonyName}</span>
           <span>{weddingConfig.venue.reception.name}</span>
         </div>
         <div className="w-16 h-px bg-[#8a7f7f]/30 my-2" />
@@ -76,7 +78,7 @@ export function Footer() {
       <div className="hidden md:grid max-w-7xl mx-auto px-12 py-12 grid-cols-3 items-center">
         {/* Left — venues */}
         <div className="flex flex-col gap-0.5 text-xs tracking-[0.1em] text-[#8a7f7f]/70">
-          <span>{weddingConfig.venue.ceremony.name}</span>
+          <span>{ceremonyName}</span>
           <span>{weddingConfig.venue.reception.name}</span>
         </div>
 
