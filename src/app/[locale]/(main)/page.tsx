@@ -8,6 +8,7 @@ const weddingDate = new Date(weddingConfig.date);
 
 export default async function HomePage() {
   const t = await getTranslations("Home");
+  const tVenue = await getTranslations("Venues");
   const locale = await getLocale();
 
   const formattedDate = weddingDate.toLocaleDateString(
@@ -19,6 +20,8 @@ export default async function HomePage() {
       year: "numeric",
     }
   );
+
+  const ceremonyName = tVenue("ceremonyName");
 
   return (
     <section className="flex min-h-[calc(100vh-15rem)] items-center justify-center px-6 text-center py-12 md:py-0">
@@ -55,7 +58,7 @@ export default async function HomePage() {
             {formattedDate}
           </p>
           <p className="mt-1 text-xs tracking-[0.2em] text-[#8a7f7f]/60 sm:text-md">
-            {weddingConfig.venue.ceremony.name}
+            {ceremonyName}
           </p>
         </div>
 

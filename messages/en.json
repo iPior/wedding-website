@@ -120,7 +120,8 @@
   "Rsvp": {
     "sectionNumber": "001",
     "title": "Kindly Respond",
-    "subtitle": "We would love to celebrate with you. Search for your name below to let us know if you can make it."
+    "subtitle": "We would love to celebrate with you. Search for your name below to let us know if you can make it.",
+    "issuesHelp": "If anything goes wrong with your RSVP, please text or call us and we will help right away."
   },
   "RsvpSearch": {
     "firstName": "First Name",
@@ -225,5 +226,8 @@
     "subtitle": "Choose your preferred language",
     "english": "English",
     "polish": "Polski"
+  },
+  "Venues": {
+    "ceremonyName": "St. Maximilian Kolbe Catholic Church"
   }
 }

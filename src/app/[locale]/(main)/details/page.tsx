@@ -77,6 +77,7 @@ function VenueCard({
 
 export default async function DetailsPage() {
   const t = await getTranslations("Details");
+  const tVenue = await getTranslations("Venues");
   const locale = await getLocale();
 
   const formattedDate = weddingDate.toLocaleDateString(
@@ -88,6 +89,8 @@ export default async function DetailsPage() {
       year: "numeric",
     }
   );
+
+  const ceremonyName = tVenue("ceremonyName");
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
@@ -109,7 +112,7 @@ export default async function DetailsPage() {
           <VenueCard
             label={t("ceremony")}
             time={weddingConfig.schedule[0].time}
-            name={weddingConfig.venue.ceremony.name}
+            name={ceremonyName}
             address={weddingConfig.venue.ceremony.address}
             embedSrc={CEREMONY_EMBED}
             screenshotSrc="/maps/ceremony-map.png"
