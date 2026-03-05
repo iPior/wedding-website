@@ -3,11 +3,12 @@
 import { randomUUID } from "crypto";
 import Fuse from "fuse.js";
 import { z } from "zod";
-import { getLocale } from "next-intl/server";
 import * as Sentry from "@sentry/nextjs";
 import { prisma } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
 import { logger } from "@/lib/logger";
+import { normalizeLocale, withLocalePath } from "@/lib/locale";
+import { getEmailMessages } from "@/emails/i18n";
 import { weddingConfig } from "../../wedding.config";
 import RsvpConfirmationEmail from "@/emails/rsvp-confirmation";
 import RsvpModifiedEmail from "@/emails/rsvp-modified";
@@ -161,6 +162,7 @@ const plusOneSchema = z.object({
 const submitRsvpSchema = z.object({
   householdId: z.string().uuid(),
   email: z.string().email(),
+  preferredLocale: z.string().optional(),
   guests: z.array(guestRsvpSchema).min(1),
   plusOnes: z.array(plusOneSchema).default([]),
 });
@@ -183,6 +185,9 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
   }
 
   const { householdId, email, guests, plusOnes } = parsed.data;
+  const preferredLocale = parsed.data.preferredLocale
+    ? normalizeLocale(parsed.data.preferredLocale)
+    : null;
 
   // Verify household exists and guests belong to it
   const household = await prisma.household.findUnique({
@@ -264,6 +269,13 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
       });
     }
 
+    if (preferredLocale) {
+      await tx.household.update({
+        where: { id: householdId },
+        data: { preferredLocale },
+      });
+    }
+
     return { alreadySubmitted: false } as const;
   });
   } catch (error) {
@@ -293,8 +305,10 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
   }
 
   // Send confirmation email
-  const locale = await getLocale();
-  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/rsvp/modify/${rsvpToken}`;
+  const locale = normalizeLocale(preferredLocale ?? household.preferredLocale ?? null);
+  const modifyPath = withLocalePath(locale, `/rsvp/modify/${rsvpToken}`);
+  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${modifyPath}`;
+  const emailMessages = getEmailMessages(locale).rsvpConfirmation;
   const attendingGuests = guests.filter((g) => g.attending === "YES");
   const guestDetails = guests.map((g) => {
     const fullGuest = household.guests.find((hg) => hg.id === g.id);
@@ -308,7 +322,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: email,
-      subject: "RSVP Confirmation",
+      subject: emailMessages.subject,
       react: RsvpConfirmationEmail({
         householdName: household.name,
         guests: guestDetails,
@@ -317,6 +331,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         })),
         modifyUrl,
         attendingCount: attendingGuests.length + plusOnes.length,
+        locale,
       }),
     });
   } catch (error) {
@@ -371,6 +386,9 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
   }
 
   const { token, householdId, email, guests, plusOnes } = parsed.data;
+  const preferredLocale = parsed.data.preferredLocale
+    ? normalizeLocale(parsed.data.preferredLocale)
+    : null;
 
   // Verify token
   const tokenGuest = await prisma.guest.findUnique({
@@ -454,6 +472,13 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
           update: {},
         });
       }
+
+      if (preferredLocale) {
+        await tx.household.update({
+          where: { id: householdId },
+          data: { preferredLocale },
+        });
+      }
     });
   } catch (error) {
     logger.error("rsvp.modify.transaction_failed", { requestId, householdId }, error);
@@ -465,8 +490,10 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
   }
 
   // Send modified email
-  const locale = await getLocale();
-  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/rsvp/modify/${newToken}`;
+  const locale = normalizeLocale(preferredLocale ?? household.preferredLocale ?? null);
+  const modifyPath = withLocalePath(locale, `/rsvp/modify/${newToken}`);
+  const modifyUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${modifyPath}`;
+  const emailMessages = getEmailMessages(locale).rsvpModified;
   const guestDetails = guests.map((g) => {
     const fullGuest = household.guests.find((hg) => hg.id === g.id);
     return {
@@ -479,7 +506,7 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: email,
-      subject: "RSVP Updated",
+      subject: emailMessages.subject,
       react: RsvpModifiedEmail({
         householdName: household.name,
         guests: guestDetails,
@@ -487,6 +514,7 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
           name: `${p.firstName} ${p.lastName}`,
         })),
         modifyUrl,
+        locale,
       }),
     });
   } catch (error) {

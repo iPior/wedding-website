@@ -1,4 +1,6 @@
 export const weddingConfig = {
+  locales: ["en", "pl"],
+  defaultLocale: "en",
   couple: {
     person1: { firstName: "Natalie", lastName: "Sikora" },
     person2: { firstName: "Piotr", lastName: "Szaran" },

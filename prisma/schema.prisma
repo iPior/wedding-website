@@ -16,6 +16,7 @@ model Household {
   id          String    @id @default(uuid())
   name        String
   maxPlusOnes Int       @map("max_plus_ones")
+  preferredLocale String? @map("preferred_locale")
   createdAt   DateTime  @default(now()) @map("created_at")
   guests      Guest[]
   plusOnes    PlusOne[]

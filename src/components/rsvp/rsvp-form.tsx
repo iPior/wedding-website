@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import {
   submitRsvp,
@@ -9,6 +9,7 @@ import {
   type SubmitRsvpInput,
   type RsvpResult,
 } from "@/actions/rsvp";
+import { normalizeLocale } from "@/lib/locale";
 
 type GuestFormData = {
   id: string;
@@ -35,6 +36,10 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
   const tSearch = useTranslations("RsvpSearch");
   const tErr = useTranslations("Errors");
   const primaryGuest = household.guests.find((g) => g.isPrimary);
+  const preferredLocale = useMemo(
+    () => normalizeLocale(typeof navigator === "undefined" ? null : navigator.language),
+    []
+  );
 
   const [email, setEmail] = useState(primaryGuest?.email ?? "");
   const [guests, setGuests] = useState<GuestFormData[]>(
@@ -109,6 +114,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     const input: SubmitRsvpInput = {
       householdId: household.householdId,
       email: email.trim(),
+      preferredLocale,
       guests: guests.map((g) => ({
         id: g.id,
         attending: g.attending as "YES" | "NO",

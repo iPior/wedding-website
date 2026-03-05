@@ -11,6 +11,8 @@ import {
   Text,
 } from "@react-email/components";
 import { weddingConfig } from "../../wedding.config";
+import { getEmailMessages } from "@/emails/i18n";
+import { type AppLocale } from "@/lib/locale";
 
 const { person1, person2 } = weddingConfig.couple;
 
@@ -29,6 +31,7 @@ interface RsvpConfirmationEmailProps {
   plusOnes: PlusOneDetail[];
   modifyUrl: string;
   attendingCount: number;
+  locale?: AppLocale;
 }
 
 export default function RsvpConfirmationEmail({
@@ -37,13 +40,16 @@ export default function RsvpConfirmationEmail({
   plusOnes = [],
   modifyUrl = "https://example.com/rsvp/modify/token",
   attendingCount = 0,
+  locale = "en",
 }: RsvpConfirmationEmailProps) {
+  const m = getEmailMessages(locale).rsvpConfirmation;
+
   return (
     <Html>
       <Head>
         <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap');`}</style>
       </Head>
-      <Preview>{`Your RSVP was received — ${attendingCount} attending`}</Preview>
+      <Preview>{m.preview(attendingCount)}</Preview>
       <Body style={body}>
         <Container style={wrapper}>
           {/* Monogram Header */}
@@ -57,17 +63,13 @@ export default function RsvpConfirmationEmail({
 
           {/* Content */}
           <Section style={content}>
-            <Text style={label}>RSVP CONFIRMATION</Text>
-            <Heading style={mainHeading}>Thank You</Heading>
-            <Text style={bodyText}>
-              Your response has been received for{" "}
-              <strong style={{ color: "#2c2424" }}>{householdName}</strong>.
-              Here is a summary of your RSVP.
-            </Text>
+            <Text style={label}>{m.label}</Text>
+            <Heading style={mainHeading}>{m.heading}</Heading>
+            <Text style={bodyText}>{m.intro(householdName)}</Text>
 
             {/* Guest Summary Card */}
             <Section style={card}>
-              <Text style={cardLabel}>GUESTS</Text>
+              <Text style={cardLabel}>{m.guestsLabel}</Text>
               <Hr style={cardDivider} />
               {guests.map((guest, i) => (
                 <Text key={i} style={guestRow}>
@@ -75,7 +77,9 @@ export default function RsvpConfirmationEmail({
                   <span
                     style={guest.attending ? statusAttending : statusDeclined}
                   >
-                    {guest.attending ? " — Attending" : " — Not Attending"}
+                    {guest.attending
+                      ? ` - ${m.attending}`
+                      : ` - ${m.notAttending}`}
                   </span>
                 </Text>
               ))}
@@ -83,7 +87,7 @@ export default function RsvpConfirmationEmail({
               {plusOnes.length > 0 && (
                 <>
                   <Text style={{ ...cardLabel, marginTop: "20px" }}>
-                    PLUS ONES
+                    {m.plusOnesLabel}
                   </Text>
                   <Hr style={cardDivider} />
                   {plusOnes.map((po, i) => (
@@ -98,19 +102,19 @@ export default function RsvpConfirmationEmail({
             <Hr style={divider} />
 
             <Text style={{ ...bodyText, textAlign: "center" as const }}>
-              Need to make changes?
+              {m.ctaHint}
             </Text>
 
             <Section
               style={{ textAlign: "center" as const, margin: "16px 0 0" }}
             >
               <Button href={modifyUrl} style={button}>
-                Modify Your RSVP
+                {m.cta}
               </Button>
             </Section>
 
             <Text style={closing}>
-              We are excited to celebrate with you!
+              {m.closing}
             </Text>
           </Section>
 
