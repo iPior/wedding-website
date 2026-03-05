@@ -2,15 +2,18 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { setLocale } from "@/actions/locale";
 import { weddingConfig } from "../../../../wedding.config";
 
 const { person1, person2 } = weddingConfig.couple;
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const locale = useLocale();
   const pathname = usePathname();
+  const router = useRouter();
   const t = useTranslations("Nav");
 
   const links = [
@@ -21,8 +24,23 @@ export function Nav() {
     { href: "/bridal-party", label: t("party") },
   ];
 
+  const mobileLinkTypography =
+    locale === "pl"
+      ? "text-[1.35rem] tracking-[0.16em] leading-[1.25]"
+      : "text-2xl tracking-[0.3em]";
+
+  const desktopLinkTypography =
+    locale === "pl" ? "text-[0.7rem] tracking-[0.2em]" : "text-xs tracking-[0.3em]";
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  async function handleSwitchLocale(newLocale: "en" | "pl") {
+    if (newLocale === locale) return;
+    await setLocale(newLocale);
+    setOpen(false);
+    router.replace(pathname, { locale: newLocale });
+  }
 
   return (
     <>
@@ -36,23 +54,23 @@ export function Nav() {
             onClick={() => setOpen(false)}
           >
             <span
-              className="md:hidden text-lg text-[#8a7f7f]"
+              className="lg:hidden text-lg text-[#8a7f7f]"
               style={{ fontFamily: "var(--font-playfair), serif", fontVariant: "normal" }}
             >
               {person1.firstName[0]}&amp;{person2.firstName[0]}
             </span>
-            <span className="hidden md:inline">
+            <span className="hidden lg:inline">
               {person1.firstName} & {person2.firstName}
             </span>
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-12">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`relative text-xs tracking-[0.3em] uppercase transition-colors duration-300 hover:text-[#2c2424] ${
+                className={`relative uppercase transition-colors duration-300 hover:text-[#2c2424] ${desktopLinkTypography} ${
                   isActive(l.href) ? "text-[#2c2424]" : "text-[#8a7f7f]"
                 }`}
               >
@@ -64,7 +82,7 @@ export function Nav() {
             ))}
             <Link
               href="/rsvp"
-              className="text-xs tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-5 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0]"
+              className={`uppercase text-[#fff8f8] bg-[#2c2424] px-5 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0] ${desktopLinkTypography}`}
             >
               {t("rsvp")}
             </Link>
@@ -73,7 +91,7 @@ export function Nav() {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden text-[#2c2424] z-50 relative"
+            className="lg:hidden text-[#2c2424] z-50 relative"
             aria-label="Toggle menu"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -83,7 +101,7 @@ export function Nav() {
 
       {/* Full-screen mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col bg-[#fff8f8] transition-transform duration-500 ease-in-out md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col bg-[#fff8f8] transition-transform duration-500 ease-in-out lg:hidden ${
           open ? "translate-y-0" : "-translate-y-full"
         }`}
       >
@@ -93,7 +111,7 @@ export function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className={`relative text-2xl tracking-[0.3em] uppercase transition-colors duration-300 hover:text-[#2c2424] ${
+              className={`relative max-w-[86vw] px-2 text-center whitespace-normal break-words uppercase transition-colors duration-300 hover:text-[#2c2424] ${mobileLinkTypography} ${
                 isActive(l.href) ? "text-[#2c2424]" : "text-[#8a7f7f]"
               }`}
               style={{
@@ -126,6 +144,39 @@ export function Nav() {
           >
             {t("rsvp")}
           </Link>
+          <div
+            className="mt-4 flex items-center gap-4"
+            style={{
+              transitionDelay: open ? `${(links.length + 1) * 60 + 150}ms` : "0ms",
+              transform: open ? "translateY(0)" : "translateY(-16px)",
+              opacity: open ? 1 : 0,
+              transition: open
+                ? `transform 0.45s ease ${(links.length + 1) * 60 + 150}ms, opacity 0.45s ease ${(links.length + 1) * 60 + 150}ms, color 0.3s`
+                : "transform 0s, opacity 0s",
+            }}
+          >
+            <button
+              onClick={() => handleSwitchLocale("en")}
+              className={`text-sm tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
+                locale === "en"
+                  ? "text-[#c4b5a5] font-semibold"
+                  : "text-[#8a7f7f]/50 hover:text-[#8a7f7f]"
+              }`}
+            >
+              EN
+            </button>
+            <span className="text-[#8a7f7f]/30 text-sm">|</span>
+            <button
+              onClick={() => handleSwitchLocale("pl")}
+              className={`text-sm tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
+                locale === "pl"
+                  ? "text-[#c4b5a5] font-semibold"
+                  : "text-[#8a7f7f]/50 hover:text-[#8a7f7f]"
+              }`}
+            >
+              PL
+            </button>
+          </div>
         </nav>
       </div>
 

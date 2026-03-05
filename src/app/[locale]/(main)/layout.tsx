@@ -1,7 +1,6 @@
 import { Playfair_Display, Lato } from "next/font/google";
 import { Nav } from "./_nav";
 import { PageTransition } from "./_page-transition";
-import { LanguageModal } from "@/components/language-modal";
 import { Footer } from "./_footer";
 import { weddingConfig } from "../../../../wedding.config";
 
@@ -89,7 +88,6 @@ export default function MainLayout({
       {/* Page content above watercolor layer */}
       <div className="relative z-10">
         <Nav />
-        <LanguageModal />
         <PageTransition>{children}</PageTransition>
 
         <Footer />

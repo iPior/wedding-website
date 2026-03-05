@@ -1,4 +1,5 @@
 import { PasswordForm } from "@/components/layout/password-form";
+import { LanguageModal } from "@/components/language-modal";
 import { weddingConfig } from "../../../../wedding.config";
 import { getTranslations } from "next-intl/server";
 
@@ -26,6 +27,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16"
       style={{ backgroundColor: "#fff8f8", fontFamily: "var(--font-lato), sans-serif" }}
     >
+      <LanguageModal />
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }
