@@ -19,10 +19,10 @@ export default function AdminDashboardError({
 
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-6 text-center">
-      <h1 className="text-3xl font-semibold text-[#2c2424]">Admin page failed to load</h1>
-      <p className="mt-3 text-sm text-[#6c5a5a]">Please retry. If it keeps failing, check Sentry for details.</p>
+      <h1 className="text-3xl font-semibold text-[var(--color-primary)]">Admin page failed to load</h1>
+      <p className="mt-3 text-sm text-[var(--color-foreground-muted)]">Please retry. If it keeps failing, check Sentry for details.</p>
       <button
-        className="mt-6 inline-flex rounded-md bg-[#2c2424] px-4 py-2 text-sm font-semibold text-white"
+        className="mt-6 inline-flex rounded-md bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-[var(--color-primary-foreground)]"
         onClick={() => reset()}
         type="button"
       >

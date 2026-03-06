@@ -13,9 +13,9 @@ export default async function FaqPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
-      <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("sectionNumber")}</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3">{t("sectionNumber")}</p>
       <h2
-        className="text-5xl text-[#2c2424] mb-8 border-b border-[#f0e0e4] pb-4"
+        className="text-5xl text-[var(--color-primary)] mb-8 border-b border-[var(--color-border)] pb-4"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {t("title")}
@@ -26,15 +26,15 @@ export default async function FaqPage() {
           <AccordionItem
             key={i}
             value={`faq-${i}`}
-            className="border-b border-[#f0e0e4]"
+            className="border-b border-[var(--color-border)]"
           >
             <AccordionTrigger
-              className="py-7 text-left text-lg text-[#2c2424] hover:no-underline"
+              className="py-7 text-left text-lg text-[var(--color-primary)] hover:no-underline"
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               {t(`items.${i}.question`)}
             </AccordionTrigger>
-            <AccordionContent className="pb-7 text-sm leading-relaxed text-[#5a4f4f]">
+            <AccordionContent className="pb-7 text-sm leading-relaxed text-[var(--color-foreground-soft)]">
               {t(`items.${i}.answer`)}
             </AccordionContent>
           </AccordionItem>

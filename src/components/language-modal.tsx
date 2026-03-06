@@ -31,28 +31,28 @@ export function LanguageModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-sm bg-[#fff8f8] border-[#f0e0e4] [&>button]:hidden">
+      <DialogContent className="max-w-sm bg-[var(--color-background)] border-[var(--color-border)] [&>button]:hidden">
         <DialogHeader className="text-center">
           <DialogTitle
-            className="text-3xl text-[#2c2424] text-center"
+            className="text-3xl text-[var(--color-primary)] text-center"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             {t("title")}
           </DialogTitle>
-          <DialogDescription className="text-sm text-[#8a7f7f] text-center">
+          <DialogDescription className="text-sm text-[var(--color-muted-foreground)] text-center">
             {t("subtitle")}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-3 mt-4">
           <button
             onClick={() => handleSelect("en")}
-            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-[#2c2424] bg-[#2c2424] text-white transition-colors hover:bg-[#d4a0b0] hover:border-[#d4a0b0]"
+            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)]"
           >
             {t("english")}
           </button>
           <button
             onClick={() => handleSelect("pl")}
-            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-[#c8b0b4] text-[#2c2424] transition-colors hover:bg-[#f0e0e4]"
+            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-[var(--color-input)] text-[var(--color-primary)] transition-colors hover:bg-[var(--color-border)]"
           >
             {t("polish")}
           </button>

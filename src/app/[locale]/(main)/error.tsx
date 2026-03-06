@@ -19,10 +19,10 @@ export default function MainError({
 
   return (
     <main className="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-6 text-center">
-      <h1 className="font-serif text-3xl text-[#2c2424]">We could not load this page</h1>
-      <p className="mt-3 text-sm text-[#6c5a5a]">Please refresh or try again in a moment.</p>
+      <h1 className="font-serif text-3xl text-[var(--color-primary)]">We could not load this page</h1>
+      <p className="mt-3 text-sm text-[var(--color-foreground-muted)]">Please refresh or try again in a moment.</p>
       <button
-        className="mt-6 inline-flex rounded-md bg-[#2c2424] px-4 py-2 text-sm font-semibold text-white"
+        className="mt-6 inline-flex rounded-md bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-[var(--color-primary-foreground)]"
         onClick={() => reset()}
         type="button"
       >

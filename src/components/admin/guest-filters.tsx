@@ -32,7 +32,7 @@ export function GuestFilters() {
           placeholder="Search by name..."
           defaultValue={currentSearch}
           onChange={(e) => updateParams("search", e.target.value)}
-          className="w-full border border-[#f0e0e4] bg-white/60 px-3 py-2 text-sm text-[#2c2424] outline-none transition-colors focus:border-[#d4a0b0] placeholder:text-[#8a7f7f]/40"
+          className="w-full border border-[var(--color-border)] bg-card/60 px-3 py-2 text-sm text-[var(--color-primary)] outline-none transition-colors focus:border-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]/40"
         />
       </div>
       <div className="flex gap-1">
@@ -42,8 +42,8 @@ export function GuestFilters() {
             onClick={() => updateParams("status", opt.value)}
             className={`px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors ${
               currentStatus === opt.value
-                ? "bg-[#2c2424] text-[#fff8f8]"
-                : "border border-[#f0e0e4] text-[#8a7f7f] hover:border-[#2c2424] hover:text-[#2c2424]"
+                ? "bg-[var(--color-primary)] text-[var(--color-background)]"
+                : "border border-[var(--color-border)] text-[var(--color-muted-foreground)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
             }`}
           >
             {opt.label}

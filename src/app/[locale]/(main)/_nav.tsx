@@ -49,12 +49,12 @@ export function Nav() {
           {/* Couple names */}
           <Link
             href="/"
-            className="text-sm tracking-[0.5em] uppercase text-[#2c2424]"
+            className="text-sm tracking-[0.5em] uppercase text-[var(--color-primary)]"
             style={{ fontVariant: "small-caps" }}
             onClick={() => setOpen(false)}
           >
             <span
-              className="lg:hidden text-lg text-[#8a7f7f]"
+              className="lg:hidden text-lg text-[var(--color-muted-foreground)]"
               style={{ fontFamily: "var(--font-playfair), serif", fontVariant: "normal" }}
             >
               {person1.firstName[0]}&amp;{person2.firstName[0]}
@@ -70,19 +70,19 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`relative uppercase transition-colors duration-300 hover:text-[#2c2424] ${desktopLinkTypography} ${
-                  isActive(l.href) ? "text-[#2c2424]" : "text-[#8a7f7f]"
+                className={`relative uppercase transition-colors duration-300 hover:text-[var(--color-primary)] ${desktopLinkTypography} ${
+                  isActive(l.href) ? "text-[var(--color-primary)]" : "text-[var(--color-muted-foreground)]"
                 }`}
               >
                 {l.label}
                 {isActive(l.href) && (
-                  <span className="absolute -bottom-1 left-0 right-[0.3em] h-px bg-[#d4a0b0]" />
+                  <span className="absolute -bottom-1 left-0 right-[0.3em] h-px bg-[var(--color-accent)]" />
                 )}
               </Link>
             ))}
             <Link
               href="/rsvp"
-              className={`uppercase text-[#fff8f8] bg-[#2c2424] px-5 py-2.5 transition-colors duration-300 hover:bg-[#d4a0b0] ${desktopLinkTypography}`}
+              className={`uppercase text-[var(--color-background)] bg-[var(--color-primary)] px-5 py-2.5 transition-colors duration-300 hover:bg-[var(--color-accent)] ${desktopLinkTypography}`}
             >
               {t("rsvp")}
             </Link>
@@ -91,7 +91,7 @@ export function Nav() {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden text-[#2c2424] z-50 relative"
+            className="lg:hidden text-[var(--color-primary)] z-50 relative"
             aria-label="Toggle menu"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -101,7 +101,7 @@ export function Nav() {
 
       {/* Full-screen mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col bg-[#fff8f8] transition-transform duration-500 ease-in-out lg:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col bg-[var(--color-background)] transition-transform duration-500 ease-in-out lg:hidden ${
           open ? "translate-y-0" : "-translate-y-full"
         }`}
       >
@@ -111,8 +111,8 @@ export function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className={`relative max-w-[86vw] px-2 text-center whitespace-normal break-words uppercase transition-colors duration-300 hover:text-[#2c2424] ${mobileLinkTypography} ${
-                isActive(l.href) ? "text-[#2c2424]" : "text-[#8a7f7f]"
+              className={`relative max-w-[86vw] px-2 text-center whitespace-normal break-words uppercase transition-colors duration-300 hover:text-[var(--color-primary)] ${mobileLinkTypography} ${
+                isActive(l.href) ? "text-[var(--color-primary)]" : "text-[var(--color-muted-foreground)]"
               }`}
               style={{
                 transitionDelay: open ? `${i * 60 + 150}ms` : "0ms",
@@ -125,14 +125,14 @@ export function Nav() {
             >
               {l.label}
               {isActive(l.href) && (
-                <span className="block mt-1 mr-[0.3em] h-[1.5px] bg-[#d4a0b0]" />
+                <span className="block mt-1 mr-[0.3em] h-[1.5px] bg-[var(--color-accent)]" />
               )}
             </Link>
           ))}
           <Link
             href="/rsvp"
             onClick={() => setOpen(false)}
-            className="mt-4 text-sm tracking-[0.3em] uppercase text-[#fff8f8] bg-[#2c2424] px-12 py-4 transition-colors duration-300 hover:bg-[#d4a0b0]"
+            className="mt-4 text-sm tracking-[0.3em] uppercase text-[var(--color-background)] bg-[var(--color-primary)] px-12 py-4 transition-colors duration-300 hover:bg-[var(--color-accent)]"
             style={{
               transitionDelay: open ? `${links.length * 60 + 150}ms` : "0ms",
               transform: open ? "translateY(0)" : "translateY(-16px)",
@@ -159,19 +159,19 @@ export function Nav() {
               onClick={() => handleSwitchLocale("en")}
               className={`text-sm tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
                 locale === "en"
-                  ? "text-[#c4b5a5] font-semibold"
-                  : "text-[#8a7f7f]/50 hover:text-[#8a7f7f]"
+                  ? "text-[var(--color-nav-highlight)] font-semibold"
+                  : "text-[var(--color-muted-foreground)]/50 hover:text-[var(--color-muted-foreground)]"
               }`}
             >
               EN
             </button>
-            <span className="text-[#8a7f7f]/30 text-sm">|</span>
+            <span className="text-[var(--color-muted-foreground)]/30 text-sm">|</span>
             <button
               onClick={() => handleSwitchLocale("pl")}
               className={`text-sm tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
                 locale === "pl"
-                  ? "text-[#c4b5a5] font-semibold"
-                  : "text-[#8a7f7f]/50 hover:text-[#8a7f7f]"
+                  ? "text-[var(--color-nav-highlight)] font-semibold"
+                  : "text-[var(--color-muted-foreground)]/50 hover:text-[var(--color-muted-foreground)]"
               }`}
             >
               PL

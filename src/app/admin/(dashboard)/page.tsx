@@ -58,9 +58,9 @@ export default async function AdminDashboardPage() {
   return (
     <main className="space-y-10">
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#8a7f7f]">Overview</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted-foreground)]">Overview</p>
         <h1
-          className="mt-1 text-2xl tracking-wide text-[#2c2424]"
+          className="mt-1 text-2xl tracking-wide text-[var(--color-primary)]"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           Dashboard
@@ -72,13 +72,13 @@ export default async function AdminDashboardPage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="border border-[#f0e0e4] bg-white/60 p-4"
+            className="border border-[var(--color-border)] bg-card/60 p-4"
           >
-            <p className="text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)]">
               {stat.label}
             </p>
             <p
-              className="mt-2 text-2xl text-[#2c2424]"
+              className="mt-2 text-2xl text-[var(--color-primary)]"
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               {stat.value}
@@ -88,19 +88,19 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Divider */}
-      <div className="h-px bg-[#f0e0e4]" />
+      <div className="h-px bg-[var(--color-border)]" />
 
       {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="border border-[#f0e0e4] bg-white/60 p-5">
-          <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+        <div className="border border-[var(--color-border)] bg-card/60 p-5">
+          <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)]">
             Attendance Breakdown
           </p>
           <AttendanceChart data={attendanceData} />
         </div>
 
-        <div className="border border-[#f0e0e4] bg-white/60 p-5">
-          <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+        <div className="border border-[var(--color-border)] bg-card/60 p-5">
+          <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)]">
             RSVPs Over Time
           </p>
           <RsvpTimeline data={timelineData} />

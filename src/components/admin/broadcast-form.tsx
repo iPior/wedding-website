@@ -20,11 +20,11 @@ export function BroadcastForm({ subscriberCount }: { subscriberCount: number }) 
 
   return (
     <div className="space-y-5">
-      <p className="text-xs uppercase tracking-[0.3em] text-[#8a7f7f]">Compose Broadcast</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted-foreground)]">Compose Broadcast</p>
 
       <form ref={formRef} action={handleSubmit} className="space-y-5">
         <div>
-          <label htmlFor="subject" className="block text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+          <label htmlFor="subject" className="block text-[10px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)]">
             Subject
           </label>
           <input
@@ -32,12 +32,12 @@ export function BroadcastForm({ subscriberCount }: { subscriberCount: number }) 
             name="subject"
             placeholder="Wedding Update"
             required
-            className="mt-2 w-full border border-[#f0e0e4] bg-white/60 px-3 py-2 text-sm text-[#2c2424] outline-none transition-colors focus:border-[#d4a0b0] placeholder:text-[#8a7f7f]/40"
+            className="mt-2 w-full border border-[var(--color-border)] bg-card/60 px-3 py-2 text-sm text-[var(--color-primary)] outline-none transition-colors focus:border-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]/40"
           />
         </div>
 
         <div>
-          <label htmlFor="body" className="block text-[10px] uppercase tracking-[0.25em] text-[#8a7f7f]">
+          <label htmlFor="body" className="block text-[10px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)]">
             Message
           </label>
           <textarea
@@ -46,9 +46,9 @@ export function BroadcastForm({ subscriberCount }: { subscriberCount: number }) 
             placeholder="Write your message here..."
             rows={8}
             required
-            className="mt-2 w-full border border-[#f0e0e4] bg-white/60 px-3 py-2 text-sm text-[#2c2424] outline-none transition-colors focus:border-[#d4a0b0] placeholder:text-[#8a7f7f]/40 resize-none"
+            className="mt-2 w-full border border-[var(--color-border)] bg-card/60 px-3 py-2 text-sm text-[var(--color-primary)] outline-none transition-colors focus:border-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]/40 resize-none"
           />
-          <p className="mt-1 text-[10px] uppercase tracking-[0.15em] text-[#8a7f7f]/60">
+          <p className="mt-1 text-[10px] uppercase tracking-[0.15em] text-[var(--color-muted-foreground)]/60">
             Use blank lines to separate paragraphs.
           </p>
         </div>
@@ -56,7 +56,7 @@ export function BroadcastForm({ subscriberCount }: { subscriberCount: number }) 
         <button
           type="submit"
           disabled={loading || subscriberCount === 0}
-          className="bg-[#2c2424] px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-[#fff8f8] transition-colors hover:bg-[#d4a0b0] disabled:opacity-40"
+          className="bg-[var(--color-primary)] px-6 py-3 text-[11px] uppercase tracking-[0.25em] text-[var(--color-background)] transition-colors hover:bg-[var(--color-accent)] disabled:opacity-40"
         >
           {loading ? "Sending..." : `Send to ${subscriberCount} Subscriber(s)`}
         </button>
@@ -66,8 +66,8 @@ export function BroadcastForm({ subscriberCount }: { subscriberCount: number }) 
         <div
           className={`border p-3 text-xs uppercase tracking-[0.15em] ${
             result.success
-              ? "border-[#d4a0b0]/40 bg-[#d4a0b0]/10 text-[#2c2424]"
-              : "border-red-200 bg-red-50 text-red-700"
+              ? "border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 text-[var(--color-primary)]"
+              : "border-destructive/30 bg-destructive/10 text-destructive"
           }`}
         >
           {result.success ? (

@@ -35,23 +35,23 @@ function VenueCard({
   openInMapsText: string;
 }) {
   return (
-    <div className="sm:border sm:border-[#f0e0e4] sm:bg-[#fff8f8] sm:p-8">
+    <div className="sm:border sm:border-[var(--color-border)] sm:bg-[var(--color-background)] sm:p-8">
         {/* Label + time */}
         <div className="flex items-baseline justify-between mb-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#d4a0b0]">{label}</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">{label}</p>
           {time && (
-            <p className="text-xs tracking-[0.15em] text-[#8a7f7f]">{time}</p>
+            <p className="text-xs tracking-[0.15em] text-[var(--color-muted-foreground)]">{time}</p>
           )}
         </div>
 
         {/* Venue name + address */}
         <h3
-          className="text-2xl text-[#2c2424] mb-2"
+          className="text-2xl text-[var(--color-primary)] mb-2"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {name}
         </h3>
-        <p className="text-sm leading-relaxed text-[#8a7f7f] mb-6">{address}</p>
+        <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)] mb-6">{address}</p>
 
         {/* Map — static screenshot, click to load interactive */}
         <LazyMap
@@ -64,7 +64,7 @@ function VenueCard({
           href={directionsHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 inline-flex items-center gap-1.5 text-xs tracking-[0.15em] text-[#8a7f7f] transition-colors hover:text-[#2c2424]"
+          className="mt-3 inline-flex items-center gap-1.5 text-xs tracking-[0.15em] text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-primary)]"
         >
           {openInMapsText}
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -97,14 +97,14 @@ export default async function DetailsPage() {
 
       {/* ───────── 001 — When & Where ───────── */}
       <section className="mb-14">
-        <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("sectionNumber")}</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3">{t("sectionNumber")}</p>
         <h2
-          className="text-5xl text-[#2c2424] mb-4"
+          className="text-5xl text-[var(--color-primary)] mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {t("title")}
         </h2>
-        <p className="text-base leading-relaxed text-[#5a4f4f] mb-14 md:mb-10">
+        <p className="text-base leading-relaxed text-[var(--color-foreground-soft)] mb-14 md:mb-10">
           {t("subtitle", { date: formattedDate })}
         </p>
 
@@ -134,13 +134,13 @@ export default async function DetailsPage() {
         </div>
       </section>
 
-      <div className="h-px bg-[#f0e0e4] mb-14" />
+      <div className="h-px bg-[var(--color-border)] mb-14" />
 
       {/* ───────── 002 — Schedule ───────── */}
       <section>
-        <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("scheduleNumber")}</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3">{t("scheduleNumber")}</p>
         <h2
-          className="text-5xl text-[#2c2424] mb-10"
+          className="text-5xl text-[var(--color-primary)] mb-10"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {t("scheduleTitle")}
@@ -149,15 +149,15 @@ export default async function DetailsPage() {
           {weddingConfig.schedule.map((item, i) => (
             <div
               key={i}
-              className="flex items-baseline justify-between border-b border-[#f0e0e4] py-5 last:border-b-0"
+              className="flex items-baseline justify-between border-b border-[var(--color-border)] py-5 last:border-b-0"
             >
               <span
-                className="text-lg text-[#2c2424]"
+                className="text-lg text-[var(--color-primary)]"
                 style={{ fontFamily: "var(--font-playfair), serif" }}
               >
                 {t(`schedule.${i}`)}
               </span>
-              <span className="text-xs tracking-[0.2em] text-[#8a7f7f]">
+              <span className="text-xs tracking-[0.2em] text-[var(--color-muted-foreground)]">
                 {item.time}
               </span>
             </div>

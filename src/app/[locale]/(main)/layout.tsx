@@ -30,7 +30,7 @@ export default function MainLayout({
 }) {
   return (
     <div
-      className={`${playfair.variable} ${lato.variable} min-h-screen bg-[#fff8f8] text-[#2c2424]`}
+      className={`${playfair.variable} ${lato.variable} min-h-screen bg-[var(--color-background)] text-[var(--color-primary)]`}
       style={{ fontFamily: "var(--font-lato), sans-serif" }}
     >
       <style>{`
@@ -60,7 +60,7 @@ export default function MainLayout({
             top: "-10%",
             right: "-10%",
             background:
-              "radial-gradient(ellipse at center, rgba(255,218,233,0.4), rgba(247,224,232,0.2), transparent)",
+              "var(--gradient-glow-rose)",
           }}
         />
         {/* Bottom-left blob */}
@@ -70,7 +70,7 @@ export default function MainLayout({
             bottom: "-10%",
             left: "-10%",
             background:
-              "radial-gradient(ellipse at center, rgba(210,217,139,0.2), rgba(255,255,227,0.3), transparent)",
+              "var(--gradient-glow-olive)",
           }}
         />
         {/* Center-left blob */}
@@ -80,7 +80,7 @@ export default function MainLayout({
             top: "40%",
             left: "10%",
             background:
-              "radial-gradient(ellipse at center, rgba(247,224,232,0.15), rgba(255,255,227,0.2))",
+              "var(--gradient-glow-soft)",
           }}
         />
       </div>
