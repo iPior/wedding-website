@@ -72,7 +72,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
 
         {/* Eyebrow */}
         <p
-          className="text-xs font-light uppercase tracking-[0.4em] text-[var(--color-muted-foreground)]"
+          className="text-xs font-light uppercase tracking-[0.4em] text-muted-foreground"
           style={{ animation: "fadeInUp 0.8s ease forwards", opacity: 0 }}
         >
           {t("youreInvited")}
@@ -80,7 +80,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
 
         {/* Names */}
         <h1
-          className="mt-6 text-5xl uppercase leading-[1.1] tracking-[0.25em] text-[var(--color-primary)]"
+          className="mt-6 text-5xl uppercase leading-[1.1] tracking-[0.25em] text-primary"
           style={{
             fontFamily: "var(--font-playfair), serif",
             animation: "fadeInUp 0.9s ease forwards",
@@ -89,14 +89,14 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
           }}
         >
           {person1.firstName}
-          <span className="block text-[0.5em] tracking-[0.5em] text-[var(--color-accent)]">&</span>
+          <span className="block text-[0.5em] tracking-[0.5em] text-accent">&</span>
           {person2.firstName}
         </h1>
 
         {/* Divider */}
         <div className="mx-auto mt-8 overflow-hidden">
           <div
-            className="mx-auto h-[2px] bg-[var(--color-accent)]"
+            className="mx-auto h-[2px] bg-accent"
             style={{
               animation: "grow 0.7s ease forwards",
               animationDelay: "0.6s",
@@ -108,7 +108,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
 
         {/* Instruction */}
         <p
-          className="mt-8 text-xs font-light uppercase tracking-[0.3em] text-[var(--color-muted-foreground)]"
+          className="mt-8 text-xs font-light uppercase tracking-[0.3em] text-muted-foreground"
           style={{
             animation: "fadeInUp 0.8s ease forwards",
             animationDelay: "0.8s",

@@ -50,14 +50,14 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
     <main className="space-y-10">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-muted-foreground)]">Manage</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Manage</p>
           <h1
-            className="mt-1 text-2xl tracking-wide text-[var(--color-primary)]"
+            className="mt-1 text-2xl tracking-wide text-primary"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             Guests
           </h1>
-          <p className="mt-1 text-xs uppercase tracking-[0.15em] text-[var(--color-muted-foreground)]/70">
+          <p className="mt-1 text-xs uppercase tracking-[0.15em] text-muted-foreground/70">
             {households.length} household(s) · {totalGuests} guest(s)
             {(search || status) && " · filtered"}
           </p>
@@ -67,14 +67,14 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
 
       {/* CSV Import */}
       <div className="space-y-2">
-        <p className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)]">Import from CSV</p>
-        <p className="text-[10px] tracking-wide text-[var(--color-muted-foreground)]/60">
+        <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Import from CSV</p>
+        <p className="text-[10px] tracking-wide text-muted-foreground/60">
           Expected columns: household_name, first_name, last_name, is_primary, max_plus_ones
         </p>
         <CsvUpload />
       </div>
 
-      <div className="h-px bg-[var(--color-border)]" />
+      <div className="h-px bg-border" />
 
       <AddGuestForm />
 
@@ -83,39 +83,39 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
       </Suspense>
 
       {households.length > 0 && (
-        <div className="border border-[var(--color-border)] bg-card/60">
+        <div className="border border-border bg-card/60">
           <Table>
             <TableHeader>
-              <TableRow className="border-b border-[var(--color-border)] hover:bg-transparent">
-                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-foreground)] font-normal">Household</TableHead>
-                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-foreground)] font-normal">Name</TableHead>
-                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-foreground)] font-normal">Email</TableHead>
-                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-foreground)] font-normal">Primary</TableHead>
-                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-foreground)] font-normal">RSVP</TableHead>
-                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-foreground)] font-normal">Dietary</TableHead>
+              <TableRow className="border-b border-border hover:bg-transparent">
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Household</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Name</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Email</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Primary</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">RSVP</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Dietary</TableHead>
                 <TableHead className="w-[80px]" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {households.flatMap((household) =>
                 household.guests.map((guest, guestIdx) => (
-                  <TableRow key={guest.id} className="border-b border-[var(--color-border)] hover:bg-[var(--color-background)]">
+                  <TableRow key={guest.id} className="border-b border-border hover:bg-background">
                     <TableCell className="text-sm">
                       {guestIdx === 0 ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-[var(--color-primary)]">{household.name}</span>
-                          <span className="text-xs text-[var(--color-muted-foreground)]/60">(+{household.maxPlusOnes})</span>
+                          <span className="text-primary">{household.name}</span>
+                          <span className="text-xs text-muted-foreground/60">(+{household.maxPlusOnes})</span>
                           <DeleteHouseholdButton householdId={household.id} />
                         </div>
                       ) : null}
                     </TableCell>
-                    <TableCell className="text-sm text-[var(--color-primary)]">
+                    <TableCell className="text-sm text-primary">
                       {guest.firstName} {guest.lastName}
                     </TableCell>
-                    <TableCell className="text-sm text-[var(--color-muted-foreground)]">
+                    <TableCell className="text-sm text-muted-foreground">
                       {guest.email ?? "—"}
                     </TableCell>
-                    <TableCell className="text-sm text-[var(--color-muted-foreground)]">
+                    <TableCell className="text-sm text-muted-foreground">
                       {guest.isPrimary ? "Yes" : "—"}
                     </TableCell>
                     <TableCell>
@@ -133,7 +133,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
                         {guest.attending ?? "PENDING"}
                       </span>
                     </TableCell>
-                    <TableCell className="text-sm text-[var(--color-muted-foreground)]">
+                    <TableCell className="text-sm text-muted-foreground">
                       {guest.dietaryRestrictions ?? "—"}
                     </TableCell>
                     <TableCell>
@@ -148,7 +148,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
       )}
 
       {households.length === 0 && (
-        <p className="py-12 text-center text-xs uppercase tracking-[0.2em] text-[var(--color-muted-foreground)]">
+        <p className="py-12 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
           {search || status
             ? "No guests match your filters."
             : "No guests yet. Import a CSV or add guests manually."}

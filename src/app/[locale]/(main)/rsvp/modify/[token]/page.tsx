@@ -15,12 +15,12 @@ export default async function ModifyRsvpPage({ params }: Props) {
     return (
       <main className="mx-auto max-w-lg px-6 py-16 text-center">
         <h1
-          className="text-3xl text-[var(--color-primary)] mb-4"
+          className="text-3xl text-primary mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {t("invalidTitle")}
         </h1>
-        <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           {t("invalidMessage")}
         </p>
       </main>
@@ -31,12 +31,12 @@ export default async function ModifyRsvpPage({ params }: Props) {
     return (
       <main className="mx-auto max-w-lg px-6 py-16 text-center">
         <h1
-          className="text-3xl text-[var(--color-primary)] mb-4"
+          className="text-3xl text-primary mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {t("closedTitle")}
         </h1>
-        <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           {t("closedMessage")}
         </p>
       </main>

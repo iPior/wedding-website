@@ -30,7 +30,7 @@ export default function MainLayout({
 }) {
   return (
     <div
-      className={`${playfair.variable} ${lato.variable} min-h-screen bg-[var(--color-background)] text-[var(--color-primary)]`}
+      className={`${playfair.variable} ${lato.variable} min-h-screen bg-background text-primary`}
       style={{ fontFamily: "var(--font-lato), sans-serif" }}
     >
       <style>{`

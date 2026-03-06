@@ -11,7 +11,7 @@ export function AddGuestForm() {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="border border-[var(--color-accent)] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+        className="border border-accent px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:border-primary hover:text-primary"
       >
         + Add Guest
       </button>
@@ -29,8 +29,8 @@ export function AddGuestForm() {
   }
 
   return (
-    <form action={handleSubmit} className="border border-[var(--color-border)] bg-card/60 p-5 space-y-4">
-      <p className="text-[10px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)]">Add Guest</p>
+    <form action={handleSubmit} className="border border-border bg-card/60 p-5 space-y-4">
+      <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Add Guest</p>
       <div className="grid grid-cols-2 gap-4">
         {[
           { id: "householdName", label: "Household Name", placeholder: "The Smith Family", required: true },
@@ -40,7 +40,7 @@ export function AddGuestForm() {
           { id: "email", label: "Email (optional)", type: "email" },
         ].map((field) => (
           <div key={field.id}>
-            <label htmlFor={field.id} className="block text-[10px] uppercase tracking-[0.2em] text-[var(--color-muted-foreground)]">
+            <label htmlFor={field.id} className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
               {field.label}
             </label>
             <input
@@ -51,14 +51,14 @@ export function AddGuestForm() {
               placeholder={field.placeholder}
               defaultValue={field.defaultValue}
               min={field.type === "number" ? "0" : undefined}
-              className="mt-1.5 w-full border border-[var(--color-border)] bg-[var(--color-background)] px-3 py-2 text-sm text-[var(--color-primary)] outline-none transition-colors focus:border-[var(--color-accent)] placeholder:text-[var(--color-muted-foreground)]/40"
+              className="mt-1.5 w-full border border-border bg-background px-3 py-2 text-sm text-primary outline-none transition-colors focus:border-accent placeholder:text-muted-foreground/40"
             />
           </div>
         ))}
 
         <div className="flex items-end pb-2">
-          <label className="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-[var(--color-muted-foreground)] cursor-pointer">
-            <input type="checkbox" name="isPrimary" value="true" className="accent-[var(--color-accent)]" />
+          <label className="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-muted-foreground cursor-pointer">
+            <input type="checkbox" name="isPrimary" value="true" className="accent-accent" />
             Primary contact
           </label>
         </div>
@@ -71,14 +71,14 @@ export function AddGuestForm() {
       <div className="flex gap-3">
         <button
           type="submit"
-          className="bg-[var(--color-primary)] px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-[var(--color-background)] transition-colors hover:bg-[var(--color-accent)]"
+          className="bg-primary px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-background transition-colors hover:bg-accent"
         >
           Add
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-primary)]"
+          className="px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-primary"
         >
           Cancel
         </button>

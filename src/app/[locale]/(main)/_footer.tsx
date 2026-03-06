@@ -32,19 +32,19 @@ export function Footer() {
         onClick={() => handleSwitchLocale("en")}
         className={`text-xs tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
           locale === "en"
-            ? "text-[var(--color-nav-highlight)]"
-            : "text-[var(--color-muted-foreground)]/50 hover:text-[var(--color-muted-foreground)]"
+            ? "text-nav-highlight"
+            : "text-muted-foreground/50 hover:text-muted-foreground"
         }`}
       >
         EN
       </button>
-      <span className="text-[var(--color-muted-foreground)]/30 text-xs">|</span>
+      <span className="text-muted-foreground/30 text-xs">|</span>
       <button
         onClick={() => handleSwitchLocale("pl")}
         className={`text-xs tracking-[0.3em] uppercase transition-colors duration-300 cursor-pointer ${
           locale === "pl"
-            ? "text-[var(--color-nav-highlight)]"
-            : "text-[var(--color-muted-foreground)]/50 hover:text-[var(--color-muted-foreground)]"
+            ? "text-nav-highlight"
+            : "text-muted-foreground/50 hover:text-muted-foreground"
         }`}
       >
         PL
@@ -53,31 +53,31 @@ export function Footer() {
   );
 
   return (
-    <footer className="bg-[var(--color-primary)] mt-24">
+    <footer className="bg-primary mt-24">
       {/* Mobile: centered stack */}
       <div className="md:hidden max-w-7xl mx-auto px-6 py-12 flex flex-col items-center gap-4 text-center">
         <span
-          className="text-2xl text-[var(--color-nav-highlight)]"
+          className="text-2xl text-nav-highlight"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {person1.firstName.charAt(0)}&nbsp;&&nbsp;
           {person2.firstName.charAt(0)}
         </span>
-        <span className="text-sm tracking-[0.15em] uppercase text-[var(--color-muted-foreground)]">
+        <span className="text-sm tracking-[0.15em] uppercase text-muted-foreground">
           {formattedDate}
         </span>
-        <div className="flex flex-col gap-0.5 text-xs tracking-[0.1em] text-[var(--color-muted-foreground)]/70">
+        <div className="flex flex-col gap-0.5 text-xs tracking-[0.1em] text-muted-foreground/70">
           <span>{ceremonyName}</span>
           <span>{weddingConfig.venue.reception.name}</span>
         </div>
-        <div className="w-16 h-px bg-[var(--color-muted-foreground)]/30 my-2" />
+        <div className="w-16 h-px bg-muted-foreground/30 my-2" />
         {languageToggle}
       </div>
 
       {/* Desktop: three-column spread */}
       <div className="hidden md:grid max-w-7xl mx-auto px-12 py-12 grid-cols-3 items-center">
         {/* Left — venues */}
-        <div className="flex flex-col gap-0.5 text-xs tracking-[0.1em] text-[var(--color-muted-foreground)]/70">
+        <div className="flex flex-col gap-0.5 text-xs tracking-[0.1em] text-muted-foreground/70">
           <span>{ceremonyName}</span>
           <span>{weddingConfig.venue.reception.name}</span>
         </div>
@@ -85,13 +85,13 @@ export function Footer() {
         {/* Center — monogram + date */}
         <div className="flex flex-col items-center gap-2 text-center">
           <span
-            className="text-2xl text-[var(--color-nav-highlight)]"
+            className="text-2xl text-nav-highlight"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             {person1.firstName.charAt(0)}&nbsp;&&nbsp;
             {person2.firstName.charAt(0)}
           </span>
-          <span className="text-sm tracking-[0.15em] uppercase text-[var(--color-muted-foreground)]">
+          <span className="text-sm tracking-[0.15em] uppercase text-muted-foreground">
             {formattedDate}
           </span>
         </div>

@@ -7,21 +7,21 @@ export default async function BridalPartyPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
-      <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3">{t("sectionNumber")}</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
       <h2
-        className="text-5xl text-[var(--color-primary)] mb-4"
+        className="text-5xl text-primary mb-4"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {t("title")}
       </h2>
-      <p className="text-base leading-relaxed text-[var(--color-foreground-soft)] mb-12">
+      <p className="text-base leading-relaxed text-foreground-soft mb-12">
         {t("subtitle")}
       </p>
 
       <div className="grid grid-cols-2 gap-8">
         {weddingConfig.bridalParty.map((member) => (
           <div key={member.name}>
-            <div className="aspect-[3/4] overflow-hidden rounded-sm bg-gradient-to-br from-[var(--color-gradient-rose-light)] to-[var(--color-gradient-rose)] mb-3">
+            <div className="aspect-[3/4] overflow-hidden rounded-sm bg-gradient-to-br from-gradient-rose-light to-gradient-rose mb-3">
               {member.image ? (
                 <Image
                   src={member.image}
@@ -33,12 +33,12 @@ export default async function BridalPartyPage() {
               ) : null}
             </div>
             <h3
-              className="text-lg text-[var(--color-primary)] mb-1"
+              className="text-lg text-primary mb-1"
               style={{ fontFamily: "var(--font-playfair), serif" }}
             >
               {member.name}
             </h3>
-            <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-muted-foreground)] mb-1">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">
               {t(`roles.${member.role}`)}
             </p>
           </div>

@@ -11,7 +11,7 @@ export function DeleteGuestButton({ guestId }: { guestId: string }) {
   return (
     <button
       onClick={handleDelete}
-      className="text-[10px] uppercase tracking-[0.15em] text-[var(--color-muted-foreground)]/50 transition-colors hover:text-destructive"
+      className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50 transition-colors hover:text-destructive"
     >
       Delete
     </button>
@@ -27,7 +27,7 @@ export function DeleteHouseholdButton({ householdId }: { householdId: string }) 
   return (
     <button
       onClick={handleDelete}
-      className="text-[10px] uppercase tracking-[0.15em] text-[var(--color-muted-foreground)]/50 transition-colors hover:text-destructive whitespace-nowrap"
+      className="text-[10px] uppercase tracking-[0.15em] text-muted-foreground/50 transition-colors hover:text-destructive whitespace-nowrap"
     >
       Delete
     </button>

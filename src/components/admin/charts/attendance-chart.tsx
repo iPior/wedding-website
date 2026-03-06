@@ -11,7 +11,7 @@ type Props = {
 export function AttendanceChart({ data }: Props) {
   if (data.every((d) => d.value === 0)) {
     return (
-      <p className="py-8 text-center text-xs uppercase tracking-[0.2em] text-[var(--color-muted-foreground)]">
+      <p className="py-8 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
         No RSVP data yet.
       </p>
     );

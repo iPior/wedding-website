@@ -36,7 +36,7 @@ export function RsvpFlow() {
       <div className="space-y-6">
         <button
           onClick={handleBack}
-          className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-primary)]"
+          className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-primary"
         >
           <span aria-hidden="true">&larr;</span>
           {tConf("backToSearch")}
@@ -49,20 +49,20 @@ export function RsvpFlow() {
   if (step === "confirmed") {
     return (
       <div className="py-8 text-center">
-        <p className="text-[var(--color-accent)] text-3xl mb-6" style={{ fontFamily: "var(--font-playfair), serif" }}>
+        <p className="text-accent text-3xl mb-6" style={{ fontFamily: "var(--font-playfair), serif" }}>
           &amp;
         </p>
         <h2
-          className="text-4xl text-[var(--color-primary)] mb-4"
+          className="text-4xl text-primary mb-4"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {tConf("thankYou")}
         </h2>
-        <div className="mx-auto my-6 h-px w-16 bg-[var(--color-border)]" />
-        <p className="text-sm leading-relaxed text-[var(--color-foreground-soft)] max-w-md mx-auto">
+        <div className="mx-auto my-6 h-px w-16 bg-border" />
+        <p className="text-sm leading-relaxed text-foreground-soft max-w-md mx-auto">
           {tConf("submitted")}
         </p>
-        <p className="mt-4 text-xs uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+        <p className="mt-4 text-xs uppercase tracking-[0.22em] text-muted-foreground">
           {tConf("excited")}
         </p>
       </div>

@@ -87,9 +87,9 @@ export default async function OurStoryPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
-      <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3">{t("sectionNumber")}</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
       <h1
-        className="text-5xl text-[var(--color-primary)] mb-8 md:mb-16"
+        className="text-5xl text-primary mb-8 md:mb-16"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {t("title")}
@@ -115,7 +115,7 @@ export default async function OurStoryPage() {
           return (
             <div key={i} className="relative mb-20">
               {/* Spine dot */}
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2  translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-[var(--color-accent)] bg-[var(--color-background)] z-10" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2  translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-accent bg-background z-10" />
 
               <div
                 className={`flex flex-col md:flex-row md:items-start gap-6 ${
@@ -129,18 +129,18 @@ export default async function OurStoryPage() {
                   }`}
                 >
                   <p
-                    className="text-3xl text-[var(--color-accent)]/60 mb-1"
+                    className="text-3xl text-accent/60 mb-1"
                     style={{ fontFamily: "var(--font-playfair), serif" }}
                   >
                     {m.year}
                   </p>
                   <h2
-                    className="text-2xl text-[var(--color-primary)] mb-2"
+                    className="text-2xl text-primary mb-2"
                     style={{ fontFamily: "var(--font-playfair), serif" }}
                   >
                     {t(`milestones.${i}.title`)}
                   </h2>
-                  <p className="text-sm text-[var(--color-muted-foreground)]">{t(`milestones.${i}.description`)}</p>
+                  <p className="text-sm text-muted-foreground">{t(`milestones.${i}.description`)}</p>
                 </div>
 
                 {/* Photo side — only rendered when an image is set */}

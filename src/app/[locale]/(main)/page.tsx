@@ -28,7 +28,7 @@ export default async function HomePage() {
       <div className="w-full max-w-2xl space-y-12">
         {/* Tagline */}
         <p
-          className="text-xs font-light uppercase tracking-[0.4em] text-[var(--color-muted-foreground)] sm:text-md"
+          className="text-xs font-light uppercase tracking-[0.4em] text-muted-foreground sm:text-md"
           style={{ animation: "fadeInUp 1s ease forwards", animationDelay: "0.2s", opacity: 0 }}
         >
           {t("tagline")}
@@ -36,28 +36,28 @@ export default async function HomePage() {
 
         {/* Names */}
         <h1
-          className="text-center text-5xl uppercase leading-[1.1] tracking-[0.3em] text-[var(--color-primary)] sm:text-7xl lg:text-[6rem]"
+          className="text-center text-5xl uppercase leading-[1.1] tracking-[0.3em] text-primary sm:text-7xl lg:text-[6rem]"
           style={{ fontFamily: "var(--font-playfair), serif", animation: "fadeInUp 1.2s ease forwards", animationDelay: "0.5s", opacity: 0 }}
         >
           {person1.firstName}
-          <span className="block text-[0.5em] tracking-[0.5em] text-[var(--color-accent)]">&</span>
+          <span className="block text-[0.5em] tracking-[0.5em] text-accent">&</span>
           {person2.firstName}
         </h1>
 
         {/* Pink grow divider */}
         <div className="mx-auto overflow-hidden">
           <div
-            className="mx-auto h-[2px] bg-[var(--color-accent)]"
+            className="mx-auto h-[2px] bg-accent"
             style={{ animation: "grow 0.8s ease forwards", animationDelay: "1.2s", width: 0, maxWidth: "6rem" }}
           />
         </div>
 
         {/* Date + venue */}
         <div style={{ animation: "fadeInUp 1s ease forwards", animationDelay: "1.5s", opacity: 0 }}>
-          <p className="text-sm font-light uppercase tracking-[0.3em] text-[var(--color-muted-foreground)] sm:text-lg">
+          <p className="text-sm font-light uppercase tracking-[0.3em] text-muted-foreground sm:text-lg">
             {formattedDate}
           </p>
-          <p className="mt-1 text-xs tracking-[0.2em] text-[var(--color-muted-foreground)]/60 sm:text-md">
+          <p className="mt-1 text-xs tracking-[0.2em] text-muted-foreground/60 sm:text-md">
             {ceremonyName}
           </p>
         </div>
@@ -65,7 +65,7 @@ export default async function HomePage() {
         {/* Thin separator */}
         <div className="mx-auto overflow-hidden">
           <div
-            className="mx-auto h-px bg-[var(--color-border)]"
+            className="mx-auto h-px bg-border"
             style={{ animation: "grow 0.8s ease forwards", animationDelay: "1.8s", width: 0, maxWidth: "3rem" }}
           />
         </div>
@@ -73,7 +73,7 @@ export default async function HomePage() {
         {/* Countdown */}
         <div style={{ animation: "fadeInUp 1s ease forwards", animationDelay: "2s", opacity: 0 }}>
           <p
-            className="mb-5 text-sm uppercase tracking-[0.35em] text-[var(--color-accent)]"
+            className="mb-5 text-sm uppercase tracking-[0.35em] text-accent"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             {t("countingDown")}
@@ -85,7 +85,7 @@ export default async function HomePage() {
         <div style={{ animation: "fadeInUp 1s ease forwards", animationDelay: "2.2s", opacity: 0 }}>
           <Link
             href="/rsvp"
-            className="inline-block bg-[var(--color-primary)] px-12 py-4 text-[11px] uppercase tracking-[0.3em] text-[var(--color-background)] transition-all duration-300 hover:bg-[var(--color-accent)]"
+            className="inline-block bg-primary px-12 py-4 text-[11px] uppercase tracking-[0.3em] text-background transition-all duration-300 hover:bg-accent"
           >
             {t("rsvpNow")}
           </Link>

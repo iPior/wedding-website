@@ -17,20 +17,20 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className="border-b border-[var(--color-border)] bg-[var(--color-background)]">
+    <nav className="border-b border-border bg-background">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-8">
           {/* Monogram */}
           <Link
             href="/admin"
-            className="text-base text-[var(--color-muted-foreground)]"
+            className="text-base text-muted-foreground"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             {person1.firstName[0]}&nbsp;&amp;&nbsp;{person2.firstName[0]}
           </Link>
 
           {/* Divider */}
-          <span className="h-4 w-px bg-[var(--color-border)]" />
+          <span className="h-4 w-px bg-border" />
 
           {/* Nav links */}
           <div className="flex items-center gap-6">
@@ -45,7 +45,7 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
               >
                 {link.label}
                 {pathname === link.href && (
-                  <span className="absolute -bottom-[17px] left-0 right-0 h-px bg-[var(--color-accent)]" />
+                  <span className="absolute -bottom-[17px] left-0 right-0 h-px bg-accent" />
                 )}
               </Link>
             ))}
@@ -53,13 +53,13 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="hidden text-[11px] uppercase tracking-[0.15em] text-[var(--color-muted-foreground)]/60 sm:block">
+          <span className="hidden text-[11px] uppercase tracking-[0.15em] text-muted-foreground/60 sm:block">
             {userEmail}
           </span>
           <form action={logout}>
             <button
               type="submit"
-              className="text-xs uppercase tracking-[0.25em] text-[var(--color-muted-foreground)] transition-colors duration-200 hover:text-[var(--color-primary)]"
+              className="text-xs uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-200 hover:text-primary"
             >
               Logout
             </button>

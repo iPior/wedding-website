@@ -9,7 +9,7 @@ type Props = {
 export function RsvpTimeline({ data }: Props) {
   if (data.length === 0) {
     return (
-      <p className="py-8 text-center text-xs uppercase tracking-[0.2em] text-[var(--color-muted-foreground)]">
+      <p className="py-8 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
         No RSVPs submitted yet.
       </p>
     );

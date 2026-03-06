@@ -150,12 +150,12 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       {/* Header */}
       <div>
         <h2
-          className="text-3xl text-[var(--color-primary)]"
+          className="text-3xl text-primary"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
           {household.householdName}
         </h2>
-        <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+        <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
           {modifyToken ? t("updateSubtitle") : t("respondSubtitle")}
         </p>
       </div>
@@ -164,7 +164,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       <div className="space-y-2">
         <label
           htmlFor="email"
-          className="block text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]"
+          className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
         >
           {t("yourEmail")}
         </label>
@@ -175,37 +175,37 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t("emailPlaceholder")}
           required
-          className="w-full border border-[var(--color-input)] bg-card px-3 py-2.5 text-sm text-[var(--color-primary)] placeholder:text-[var(--color-muted-foreground)]/45 focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-colors"
+          className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
         />
-        <p className="text-xs text-[var(--color-muted-foreground)]">
+        <p className="text-xs text-muted-foreground">
           {t("emailHelp")}
         </p>
       </div>
 
-      <div className="h-px bg-[var(--color-border)]" />
+      <div className="h-px bg-border" />
 
       {/* Guests */}
       <div className="space-y-8">
         {guests.map((guest, index) => (
           <div key={guest.id}>
-            {index > 0 && <div className="h-px bg-[var(--color-border)] mb-8" />}
+            {index > 0 && <div className="h-px bg-border mb-8" />}
             <div className="space-y-5">
               <div className="flex items-baseline gap-3">
                 <h3
-                  className="text-xl text-[var(--color-primary)]"
+                  className="text-xl text-primary"
                   style={{ fontFamily: "var(--font-playfair), serif" }}
                 >
                   {guest.firstName} {guest.lastName}
                 </h3>
                 {household.guests[index]?.isPrimary && (
-                  <span className="text-[0.6rem] uppercase tracking-[0.15em] text-[var(--color-accent)]">
+                  <span className="text-[0.6rem] uppercase tracking-[0.15em] text-accent">
                     {t("primary")}
                   </span>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+                <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                   {t("willYouAttend")}
                 </label>
                 <div className="flex gap-3">
@@ -214,8 +214,8 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     onClick={() => updateGuest(index, "attending", "YES")}
                     className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "YES"
-                        ? "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border-[var(--color-primary)]"
-                        : "bg-[var(--color-accent)] text-[var(--color-primary-foreground)] border-[var(--color-accent)] hover:bg-[var(--color-accent-hover)]"
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-accent text-primary-foreground border-accent hover:bg-accent-hover"
                     }`}
                   >
                     {t("joyfullyAccepts")}
@@ -225,8 +225,8 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     onClick={() => updateGuest(index, "attending", "NO")}
                     className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "NO"
-                        ? "bg-[var(--color-destructive)] text-[var(--color-primary-foreground)] border-[var(--color-destructive)]"
-                        : "bg-[var(--color-destructive-soft)] text-[var(--color-primary-foreground)] border-[var(--color-destructive-soft)] hover:bg-[var(--color-destructive-hover)]"
+                        ? "bg-destructive text-primary-foreground border-destructive"
+                        : "bg-destructive-soft text-primary-foreground border-destructive-soft hover:bg-destructive-hover"
                     }`}
                   >
                     {t("regretfullyDeclines")}
@@ -236,7 +236,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
 
               {guest.attending === "YES" && (
                 <div className="space-y-2">
-                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                     {t("dietaryRestrictions")}
                   </label>
                   <textarea
@@ -244,7 +244,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     onChange={(e) => updateGuest(index, "dietaryRestrictions", e.target.value)}
                     placeholder={t("dietaryPlaceholder")}
                     rows={2}
-                    className="w-full border border-[var(--color-input)] bg-card px-3 py-2.5 text-sm text-[var(--color-primary)] placeholder:text-[var(--color-muted-foreground)]/45 focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-colors resize-none"
+                    className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors resize-none"
                   />
                 </div>
               )}
@@ -256,17 +256,17 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       {/* Plus-Ones */}
       {household.maxPlusOnes > 0 && (
         <>
-          <div className="h-px bg-[var(--color-border)]" />
+          <div className="h-px bg-border" />
           <div className="space-y-6">
             <div className="flex items-baseline justify-between">
               <div>
                 <h3
-                  className="text-xl text-[var(--color-primary)]"
+                  className="text-xl text-primary"
                   style={{ fontFamily: "var(--font-playfair), serif" }}
                 >
                   {t("additionalGuests")}
                 </h3>
-                <p className="mt-1 text-xs text-[var(--color-muted-foreground)]">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {t("plusOneAllowance", { count: household.maxPlusOnes })}
                 </p>
               </div>
@@ -274,7 +274,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                 <button
                   type="button"
                   onClick={addPlusOne}
-                  className="bg-[var(--color-border)] border border-[var(--color-border)] px-4 py-2 text-[0.65rem] uppercase tracking-[0.15em] text-[var(--color-foreground-soft)] transition-colors hover:bg-[var(--color-surface-hover)]"
+                  className="bg-border border border-border px-4 py-2 text-[0.65rem] uppercase tracking-[0.15em] text-foreground-soft transition-colors hover:bg-surface-hover"
                 >
                   {t("addGuest")}
                 </button>
@@ -282,15 +282,15 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
             </div>
 
             {plusOnes.map((po, index) => (
-              <div key={index} className="space-y-4 border-l-2 border-[var(--color-border)] pl-5">
+              <div key={index} className="space-y-4 border-l-2 border-border pl-5">
                 <div className="flex items-baseline justify-between">
-                  <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+                  <p className="text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                     {t("guestNumber", { number: index + 1 })}
                   </p>
                   <button
                     type="button"
                     onClick={() => removePlusOne(index)}
-                    className="text-[0.62rem] uppercase tracking-[0.15em] text-[var(--color-accent)] hover:text-[var(--color-primary)] transition-colors"
+                    className="text-[0.62rem] uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors"
                   >
                     {t("remove")}
                   </button>
@@ -298,31 +298,31 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                       {tSearch("firstName")}
                     </label>
                     <input
                       value={po.firstName}
                       onChange={(e) => updatePlusOne(index, "firstName", e.target.value)}
                       required
-                      className="w-full border border-[var(--color-input)] bg-card px-3 py-2.5 text-sm text-[var(--color-primary)] placeholder:text-[var(--color-muted-foreground)]/45 focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-colors"
+                      className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                       {tSearch("lastName")}
                     </label>
                     <input
                       value={po.lastName}
                       onChange={(e) => updatePlusOne(index, "lastName", e.target.value)}
                       required
-                      className="w-full border border-[var(--color-input)] bg-card px-3 py-2.5 text-sm text-[var(--color-primary)] placeholder:text-[var(--color-muted-foreground)]/45 focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-colors"
+                      className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[var(--color-muted-foreground)]">
+                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                     {t("dietaryRestrictions")}
                   </label>
                   <textarea
@@ -330,7 +330,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     onChange={(e) => updatePlusOne(index, "dietaryRestrictions", e.target.value)}
                     placeholder={t("dietaryPlaceholder")}
                     rows={2}
-                    className="w-full border border-[var(--color-input)] bg-card px-3 py-2.5 text-sm text-[var(--color-primary)] placeholder:text-[var(--color-muted-foreground)]/45 focus:border-[var(--color-accent)] focus:outline-none focus:ring-0 transition-colors resize-none"
+                    className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors resize-none"
                   />
                 </div>
               </div>
@@ -340,7 +340,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       )}
 
       {error && (
-        <div className="border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 text-sm text-[var(--color-foreground-soft)]">
+        <div className="border border-border bg-surface px-5 py-4 text-sm text-foreground-soft">
           {error}
         </div>
       )}
@@ -348,7 +348,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-[var(--color-primary)] py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-[var(--color-primary-foreground)] transition-colors hover:bg-[var(--color-accent)] disabled:opacity-50"
+        className="w-full bg-primary py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-primary-foreground transition-colors hover:bg-accent disabled:opacity-50"
       >
         {loading
           ? t("submitting")
