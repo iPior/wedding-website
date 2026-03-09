@@ -1,10 +1,10 @@
 {
   "Nav": {
     "home": "Strona główna",
-    "ourStory": "Nasza historia",
+    "ourStory": "Nasza Historia",
     "details": "Szczegóły",
-    "faq": "Często zadawane pytania",
-    "party": "Świadkowie/Drużba",
+    "faq": "Najczęściej zadawane pytania",
+    "party": "Orszak Weselny",
     "rsvp": "Potwierdź Udział"
   },
   "Home": {
@@ -22,12 +22,12 @@
   "Details": {
     "sectionNumber": "001",
     "title": "Kiedy & Gdzie",
-    "subtitle": "Dołącz do nas {date}, aby świętować naszą miłość wraz z rodziną i przyjaciółmi.",
+    "subtitle": "Dołącz do nas {date} by świętować naszą miłość wraz z nami, rodziną i przyjaciółmi.",
     "ceremony": "Ceremonia",
     "reception": "Przyjęcie",
     "openInMaps": "Otwórz w Mapach",
     "scheduleNumber": "002",
-    "scheduleTitle": "Harmonogram",
+    "scheduleTitle": "Plan dnia",
     "schedule": {
       "0": "Ceremonia",
       "1": "Koktajl",
@@ -36,35 +36,35 @@
   },
   "FAQ": {
     "sectionNumber": "001",
-    "title": "Często zadawane pytania",
+    "title": "Najczęściej zadawane pytania",
     "items": {
       "0": {
-        "question": "Jaki jest termin potwierdzenia udziału?",
-        "answer": "Uprzejmie prosimy gości o potwierdzenie udziału najpóźniej do 1 czerwca 2026 r."
+        "question": "Do kiedy muszę potwierdzić swój udział?",
+        "answer": "Uprzejmie prosimy gości o potwierdzenie udziału w przyjęciu najpóźniej do 1 czerwca 2026 r."
       },
       "1": {
         "question": "O której godzinie należy przybyć?",
-        "answer": "Slub kościelny rozpocznie się punktualnie o godz. 14:30. Sugerujemy przybycie 15 minut wcześniej. Koktajl w sali bankietowej rozpocznie się o godz. 18:00, zaproszeni goście mogą przybyć w dowolnym momencie po tej godzinie."
+        "answer": "Ślub w kościele rozpocznie się punktualnie o godz. 14:30, dlatego proponujemy przyjechać 15 minut wcześniej. Przekąski przed przyjęciem będą podawane o godz. 18:00, zaproszeni goście mogą przybyć w dowolnym momencie po tej godzinie."
       },
       "2": {
-        "question": "Co dzieje się między ceremonią a przyjęciem?",
-        "answer": "Panstwo młodzie i drużbowie pojadą na sesję zdjęciową. W tym czasie, zaproszeni goscie mogą wrócić do domu, aby się zrelaksować, odświeżyć i przygotować na wieczór pełen wrażeń (będzie się działo)."
+        "question": "Co się będzie działo między ślubem a przyjęciem?",
+        "answer": "Państwo młodzi i orszak weselny pojadą na sesję zdjęciową. W tym czasie, zaproszeni goście mogą wrócić do domu, aby trochę odpocząć, odświeżyć się i przygotować na wieczór pełen wrażeń (będzie się działo)."
       },
       "3": {
         "question": "Czy mogę przyprowadzić osobę towarzyszącą?",
-        "answer": "Zaproszeni osoby towarzyszące zostanie wyszczególnione w zaproszeniu."
+        "answer": "Zaproszone osoby towarzyszące będą uwzględnione na zaproszeniu."
       },
       "4": {
         "question": "Co zrobić, jeśli mam ograniczenia dietetyczne?",
-        "answer": "Podczas potwierdzania udziału, prosze zaznaczyć wszelkie ograniczenia dietetyczne, a my zadbamy o to, aby zostały one uwzględnione."
+        "answer": "Potwierdzając przybycie na wesele zaznacz wszelkie ograniczenia dietetyczne, a my zadbamy o to, aby zostały one uwzględnione."
       },
       "5": {
         "question": "Jakie są wymagania dotyczące stroju?",
-        "answer": "Zapraszamy naszych gości do przybycia w strojach formalnych/weselnych."
+        "answer": "Prosimy, aby goście przybyli w strojach eleganckich, formalnych."
       },
       "6": {
         "question": "Czy jest parking?",
-        "answer": "Tak. Zarówno podczas ceremonii, jak i przyjęcia dostępny jest bezpłatny parking."
+        "answer": "Zarówno przy kościele, jak i sali weselnej jest bezpłatny parking."
       }
     }
   },
@@ -73,32 +73,32 @@
     "title": "Nasza Historia",
     "milestones": {
       "0": {
-        "title": "Gdzie wszystko się zaczęło",
-        "description": "Na długo przed naszym spotkaniem zostaliśmy ochrzczeni podczas tej samej Mszy Świętej, w tym samym Kościele, w którym wkrótce weźmiemy ślub."
+        "title": "Gdzie to się wszystko zaczęło",
+        "description": "Na długo przed naszym spotkaniem zostaliśmy ochrzczeni podczas tej samej Mszy Świętej, w tym samym kościele, w którym wkrótce weźmiemy ślub."
       },
       "1": {
-        "title": "Noc, w której się poznaliśmy",
-        "description": "Poznaliśmy się na imprezie u wspólnego znajomego. Wymieniliśmy kilka słów i nie przywiązywaliśmy do tego żadnej wagi."
+        "title": "Pierwsze spotkanie",
+        "description": "Poznaliśmy się na imprezie u wspólnego znajomego. Zamieniliśmy kilka słów i na tym się skończyło."
       },
       "2": {
-        "title": "Nasza pierwsza randka",
-        "description": "Na pierwszą randkę poszliśmy do baru i od razu się dogadaliśmy. To, co miało być zwykłym wieczorem, zamieniło się w wiele godzin swobodnej rozmowy."
+        "title": "Pierwsza randka",
+        "description": "Na pierwszą randkę poszliśmy do baru i od razu coś między nami zaiskrzyło. Niby zwykłe spotkanie, a przerodziło się w wielogodzinną swobodną rozmowę."
       },
       "3": {
         "title": "Początek czegoś wyjątkowego",
         "description": "Tydzień po naszej pierwszej randce Natalie wyjeżdża do Nowej Zelandii, aby ukończyć studia magisterskie. Coraz częściej piszemy do siebie SMS-y."
       },
       "4": {
-        "title": "Oficjalnie stajemy się parą",
-        "description": "Po kilku miesiącach wysyłania SMS-ów i rozmów przez FaceTime zdajemy sobie sprawę, że to coś więcej niż zwykła znajomość. Oficjalnie staliśmy się parą."
+        "title": "Zostajemy oficjalną parą",
+        "description": "Po kilku miesiącach wysyłania SMS-ów i rozmów przez FaceTime zdajemy sobie sprawę, że to, co nas łączy, to więcej niż zwykła znajomość. Oficjalnie zostajemy parą."
       },
       "5": {
-        "title": "Piotr podróżuje przez pół świata, aby odwiedzić Natalie",
-        "description": "Nie zadowalając się już rozmowami przez FaceTime, Piotr podróżuje przez pół świata, aby odwiedzić Natalie w Nowej Zelandii. Spędzamy razem czas i ponownie się zakochujemy."
+        "title": "Piotr leci na drugi koniec świata, aby odwiedzić Natalie",
+        "description": "Rozmowy przez FaceTime już nie wystarczają, więc Piotr leci na drugi koniec świata, aby odwiedzić Natalie w Nowej Zelandii. Spędzamy razem czas i ponownie się w sobie zakochujemy."
       },
       "6": {
         "title": "Koniec związku na odległość",
-        "description": "Natalie w końcu kończy studia magisterskie i wraca do Kanady."
+        "description": "Natalie ostatecznie kończy studia magisterskie i wraca do Kanady."
       },
       "7": {
         "title": "Oświadczyny",
@@ -108,12 +108,12 @@
   },
   "BridalParty": {
     "sectionNumber": "001",
-    "title": "Drużba i Drużbowie",
-    "subtitle": "Osoby, które towarzyszyły nam przez cały czas i które mamy zaszczyt mieć u naszego boku w tym wielkim dniu",
+    "title": "Orszak Weselny",
+    "subtitle": "Osoby, które towarzyszyły nam przez cały czas i które mamy zaszczyt mieć u naszego boku w tym ważnym dniu.",
     "roles": {
-      "Best Man": "Swiadek",
-      "Maid of Honor": "Swiadkowa",
-      "Groomsman": "Drużba",
+      "Best Man": "Świadek",
+      "Maid of Honor": "Świadkowa",
+      "Groomsman": "Drużbant",
       "Bridesmaid": "Druhna"
     }
   },
