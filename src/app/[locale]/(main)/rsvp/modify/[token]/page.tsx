@@ -13,33 +13,39 @@ export default async function ModifyRsvpPage({ params }: Props) {
 
   if (!data) {
     return (
-      <main className="mx-auto max-w-lg px-6 py-16 text-center">
-        <h1
-          className="text-3xl text-primary mb-4"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
-        >
-          {t("invalidTitle")}
-        </h1>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {t("invalidMessage")}
-        </p>
-      </main>
+      <section className="flex min-h-[calc(100vh-15rem)] items-center justify-center px-6 py-16 text-center">
+        <div className="w-full max-w-md space-y-6">
+          <h1
+            className="text-3xl text-primary"
+            style={{ fontFamily: "var(--font-playfair), serif" }}
+          >
+            {t("invalidTitle")}
+          </h1>
+          <div className="mx-auto h-px w-16 bg-border" />
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("invalidMessage")}
+          </p>
+        </div>
+      </section>
     );
   }
 
   if (data.deadlinePassed) {
     return (
-      <main className="mx-auto max-w-lg px-6 py-16 text-center">
-        <h1
-          className="text-3xl text-primary mb-4"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
-        >
-          {t("closedTitle")}
-        </h1>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {t("closedMessage")}
-        </p>
-      </main>
+      <section className="flex min-h-[calc(100vh-15rem)] items-center justify-center px-6 py-16 text-center">
+        <div className="w-full max-w-md space-y-6">
+          <h1
+            className="text-3xl text-primary"
+            style={{ fontFamily: "var(--font-playfair), serif" }}
+          >
+            {t("closedTitle")}
+          </h1>
+          <div className="mx-auto h-px w-16 bg-border" />
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {t("closedMessage")}
+          </p>
+        </div>
+      </section>
     );
   }
 
