@@ -15,7 +15,7 @@ export default async function FaqPage() {
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
       <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
       <h2
-        className="text-5xl text-primary mb-8 border-b border-border pb-4"
+        className="text-5xl text-primary mb-8"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {t("title")}

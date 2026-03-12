@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { RsvpFlow } from "@/components/rsvp/rsvp-flow";
+import { RsvpHelpButton } from "@/components/rsvp/rsvp-help-button";
 
 export default async function RsvpPage() {
   const t = await getTranslations("Rsvp");
@@ -21,9 +22,7 @@ export default async function RsvpPage() {
 
       <RsvpFlow />
 
-      <p className="mt-10 text-xs uppercase tracking-[0.16em] w-2/3 mx-auto text-center text-muted-foreground">
-        {t("issuesHelp")}
-      </p>
+      <RsvpHelpButton />
     </main>
   );
 }

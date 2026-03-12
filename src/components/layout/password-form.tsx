@@ -15,11 +15,11 @@ export function PasswordForm({ errorMessage }: PasswordFormProps) {
         <input
           id="password"
           name="password"
-          type="password"
+          type="text"
           autoComplete="current-password"
           required
           placeholder={t("placeholder")}
-          className="w-full border-b border-accent bg-transparent pb-3 pt-1 text-center text-sm uppercase tracking-[0.3em] text-primary outline-none transition-colors duration-300 placeholder:text-muted-foreground/50 focus:border-primary"
+          className="w-full border-b border-accent bg-transparent pb-3 pt-1 text-center text-sm tracking-[0.3em] text-primary outline-none transition-colors duration-300 placeholder:text-muted-foreground/50 placeholder:uppercase focus:border-primary"
         />
       </div>
 

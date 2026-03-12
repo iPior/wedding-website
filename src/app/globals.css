@@ -52,7 +52,9 @@
 }
 
 :root {
-  --background: #FFF9E3;
+  /* --background: #FFFFd7; */
+  --background: #FFFFF0;
+  /* --background: #FFF9E3; */
   --foreground: #2c2424;
   --card: #ffffff;
   --card-foreground: #2c2424;
@@ -121,7 +123,8 @@
   --gradient-timeline-spine: linear-gradient(
     to bottom,
     transparent,
-    rgba(176, 138, 80, 0.3),
+    rgba(176, 138, 80, 0.3) 5%,
+    rgba(176, 138, 80, 0.3) 95%,
     transparent
   );
   --shadow-polaroid: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);

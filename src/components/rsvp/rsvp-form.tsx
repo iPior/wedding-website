@@ -28,7 +28,7 @@ type PlusOneFormData = {
 type Props = {
   household: HouseholdData;
   modifyToken?: string;
-  onSuccess: () => void;
+  onSuccess: (anyAttending: boolean) => void;
 };
 
 export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
@@ -139,7 +139,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     setLoading(false);
 
     if (result.success) {
-      onSuccess();
+      onSuccess(guests.some((g) => g.attending === "YES"));
     } else {
       setError(result.error ?? tErr("UNKNOWN"));
     }
@@ -153,7 +153,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
           className="text-3xl text-primary"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          {household.householdName}
+          {primaryGuest ? `${primaryGuest.firstName} ${primaryGuest.lastName}` : household.householdName}
         </h2>
         <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
           {modifyToken ? t("updateSubtitle") : t("respondSubtitle")}
@@ -208,7 +208,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                 <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                   {t("willYouAttend")}
                 </label>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <button
                     type="button"
                     onClick={() => updateGuest(index, "attending", "YES")}
@@ -284,7 +284,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
             {plusOnes.map((po, index) => (
               <div key={index} className="space-y-4 border-l-2 border-border pl-5">
                 <div className="flex items-baseline justify-between">
-                  <p className="text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
+                  <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-muted-foreground">
                     {t("guestNumber", { number: index + 1 })}
                   </p>
                   <button
@@ -296,7 +296,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                       {tSearch("firstName")}
@@ -356,6 +356,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
             ? t("updateRsvp")
             : t("submitRsvp")}
       </button>
+
     </form>
   );
 }

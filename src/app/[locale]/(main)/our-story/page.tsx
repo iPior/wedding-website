@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { weddingConfig } from "../../../../../wedding.config";
 import { getTranslations } from "next-intl/server";
 
@@ -24,8 +25,7 @@ function PhotoFrame({ gradient, label, image }: { gradient: string; label: strin
   if (image) {
     return (
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={label} className="absolute inset-0 w-full h-full object-cover" />
+          <Image src={image} alt={label} fill sizes="(max-width: 768px) 80vw, 320px" className="object-cover" />
         <div
           className="absolute inset-0"
           style={{
@@ -96,15 +96,6 @@ export default async function OurStoryPage() {
       </h1>
       {/* Timeline — alternating left/right with photos on opposing side */}
       <div className="relative max-w-4xl mx-auto">
-        {/* Center spine */}
-        <div
-          className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px"
-          style={{
-            background:
-              "var(--gradient-timeline-spine)",
-          }}
-        />
-
         {(() => {
           let polaroidCount = 0;
           return milestones.map((m, i) => {
@@ -115,6 +106,17 @@ export default async function OurStoryPage() {
 
           return (
             <div key={i} className="relative mb-20">
+              {/* Spine segment to next dot (not on last milestone) */}
+              {i < milestones.length - 1 && (
+                <div
+                  className="absolute left-4 md:left-1/2 w-px -translate-x-1/2"
+                  style={{
+                    top: "1.125rem",
+                    bottom: "-6.125rem", // -(mb-20 + dot-center-offset) = -(5rem + 1.125rem)
+                    background: "rgba(176, 138, 80, 0.3)",
+                  }}
+                />
+              )}
               {/* Spine dot */}
               <div className="absolute left-4 md:left-1/2 -translate-x-1/2  translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-accent bg-background z-10" />
 

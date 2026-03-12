@@ -49,7 +49,7 @@ export function Nav() {
           {/* Couple names */}
           <Link
             href="/"
-            className="text-sm tracking-[0.5em] uppercase text-primary"
+            className={`text-sm tracking-[0.5em] uppercase text-primary transition-opacity duration-200 ${open ? "opacity-0 pointer-events-none" : "opacity-100"}`}
             style={{ fontVariant: "small-caps" }}
             onClick={() => setOpen(false)}
           >

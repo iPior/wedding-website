@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, usePathname } from "@/i18n/navigation";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { setLocale } from "@/actions/locale";
 
 function shouldShowModal() {
@@ -22,19 +22,24 @@ export function LanguageModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-sm bg-background border-border [&>button]:hidden" aria-describedby={undefined}>
+      <DialogContent
+        className="w-auto max-w-sm bg-background border-border [&>button]:hidden"
+        aria-describedby={undefined}
+        onInteractOutside={(e) => e.preventDefault()}
+      >
+        <DialogTitle className="sr-only">Select language</DialogTitle>
         <div className="flex flex-col gap-3">
           <button
             onClick={() => handleSelect("en")}
-            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-primary bg-primary text-primary-foreground transition-colors hover:bg-accent hover:border-accent"
+            className="px-10 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-primary bg-primary text-primary-foreground transition-colors hover:bg-accent hover:border-accent"
           >
-            English Website
+            English
           </button>
           <button
             onClick={() => handleSelect("pl")}
-            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-input text-primary transition-colors hover:bg-border"
+            className="px-10 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-input text-primary transition-colors hover:bg-border"
           >
-            Polska Strona
+            Polski
           </button>
         </div>
       </DialogContent>

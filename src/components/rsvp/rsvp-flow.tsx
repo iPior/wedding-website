@@ -2,72 +2,42 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import type { HouseholdData } from "@/actions/rsvp";
 import { GuestSearch } from "./guest-search";
 import { RsvpForm } from "./rsvp-form";
 
-type Step = "search" | "form" | "confirmed";
-
 export function RsvpFlow() {
   const tConf = useTranslations("RsvpConfirmation");
-  const [step, setStep] = useState<Step>("search");
+  const router = useRouter();
   const [household, setHousehold] = useState<HouseholdData | null>(null);
 
   function handleHouseholdFound(data: HouseholdData) {
     setHousehold(data);
-    setStep("form");
   }
 
-  function handleSuccess() {
-    setStep("confirmed");
+  function handleSuccess(anyAttending: boolean) {
+    router.push(`/rsvp/confirmed?attending=${anyAttending}`);
   }
 
   function handleBack() {
-    setStep("search");
     setHousehold(null);
   }
 
-  if (step === "search") {
+  if (!household) {
     return <GuestSearch onHouseholdFound={handleHouseholdFound} />;
   }
 
-  if (step === "form" && household) {
-    return (
-      <div className="space-y-6">
-        <button
-          onClick={handleBack}
-          className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-primary"
-        >
-          <span aria-hidden="true">&larr;</span>
-          {tConf("backToSearch")}
-        </button>
-        <RsvpForm household={household} onSuccess={handleSuccess} />
-      </div>
-    );
-  }
-
-  if (step === "confirmed") {
-    return (
-      <div className="py-8 text-center">
-        <p className="text-accent text-3xl mb-6" style={{ fontFamily: "var(--font-playfair), serif" }}>
-          &amp;
-        </p>
-        <h2
-          className="text-4xl text-primary mb-4"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
-        >
-          {tConf("thankYou")}
-        </h2>
-        <div className="mx-auto my-6 h-px w-16 bg-border" />
-        <p className="text-sm leading-relaxed text-foreground-soft max-w-md mx-auto">
-          {tConf("submitted")}
-        </p>
-        <p className="mt-4 text-xs uppercase tracking-[0.22em] text-muted-foreground">
-          {tConf("excited")}
-        </p>
-      </div>
-    );
-  }
-
-  return null;
+  return (
+    <div className="space-y-6">
+      <button
+        onClick={handleBack}
+        className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-primary"
+      >
+        <span aria-hidden="true">&larr;</span>
+        {tConf("backToSearch")}
+      </button>
+      <RsvpForm household={household} onSuccess={handleSuccess} />
+    </div>
+  );
 }

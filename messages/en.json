@@ -135,7 +135,9 @@
     "sectionNumber": "001",
     "title": "Kindly Respond",
     "subtitle": "We would love to celebrate with you. Search for your name below to let us know if you can make it.",
-    "issuesHelp": "If anything goes wrong with your RSVP, please text or call us and we will help right away."
+    "issuesHelp": "If anything goes wrong with your RSVP, please text or call us and we will help right away.",
+    "helpButton": "Help",
+    "helpTitle": "Need Help?"
   },
   "RsvpSearch": {
     "firstName": "First Name",
@@ -173,13 +175,20 @@
     "submitRsvp": "Submit RSVP",
     "emailRequired": "Email is required",
     "selectAttending": "Please select attending status for {name}",
-    "plusOneName": "Please enter a name for plus-one #{number}"
+    "plusOneName": "Please enter a name for plus-one #{number}",
+    "contactNote": "Something wrong with your RSVP? Contact the bride and groom."
   },
   "RsvpConfirmation": {
     "thankYou": "Thank You",
     "submitted": "Your RSVP has been submitted. You'll receive a confirmation email with a link to modify your response if needed.",
     "excited": "We are excited to celebrate with you",
-    "backToSearch": "Back to search"
+    "missYou": "We'll miss you",
+    "declineMessage": "Thanks for letting us know. We hope to celebrate with you another time.",
+    "backHome": "Back to Home",
+    "backToSearch": "Back to search",
+    "ceremony": "Ceremony",
+    "reception": "Reception",
+    "viewDetails": "View Full Details"
   },
   "ModifyRsvp": {
     "title": "Modify RSVP",
