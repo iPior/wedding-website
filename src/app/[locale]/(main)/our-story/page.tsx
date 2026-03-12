@@ -20,12 +20,12 @@ const milestoneVisuals = [
 // Alternating polaroid tilts
 const polaroidRotations = [-2.5, 1.8, -1.5, 2.2, -2, 5.5];
 
-function PhotoFrame({ gradient, year, image }: { gradient: string; year: string; image?: string }) {
+function PhotoFrame({ gradient, label, image }: { gradient: string; label: string; image?: string }) {
   if (image) {
     return (
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={year} className="absolute inset-0 w-full h-full object-cover" />
+        <img src={image} alt={label} className="absolute inset-0 w-full h-full object-cover" />
         <div
           className="absolute inset-0"
           style={{
@@ -61,7 +61,7 @@ function PhotoFrame({ gradient, year, image }: { gradient: string; year: string;
           color: "var(--color-watermark)",
         }}
       >
-        {year}
+        {label}
       </div>
       {/* Camera indicator */}
       <div className="absolute bottom-3 right-3">
@@ -111,6 +111,7 @@ export default async function OurStoryPage() {
           const isEven = i % 2 === 0;
           const visual = milestoneVisuals[i % milestoneVisuals.length];
           const polaroidIndex = m.image ? polaroidCount++ : 0;
+          const label = `${t(`months.${m.month}`)} ${m.year}`;
 
           return (
             <div key={i} className="relative mb-20">
@@ -132,7 +133,7 @@ export default async function OurStoryPage() {
                     className="text-3xl text-accent/60 mb-1"
                     style={{ fontFamily: "var(--font-playfair), serif" }}
                   >
-                    {m.year}
+                    {label}
                   </p>
                   <h2
                     className="text-2xl text-primary mb-2"
@@ -162,7 +163,7 @@ export default async function OurStoryPage() {
                         maxWidth: "320px",
                       }}
                     >
-                      <PhotoFrame gradient={visual.gradient} year={m.year} image={m.image} />
+                      <PhotoFrame gradient={visual.gradient} label={label} image={m.image} />
                     </div>
                   </div>
                 )}
