@@ -28,6 +28,7 @@ export default async function BridalPartyPage() {
                   alt={member.name}
                   width={300}
                   height={400}
+                  sizes="(max-width: 768px) 45vw, 300px"
                   className="h-full w-full object-cover"
                 />
               ) : null}

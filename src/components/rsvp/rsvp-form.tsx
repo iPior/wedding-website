@@ -212,7 +212,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   <button
                     type="button"
                     onClick={() => updateGuest(index, "attending", "YES")}
-                    className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
+                    className={`flex-1 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "YES"
                         ? "bg-primary text-primary-foreground border-primary"
                         : "bg-muted border-primary text-foreground-soft hover:bg-surface-hover hover:text-primary"
@@ -223,7 +223,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   <button
                     type="button"
                     onClick={() => updateGuest(index, "attending", "NO")}
-                    className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
+                    className={`flex-1 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "NO"
                         ? "bg-destructive text-primary-foreground border-destructive"
                         : "bg-muted border-destructive-soft text-foreground-soft hover:bg-surface-hover hover:text-destructive"
@@ -274,7 +274,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                 <button
                   type="button"
                   onClick={addPlusOne}
-                  className="bg-border border border-border px-4 py-2 text-[0.65rem] uppercase tracking-[0.15em] text-foreground-soft transition-colors hover:bg-surface-hover"
+                  className="bg-border border border-border px-4 py-2.5 text-[0.7rem] uppercase tracking-[0.15em] text-foreground-soft transition-colors hover:bg-surface-hover"
                 >
                   {t("addGuest")}
                 </button>
@@ -290,7 +290,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   <button
                     type="button"
                     onClick={() => removePlusOne(index)}
-                    className="text-[0.62rem] uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors"
+                    className="py-1.5 px-2 text-[0.62rem] uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors"
                   >
                     {t("remove")}
                   </button>

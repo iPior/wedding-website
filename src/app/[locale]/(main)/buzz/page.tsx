@@ -16,8 +16,9 @@ export default async function BuzzPage() {
         <Image
           src="/images/buzz.jpeg"
           alt="Buzz"
-          width={480}
-          height={480}
+          width={360}
+          height={360}
+          sizes="(max-width: 768px) 90vw, 480px"
           className="object-cover"
           priority
         />
