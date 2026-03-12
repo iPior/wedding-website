@@ -215,7 +215,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "YES"
                         ? "bg-primary text-primary-foreground border-primary"
-                        : "bg-accent text-primary-foreground border-accent hover:bg-accent-hover"
+                        : "bg-muted border-primary text-foreground-soft hover:bg-surface-hover hover:text-primary"
                     }`}
                   >
                     {t("joyfullyAccepts")}
@@ -226,7 +226,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "NO"
                         ? "bg-destructive text-primary-foreground border-destructive"
-                        : "bg-destructive-soft text-primary-foreground border-destructive-soft hover:bg-destructive-hover"
+                        : "bg-muted border-destructive-soft text-foreground-soft hover:bg-surface-hover hover:text-destructive"
                     }`}
                   >
                     {t("regretfullyDeclines")}
