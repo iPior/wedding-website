@@ -52,36 +52,36 @@
 }
 
 :root {
-  --background: #fff8f8;
+  --background: #FFF9E3;
   --foreground: #2c2424;
   --card: #ffffff;
   --card-foreground: #2c2424;
   --popover: #ffffff;
   --popover-foreground: #2c2424;
   --primary: #2c2424;
-  --primary-foreground: #fff8f8;
-  --primary-hover: #c8909e;
-  --secondary: #fdf6f8;
-  --secondary-foreground: #5a4f4f;
-  --muted: #f0e0e4;
-  --muted-foreground: #8a7f7f;
-  --accent: #d4a0b0;
-  --accent-foreground: #fff8f8;
-  --accent-hover: #c8909e;
-  --destructive: #8a6060;
-  --destructive-soft: #c4a0a0;
-  --destructive-hover: #b08888;
-  --border: #f0e0e4;
-  --input: #c8b0b4;
-  --ring: #d4a0b0;
-  --foreground-soft: #5a4f4f;
-  --foreground-muted: #6c5a5a;
-  --surface: #fdf6f8;
-  --surface-hover: #e8d0d6;
-  --nav-highlight: #c4b5a5;
-  --status-pending: #c8bfbf;
-  --gradient-rose-light: #f7e0e8;
-  --gradient-rose: #ffdae9;
+  --primary-foreground: #FFFDF5;
+  --primary-hover: #9A7840;
+  --secondary: #FBF3E0;
+  --secondary-foreground: #5A4F44;
+  --muted: #EDE4D0;
+  --muted-foreground: #8A7F70;
+  --accent: #B08A50;
+  --accent-foreground: #FFFDF5;
+  --accent-hover: #9A7840;
+  --destructive: #8a6050;
+  --destructive-soft: #c4a090;
+  --destructive-hover: #b08070;
+  --border: #E8DCC8;
+  --input: #C4B8A0;
+  --ring: #B08A50;
+  --foreground-soft: #5A4F44;
+  --foreground-muted: #6C5A4A;
+  --surface: #FBF3E0;
+  --surface-hover: #E0D4BC;
+  --nav-highlight: #C4B5A0;
+  --status-pending: #C8BFAF;
+  --gradient-rose-light: #F0E4CC;
+  --gradient-rose: #EDDDBD;
   --memory-gold-light: #f5e6c8;
   --memory-gold: #e8c48a;
   --memory-gold-dark: #d4a86c;
@@ -98,8 +98,8 @@
   --color-camera-stroke: rgba(255, 255, 255, 0.35);
   --gradient-glow-rose: radial-gradient(
     ellipse at center,
-    rgba(255, 218, 233, 0.4),
-    rgba(247, 224, 232, 0.2),
+    rgba(237, 221, 189, 0.4),
+    rgba(240, 228, 204, 0.2),
     transparent
   );
   --gradient-glow-olive: radial-gradient(
@@ -110,7 +110,7 @@
   );
   --gradient-glow-soft: radial-gradient(
     ellipse at center,
-    rgba(247, 224, 232, 0.15),
+    rgba(240, 228, 204, 0.15),
     rgba(255, 255, 227, 0.2)
   );
   --gradient-photo-vignette: radial-gradient(
@@ -121,7 +121,7 @@
   --gradient-timeline-spine: linear-gradient(
     to bottom,
     transparent,
-    rgba(212, 160, 176, 0.3),
+    rgba(176, 138, 80, 0.3),
     transparent
   );
   --shadow-polaroid: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
