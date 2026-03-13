@@ -32,8 +32,8 @@ const en: EmailMessages = {
     preview: (attendingCount = 0) => `Your RSVP was received - ${attendingCount} attending`,
     label: "RSVP CONFIRMATION",
     heading: "Thank You",
-    intro: (householdName) =>
-      `Your response has been received for ${householdName}. Here is a summary of your RSVP.`,
+    intro: () =>
+      `Your response has been received. Here is a summary of your RSVP.`,
     guestsLabel: "GUESTS",
     plusOnesLabel: "PLUS ONES",
     attending: "Attending",
@@ -70,8 +70,8 @@ const pl: EmailMessages = {
     preview: (attendingCount = 0) => `Otrzymalismy RSVP - ${attendingCount} potwierdzonych`,
     label: "POTWIERDZENIE RSVP",
     heading: "Dziekujemy",
-    intro: (householdName) =>
-      `Otrzymalismy odpowiedz RSVP dla ${householdName}. Oto podsumowanie Waszej odpowiedzi.`,
+    intro: () =>
+      `Otrzymalismy Wasza odpowiedz. Oto podsumowanie Waszej odpowiedzi.`,
     guestsLabel: "GOSCIE",
     plusOnesLabel: "OSOBY TOWARZYSZACE",
     attending: "Obecny",

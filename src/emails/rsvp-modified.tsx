@@ -136,7 +136,7 @@ const fontBody =
 
 // ── Styles ───────────────────────────────────────────────
 const body = {
-  backgroundColor: "#fff8f8",
+  backgroundColor: "#FFFFF0",
   fontFamily: fontBody,
   margin: "0",
   padding: "40px 0",
@@ -145,7 +145,7 @@ const wrapper = {
   margin: "0 auto",
   maxWidth: "520px",
   backgroundColor: "#ffffff",
-  borderTop: "3px solid #d4a0b0",
+  borderTop: "3px solid #B08A50",
 };
 const header = {
   padding: "36px 32px 0",
@@ -160,7 +160,7 @@ const monogram = {
   textAlign: "center" as const,
 };
 const roseLine = {
-  borderTop: "2px solid #d4a0b0",
+  borderTop: "2px solid #B08A50",
   borderBottom: "none" as const,
   borderLeft: "none" as const,
   borderRight: "none" as const,
@@ -174,7 +174,7 @@ const label = {
   fontWeight: 400 as const,
   textTransform: "uppercase" as const,
   letterSpacing: "0.35em",
-  color: "#8a7f7f",
+  color: "#8A7F70",
   margin: "0 0 6px",
   textAlign: "center" as const,
 };
@@ -190,11 +190,11 @@ const bodyText = {
   fontFamily: fontBody,
   fontSize: "15px",
   lineHeight: "1.7",
-  color: "#5a4f4f",
+  color: "#5A4F44",
   margin: "0 0 8px",
 };
 const card = {
-  backgroundColor: "#fff8f8",
+  backgroundColor: "#FBF3E0",
   padding: "20px 24px",
   margin: "24px 0",
 };
@@ -204,11 +204,11 @@ const cardLabel = {
   fontWeight: 700 as const,
   textTransform: "uppercase" as const,
   letterSpacing: "0.3em",
-  color: "#8a7f7f",
+  color: "#8A7F70",
   margin: "0",
 };
 const cardDivider = {
-  borderTop: "1px solid #f0e0e4",
+  borderTop: "1px solid #E8DCC8",
   borderBottom: "none" as const,
   borderLeft: "none" as const,
   borderRight: "none" as const,
@@ -221,10 +221,10 @@ const guestRow = {
   color: "#2c2424",
   margin: "6px 0",
 };
-const statusAttending = { color: "#d4a0b0" };
-const statusDeclined = { color: "#8a7f7f" };
+const statusAttending = { color: "#B08A50" };
+const statusDeclined = { color: "#8A7F70" };
 const divider = {
-  borderTop: "1px solid #f0e0e4",
+  borderTop: "1px solid #E8DCC8",
   borderBottom: "none" as const,
   borderLeft: "none" as const,
   borderRight: "none" as const,
@@ -232,7 +232,7 @@ const divider = {
 };
 const button = {
   backgroundColor: "#2c2424",
-  color: "#fff8f8",
+  color: "#FFFDF5",
   fontFamily: fontBody,
   fontSize: "11px",
   textTransform: "uppercase" as const,
@@ -244,7 +244,7 @@ const closing = {
   fontFamily: fontDisplay,
   fontSize: "15px",
   fontStyle: "italic" as const,
-  color: "#8a7f7f",
+  color: "#8A7F70",
   margin: "28px 0 0",
   textAlign: "center" as const,
 };
@@ -256,7 +256,7 @@ const footer = {
 const footerMonogram = {
   fontFamily: fontDisplay,
   fontSize: "14px",
-  color: "#8a7f7f",
+  color: "#8A7F70",
   letterSpacing: "0.12em",
   margin: "0",
   textAlign: "center" as const,
