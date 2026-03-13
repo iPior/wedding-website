@@ -1,5 +1,6 @@
 import { weddingConfig } from "../../../../../wedding.config";
 import { LazyMap } from "@/components/lazy-map";
+import { FadeIn } from "@/components/fade-in";
 import { getTranslations, getLocale } from "next-intl/server";
 
 const CEREMONY_EMBED =
@@ -97,70 +98,79 @@ export default async function DetailsPage() {
 
       {/* ───────── 001 — When & Where ───────── */}
       <section className="mb-14">
-        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
-        <h2
-          className="text-5xl text-primary mb-4"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
-        >
-          {t("title")}
-        </h2>
-        <p className="text-base leading-relaxed text-foreground-soft mb-14 md:mb-10">
-          {t("subtitle", { date: formattedDate })}
-        </p>
+        <FadeIn>
+          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
+          <h2
+            className="text-5xl text-primary mb-4"
+            style={{ fontFamily: "var(--font-playfair), serif" }}
+          >
+            {t("title")}
+          </h2>
+          <p className="text-base leading-relaxed text-foreground-soft mb-14 md:mb-10">
+            {t("subtitle", { date: formattedDate })}
+          </p>
+        </FadeIn>
 
         <div className="space-y-16 md:space-y-8">
-          <VenueCard
-            label={t("ceremony")}
-            time={weddingConfig.schedule[0].time}
-            name={ceremonyName}
-            address={weddingConfig.venue.ceremony.address}
-            embedSrc={CEREMONY_EMBED}
-            screenshotSrc="/maps/ceremony-map.png"
-            directionsHref={CEREMONY_LINK}
-            mapTitle="Ceremony venue map"
-            openInMapsText={t("openInMaps")}
-          />
-          <VenueCard
-            label={t("reception")}
-            time={weddingConfig.schedule[1].time}
-            name={weddingConfig.venue.reception.name}
-            address={weddingConfig.venue.reception.address}
-            embedSrc={RECEPTION_EMBED}
-            screenshotSrc="/maps/reception-map.png"
-            directionsHref={RECEPTION_LINK}
-            mapTitle="Reception venue map"
-            openInMapsText={t("openInMaps")}
-          />
+          <FadeIn delay={0.15}>
+            <VenueCard
+              label={t("ceremony")}
+              time={weddingConfig.schedule[0].time}
+              name={ceremonyName}
+              address={weddingConfig.venue.ceremony.address}
+              embedSrc={CEREMONY_EMBED}
+              screenshotSrc="/maps/ceremony-map.png"
+              directionsHref={CEREMONY_LINK}
+              mapTitle="Ceremony venue map"
+              openInMapsText={t("openInMaps")}
+            />
+          </FadeIn>
+          <FadeIn delay={0.3}>
+            <VenueCard
+              label={t("reception")}
+              time={weddingConfig.schedule[1].time}
+              name={weddingConfig.venue.reception.name}
+              address={weddingConfig.venue.reception.address}
+              embedSrc={RECEPTION_EMBED}
+              screenshotSrc="/maps/reception-map.png"
+              directionsHref={RECEPTION_LINK}
+              mapTitle="Reception venue map"
+              openInMapsText={t("openInMaps")}
+            />
+          </FadeIn>
         </div>
       </section>
 
-      <div className="h-px bg-border mb-14" />
+      <FadeIn>
+        <div className="h-px bg-border mb-14" />
+      </FadeIn>
 
       {/* ───────── 002 — Schedule ───────── */}
       <section>
-        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("scheduleNumber")}</p>
-        <h2
-          className="text-5xl text-primary mb-10"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
-        >
-          {t("scheduleTitle")}
-        </h2>
+        <FadeIn>
+          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("scheduleNumber")}</p>
+          <h2
+            className="text-5xl text-primary mb-10"
+            style={{ fontFamily: "var(--font-playfair), serif" }}
+          >
+            {t("scheduleTitle")}
+          </h2>
+        </FadeIn>
         <div>
           {weddingConfig.schedule.map((item, i) => (
-            <div
-              key={i}
-              className="flex items-baseline justify-between border-b border-border py-5 last:border-b-0"
-            >
-              <span
-                className="text-lg text-primary"
-                style={{ fontFamily: "var(--font-playfair), serif" }}
-              >
-                {t(`schedule.${i}`)}
-              </span>
-              <span className="text-xs tracking-[0.2em] text-muted-foreground">
-                {item.time}
-              </span>
-            </div>
+            <FadeIn key={i} delay={Math.min(i * 0.15, 0.3)}>
+              <div className="flex items-baseline justify-between border-b border-border py-5 last:border-b-0">
+                <span
+                  className="text-lg text-primary"
+                  style={{ fontFamily: "var(--font-playfair), serif" }}
+                >
+                  {t(`schedule.${i}`)}
+                </span>
+                <span className="text-xs tracking-[0.2em] text-muted-foreground">
+                  {item.time}
+                </span>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </section>

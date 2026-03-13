@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { weddingConfig } from "../../../../../wedding.config";
 import { getTranslations } from "next-intl/server";
+import { FadeIn } from "@/components/fade-in";
 
 // Gradient palettes — one per milestone, evocative of each story beat
 const milestoneVisuals = [
@@ -87,13 +88,15 @@ export default async function OurStoryPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
-      <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
-      <h1
-        className="text-5xl text-primary mb-8 md:mb-16"
-        style={{ fontFamily: "var(--font-playfair), serif" }}
-      >
-        {t("title")}
-      </h1>
+      <FadeIn>
+        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
+        <h1
+          className="text-5xl text-primary mb-8 md:mb-16"
+          style={{ fontFamily: "var(--font-playfair), serif" }}
+        >
+          {t("title")}
+        </h1>
+      </FadeIn>
       {/* Timeline — alternating left/right with photos on opposing side */}
       <div className="relative max-w-4xl mx-auto">
         {(() => {
@@ -105,7 +108,7 @@ export default async function OurStoryPage() {
           const label = `${t(`months.${m.month}`)} ${m.year}`;
 
           return (
-            <div key={i} className="relative mb-20">
+            <FadeIn key={i} className="relative mb-20" delay={Math.min(i * 0.15, 0.3)}>
               {/* Spine segment to next dot (not on last milestone) */}
               {i < milestones.length - 1 && (
                 <div
@@ -170,7 +173,7 @@ export default async function OurStoryPage() {
                   </div>
                 )}
               </div>
-            </div>
+            </FadeIn>
           );
         });
         })()}
