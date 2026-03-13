@@ -24,7 +24,7 @@ export function CsvExportButton() {
     <button
       onClick={handleExport}
       disabled={loading}
-      className="border border-[#d4a0b0] px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#8a7f7f] transition-colors hover:border-[#2c2424] hover:text-[#2c2424] disabled:opacity-40"
+      className="border border-accent px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:border-primary hover:text-primary disabled:opacity-40"
     >
       {loading ? "Exporting..." : "Export CSV"}
     </button>

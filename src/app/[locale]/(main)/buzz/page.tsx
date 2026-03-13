@@ -7,7 +7,7 @@ export default async function BuzzPage() {
   return (
     <main className="mx-auto max-w-xl px-6 py-16 flex flex-col items-center text-center">
       <h1
-        className="text-3xl md:text-4xl text-[#2c2424] mb-8"
+        className="text-3xl md:text-4xl text-primary mb-8"
         style={{ fontFamily: "var(--font-playfair), serif" }}
       >
         {t("title")}
@@ -16,8 +16,9 @@ export default async function BuzzPage() {
         <Image
           src="/images/buzz.jpeg"
           alt="Buzz"
-          width={480}
-          height={480}
+          width={360}
+          height={360}
+          sizes="(max-width: 768px) 90vw, 480px"
           className="object-cover"
           priority
         />

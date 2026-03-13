@@ -25,7 +25,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
   return (
     <main
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16"
-      style={{ backgroundColor: "#fff8f8", fontFamily: "var(--font-lato), sans-serif" }}
+      style={{ backgroundColor: "var(--color-background)", fontFamily: "var(--font-lato), sans-serif" }}
     >
       <LanguageModal />
       <style>{`
@@ -46,7 +46,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
           style={{
             width: "60vw", height: "60vh",
             top: "-10%", right: "-10%",
-            background: "radial-gradient(ellipse at center, rgba(255,218,233,0.4), rgba(247,224,232,0.2), transparent)",
+            background: "var(--gradient-glow-rose)",
           }}
         />
         <div
@@ -54,7 +54,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
           style={{
             width: "50vw", height: "50vh",
             bottom: "-10%", left: "-10%",
-            background: "radial-gradient(ellipse at center, rgba(210,217,139,0.2), rgba(255,255,227,0.3), transparent)",
+            background: "var(--gradient-glow-olive)",
           }}
         />
         <div
@@ -62,7 +62,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
           style={{
             width: "30vw", height: "30vh",
             top: "40%", left: "10%",
-            background: "radial-gradient(ellipse at center, rgba(247,224,232,0.15), rgba(255,255,227,0.2))",
+            background: "var(--gradient-glow-soft)",
           }}
         />
       </div>
@@ -72,7 +72,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
 
         {/* Eyebrow */}
         <p
-          className="text-xs font-light uppercase tracking-[0.4em] text-[#8a7f7f]"
+          className="text-xs font-light uppercase tracking-[0.4em] text-muted-foreground"
           style={{ animation: "fadeInUp 0.8s ease forwards", opacity: 0 }}
         >
           {t("youreInvited")}
@@ -80,7 +80,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
 
         {/* Names */}
         <h1
-          className="mt-6 text-5xl uppercase leading-[1.1] tracking-[0.25em] text-[#2c2424]"
+          className="mt-6 text-5xl uppercase leading-[1.1] tracking-[0.25em] text-primary"
           style={{
             fontFamily: "var(--font-playfair), serif",
             animation: "fadeInUp 0.9s ease forwards",
@@ -89,14 +89,14 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
           }}
         >
           {person1.firstName}
-          <span className="block text-[0.5em] tracking-[0.5em] text-[#d4a0b0]">&</span>
+          <span className="block text-[0.5em] tracking-[0.5em] text-accent">&</span>
           {person2.firstName}
         </h1>
 
         {/* Divider */}
         <div className="mx-auto mt-8 overflow-hidden">
           <div
-            className="mx-auto h-[2px] bg-[#d4a0b0]"
+            className="mx-auto h-[2px] bg-accent"
             style={{
               animation: "grow 0.7s ease forwards",
               animationDelay: "0.6s",
@@ -108,7 +108,7 @@ export default async function PasswordPage({ searchParams }: PasswordPageProps) 
 
         {/* Instruction */}
         <p
-          className="mt-8 text-xs font-light uppercase tracking-[0.3em] text-[#8a7f7f]"
+          className="mt-8 text-xs font-light uppercase tracking-[0.3em] text-muted-foreground"
           style={{
             animation: "fadeInUp 0.8s ease forwards",
             animationDelay: "0.8s",

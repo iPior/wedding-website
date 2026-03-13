@@ -30,7 +30,7 @@ export default function MainLayout({
 }) {
   return (
     <div
-      className={`${playfair.variable} ${lato.variable} min-h-screen bg-[#fff8f8] text-[#2c2424]`}
+      className={`${playfair.variable} ${lato.variable} min-h-screen bg-background text-primary`}
       style={{ fontFamily: "var(--font-lato), sans-serif" }}
     >
       <style>{`
@@ -52,35 +52,35 @@ export default function MainLayout({
         }
       `}</style>
       {/* Watercolor wash fixed background */}
-      <div className="fixed inset-0 pointer-events-none z-0">
+      <div className="fixed inset-0 pointer-events-none z-0" style={{ willChange: "transform" }}>
         {/* Top-right blob */}
         <div
-          className="absolute w-[60vw] h-[60vh] rounded-full blur-[100px]"
+          className="absolute w-[60vw] h-[60vh] rounded-full blur-[80px] md:blur-[100px]"
           style={{
             top: "-10%",
             right: "-10%",
             background:
-              "radial-gradient(ellipse at center, rgba(255,218,233,0.4), rgba(247,224,232,0.2), transparent)",
+              "var(--gradient-glow-rose)",
           }}
         />
         {/* Bottom-left blob */}
         <div
-          className="absolute w-[50vw] h-[50vh] rounded-full blur-[100px]"
+          className="absolute w-[50vw] h-[50vh] rounded-full blur-[80px] md:blur-[100px]"
           style={{
             bottom: "-10%",
             left: "-10%",
             background:
-              "radial-gradient(ellipse at center, rgba(210,217,139,0.2), rgba(255,255,227,0.3), transparent)",
+              "var(--gradient-glow-olive)",
           }}
         />
         {/* Center-left blob */}
         <div
-          className="absolute w-[30vw] h-[30vh] rounded-full blur-[100px]"
+          className="absolute w-[30vw] h-[30vh] rounded-full blur-[80px] md:blur-[100px]"
           style={{
             top: "40%",
             left: "10%",
             background:
-              "radial-gradient(ellipse at center, rgba(247,224,232,0.15), rgba(255,255,227,0.2))",
+              "var(--gradient-glow-soft)",
           }}
         />
       </div>

@@ -24,7 +24,7 @@ export default async function AdminDashboardLayout({
 
   return (
     <div
-      className={`${lato.variable} min-h-screen bg-[#fff8f8] text-[#2c2424]`}
+      className={`${lato.variable} min-h-screen bg-background text-primary`}
       style={{ fontFamily: "var(--font-lato), sans-serif" }}
     >
       <AdminNav userEmail={user.email ?? ""} />

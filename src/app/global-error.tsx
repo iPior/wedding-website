@@ -19,15 +19,15 @@ export default function GlobalError({
 
   return (
     <html>
-      <body className="flex min-h-screen items-center justify-center bg-[#fff8f8] px-6 text-[#2c2424]">
+      <body className="flex min-h-screen items-center justify-center bg-background px-6 text-primary">
         <main className="max-w-md text-center">
           <h1 className="font-serif text-3xl">Something went wrong</h1>
-          <p className="mt-3 text-sm text-[#6c5a5a]">
+          <p className="mt-3 text-sm text-foreground-muted">
             We hit an unexpected issue. Please try again in a moment.
           </p>
           <button
             onClick={() => reset()}
-            className="mt-6 inline-flex rounded-md bg-[#2c2424] px-4 py-2 text-sm font-semibold text-white"
+            className="mt-6 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
             type="button"
           >
             Try again

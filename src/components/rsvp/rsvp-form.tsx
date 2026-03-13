@@ -28,7 +28,7 @@ type PlusOneFormData = {
 type Props = {
   household: HouseholdData;
   modifyToken?: string;
-  onSuccess: () => void;
+  onSuccess: (anyAttending: boolean) => void;
 };
 
 export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
@@ -139,7 +139,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     setLoading(false);
 
     if (result.success) {
-      onSuccess();
+      onSuccess(guests.some((g) => g.attending === "YES"));
     } else {
       setError(result.error ?? tErr("UNKNOWN"));
     }
@@ -150,12 +150,12 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       {/* Header */}
       <div>
         <h2
-          className="text-3xl text-[#2c2424]"
+          className="text-3xl text-primary"
           style={{ fontFamily: "var(--font-playfair), serif" }}
         >
-          {household.householdName}
+          {primaryGuest ? `${primaryGuest.firstName} ${primaryGuest.lastName}` : household.householdName}
         </h2>
-        <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+        <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
           {modifyToken ? t("updateSubtitle") : t("respondSubtitle")}
         </p>
       </div>
@@ -164,7 +164,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       <div className="space-y-2">
         <label
           htmlFor="email"
-          className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
+          className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
         >
           {t("yourEmail")}
         </label>
@@ -175,47 +175,47 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t("emailPlaceholder")}
           required
-          className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
+          className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
         />
-        <p className="text-xs text-[#8a7f7f]">
+        <p className="text-xs text-muted-foreground">
           {t("emailHelp")}
         </p>
       </div>
 
-      <div className="h-px bg-[#f0e0e4]" />
+      <div className="h-px bg-border" />
 
       {/* Guests */}
       <div className="space-y-8">
         {guests.map((guest, index) => (
           <div key={guest.id}>
-            {index > 0 && <div className="h-px bg-[#f0e0e4] mb-8" />}
+            {index > 0 && <div className="h-px bg-border mb-8" />}
             <div className="space-y-5">
               <div className="flex items-baseline gap-3">
                 <h3
-                  className="text-xl text-[#2c2424]"
+                  className="text-xl text-primary"
                   style={{ fontFamily: "var(--font-playfair), serif" }}
                 >
                   {guest.firstName} {guest.lastName}
                 </h3>
                 {household.guests[index]?.isPrimary && (
-                  <span className="text-[0.6rem] uppercase tracking-[0.15em] text-[#d4a0b0]">
+                  <span className="text-[0.6rem] uppercase tracking-[0.15em] text-accent">
                     {t("primary")}
                   </span>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                   {t("willYouAttend")}
                 </label>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <button
                     type="button"
                     onClick={() => updateGuest(index, "attending", "YES")}
-                    className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
+                    className={`flex-1 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "YES"
-                        ? "bg-[#2c2424] text-white border-[#2c2424]"
-                        : "bg-[#d4a0b0] text-white border-[#d4a0b0] hover:bg-[#c8909e]"
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-muted border-primary text-foreground-soft hover:bg-surface-hover hover:text-primary"
                     }`}
                   >
                     {t("joyfullyAccepts")}
@@ -223,10 +223,10 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                   <button
                     type="button"
                     onClick={() => updateGuest(index, "attending", "NO")}
-                    className={`flex-1 py-3 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
+                    className={`flex-1 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border transition-all ${
                       guest.attending === "NO"
-                        ? "bg-[#8a6060] text-white border-[#8a6060]"
-                        : "bg-[#c4a0a0] text-white border-[#c4a0a0] hover:bg-[#b08888]"
+                        ? "bg-destructive text-primary-foreground border-destructive"
+                        : "bg-muted border-destructive-soft text-foreground-soft hover:bg-surface-hover hover:text-destructive"
                     }`}
                   >
                     {t("regretfullyDeclines")}
@@ -236,7 +236,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
 
               {guest.attending === "YES" && (
                 <div className="space-y-2">
-                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                     {t("dietaryRestrictions")}
                   </label>
                   <textarea
@@ -244,7 +244,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     onChange={(e) => updateGuest(index, "dietaryRestrictions", e.target.value)}
                     placeholder={t("dietaryPlaceholder")}
                     rows={2}
-                    className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors resize-none"
+                    className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors resize-none"
                   />
                 </div>
               )}
@@ -256,17 +256,17 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       {/* Plus-Ones */}
       {household.maxPlusOnes > 0 && (
         <>
-          <div className="h-px bg-[#f0e0e4]" />
+          <div className="h-px bg-border" />
           <div className="space-y-6">
             <div className="flex items-baseline justify-between">
               <div>
                 <h3
-                  className="text-xl text-[#2c2424]"
+                  className="text-xl text-primary"
                   style={{ fontFamily: "var(--font-playfair), serif" }}
                 >
                   {t("additionalGuests")}
                 </h3>
-                <p className="mt-1 text-xs text-[#8a7f7f]">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {t("plusOneAllowance", { count: household.maxPlusOnes })}
                 </p>
               </div>
@@ -274,7 +274,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                 <button
                   type="button"
                   onClick={addPlusOne}
-                  className="bg-[#f0e0e4] border border-[#f0e0e4] px-4 py-2 text-[0.65rem] uppercase tracking-[0.15em] text-[#5a4f4f] transition-colors hover:bg-[#e8d0d6]"
+                  className="bg-border border border-border px-4 py-2.5 text-[0.7rem] uppercase tracking-[0.15em] text-foreground-soft transition-colors hover:bg-surface-hover"
                 >
                   {t("addGuest")}
                 </button>
@@ -282,47 +282,47 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
             </div>
 
             {plusOnes.map((po, index) => (
-              <div key={index} className="space-y-4 border-l-2 border-[#f0e0e4] pl-5">
+              <div key={index} className="space-y-4 border-l-2 border-border pl-5">
                 <div className="flex items-baseline justify-between">
-                  <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                  <p className="text-[0.72rem] font-bold uppercase tracking-[0.22em] text-muted-foreground">
                     {t("guestNumber", { number: index + 1 })}
                   </p>
                   <button
                     type="button"
                     onClick={() => removePlusOne(index)}
-                    className="text-[0.62rem] uppercase tracking-[0.15em] text-[#d4a0b0] hover:text-[#2c2424] transition-colors"
+                    className="py-1.5 px-2 text-[0.62rem] uppercase tracking-[0.15em] text-accent hover:text-primary transition-colors"
                   >
                     {t("remove")}
                   </button>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                       {tSearch("firstName")}
                     </label>
                     <input
                       value={po.firstName}
                       onChange={(e) => updatePlusOne(index, "firstName", e.target.value)}
                       required
-                      className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
+                      className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                    <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                       {tSearch("lastName")}
                     </label>
                     <input
                       value={po.lastName}
                       onChange={(e) => updatePlusOne(index, "lastName", e.target.value)}
                       required
-                      className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
+                      className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+                  <label className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
                     {t("dietaryRestrictions")}
                   </label>
                   <textarea
@@ -330,7 +330,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
                     onChange={(e) => updatePlusOne(index, "dietaryRestrictions", e.target.value)}
                     placeholder={t("dietaryPlaceholder")}
                     rows={2}
-                    className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors resize-none"
+                    className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors resize-none"
                   />
                 </div>
               </div>
@@ -340,7 +340,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       )}
 
       {error && (
-        <div className="border border-[#f0e0e4] bg-[#fdf6f8] px-5 py-4 text-sm text-[#5a4f4f]">
+        <div className="border border-border bg-surface px-5 py-4 text-sm text-foreground-soft">
           {error}
         </div>
       )}
@@ -348,7 +348,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-[#2c2424] py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#d4a0b0] disabled:opacity-50"
+        className="w-full bg-primary py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-primary-foreground transition-colors hover:bg-accent disabled:opacity-50"
       >
         {loading
           ? t("submitting")
@@ -356,6 +356,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
             ? t("updateRsvp")
             : t("submitRsvp")}
       </button>
+
     </form>
   );
 }

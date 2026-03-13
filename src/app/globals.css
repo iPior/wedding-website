@@ -19,6 +19,30 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-primary-hover: var(--primary-hover);
+  --color-accent-hover: var(--accent-hover);
+  --color-foreground-soft: var(--foreground-soft);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-nav-highlight: var(--nav-highlight);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-status-pending: var(--status-pending);
+  --color-gradient-rose-light: var(--gradient-rose-light);
+  --color-gradient-rose: var(--gradient-rose);
+  --color-memory-gold-light: var(--memory-gold-light);
+  --color-memory-gold: var(--memory-gold);
+  --color-memory-gold-dark: var(--memory-gold-dark);
+  --color-memory-blue-light: var(--memory-blue-light);
+  --color-memory-blue: var(--memory-blue);
+  --color-memory-blue-dark: var(--memory-blue-dark);
+  --color-memory-clay-light: var(--memory-clay-light);
+  --color-memory-clay: var(--memory-clay);
+  --color-memory-clay-dark: var(--memory-clay-dark);
+  --color-memory-lavender-light: var(--memory-lavender-light);
+  --color-memory-lavender: var(--memory-lavender);
+  --color-memory-lavender-dark: var(--memory-lavender-dark);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -28,24 +52,125 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: #FFFFF0;
+  /* --background: #FFF9E3; */
+  --foreground: #2c2424;
+  --card: #ffffff;
+  --card-foreground: #2c2424;
+  --popover: #ffffff;
+  --popover-foreground: #2c2424;
+  --primary: #2c2424;
+  --primary-foreground: #FFFDF5;
+  --primary-hover: #9A7840;
+  --secondary: #FBF3E0;
+  --secondary-foreground: #5A4F44;
+  --muted: #EDE4D0;
+  --muted-foreground: #8A7F70;
+  --accent: #B08A50;
+  --accent-foreground: #FFFDF5;
+  --accent-hover: #9A7840;
+  --destructive: #8a6050;
+  --destructive-soft: #c4a090;
+  --destructive-hover: #b08070;
+  --border: #E8DCC8;
+  --input: #C4B8A0;
+  --ring: #B08A50;
+  --foreground-soft: #5A4F44;
+  --foreground-muted: #6C5A4A;
+  --surface: #FBF3E0;
+  --surface-hover: #E0D4BC;
+  --nav-highlight: #C4B5A0;
+  --status-pending: #C8BFAF;
+  --gradient-rose-light: #F0E4CC;
+  --gradient-rose: #EDDDBD;
+  --memory-gold-light: #f5e6c8;
+  --memory-gold: #e8c48a;
+  --memory-gold-dark: #d4a86c;
+  --memory-blue-light: #d4e4f0;
+  --memory-blue: #b0c8dc;
+  --memory-blue-dark: #8cafc8;
+  --memory-clay-light: #f0d8cc;
+  --memory-clay: #d8b0a0;
+  --memory-clay-dark: #c49488;
+  --memory-lavender-light: #dcd4ec;
+  --memory-lavender: #b8acd0;
+  --memory-lavender-dark: #9888b8;
+  --color-watermark: rgba(255, 255, 255, 0.2);
+  --color-camera-stroke: rgba(255, 255, 255, 0.35);
+  --gradient-glow-rose: radial-gradient(
+    ellipse at center,
+    rgba(237, 221, 189, 0.4),
+    rgba(240, 228, 204, 0.2),
+    transparent
+  );
+  --gradient-glow-olive: radial-gradient(
+    ellipse at center,
+    rgba(210, 217, 139, 0.2),
+    rgba(255, 255, 227, 0.3),
+    transparent
+  );
+  --gradient-glow-soft: radial-gradient(
+    ellipse at center,
+    rgba(240, 228, 204, 0.15),
+    rgba(255, 255, 227, 0.2)
+  );
+  --gradient-photo-vignette: radial-gradient(
+    ellipse at center,
+    transparent 35%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  --gradient-timeline-spine: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(176, 138, 80, 0.3) 5%,
+    rgba(176, 138, 80, 0.3) 95%,
+    transparent
+  );
+  --shadow-polaroid: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-destructive: var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-foreground-soft: var(--foreground-soft);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-nav-highlight: var(--nav-highlight);
+  --color-status-pending: var(--status-pending);
+  --color-gradient-rose-light: var(--gradient-rose-light);
+  --color-gradient-rose: var(--gradient-rose);
+  --color-memory-gold-light: var(--memory-gold-light);
+  --color-memory-gold: var(--memory-gold);
+  --color-memory-gold-dark: var(--memory-gold-dark);
+  --color-memory-blue-light: var(--memory-blue-light);
+  --color-memory-blue: var(--memory-blue);
+  --color-memory-blue-dark: var(--memory-blue-dark);
+  --color-memory-clay-light: var(--memory-clay-light);
+  --color-memory-clay: var(--memory-clay);
+  --color-memory-clay-dark: var(--memory-clay-dark);
+  --color-memory-lavender-light: var(--memory-lavender-light);
+  --color-memory-lavender: var(--memory-lavender);
+  --color-memory-lavender-dark: var(--memory-lavender-dark);
+
   --radius: 0.625rem;
 }
 

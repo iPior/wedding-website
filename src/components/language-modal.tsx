@@ -1,15 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { setLocale } from "@/actions/locale";
 
 function shouldShowModal() {
@@ -21,8 +14,6 @@ export function LanguageModal() {
   const [open, setOpen] = useState(shouldShowModal);
   const router = useRouter();
   const pathname = usePathname();
-  const t = useTranslations("LanguageModal");
-
   async function handleSelect(locale: "en" | "pl") {
     await setLocale(locale);
     setOpen(false);
@@ -31,30 +22,24 @@ export function LanguageModal() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-sm bg-[#fff8f8] border-[#f0e0e4] [&>button]:hidden">
-        <DialogHeader className="text-center">
-          <DialogTitle
-            className="text-3xl text-[#2c2424] text-center"
-            style={{ fontFamily: "var(--font-playfair), serif" }}
-          >
-            {t("title")}
-          </DialogTitle>
-          <DialogDescription className="text-sm text-[#8a7f7f] text-center">
-            {t("subtitle")}
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex flex-col gap-3 mt-4">
+      <DialogContent
+        className="w-auto max-w-sm bg-background border-border [&>button]:hidden"
+        aria-describedby={undefined}
+        onInteractOutside={(e) => e.preventDefault()}
+      >
+        <DialogTitle className="sr-only">Select language</DialogTitle>
+        <div className="flex flex-col gap-3">
           <button
             onClick={() => handleSelect("en")}
-            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-[#2c2424] bg-[#2c2424] text-white transition-colors hover:bg-[#d4a0b0] hover:border-[#d4a0b0]"
+            className="px-10 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-primary bg-primary text-primary-foreground transition-colors hover:bg-accent hover:border-accent"
           >
-            {t("english")}
+            English
           </button>
           <button
             onClick={() => handleSelect("pl")}
-            className="w-full py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-[#c8b0b4] text-[#2c2424] transition-colors hover:bg-[#f0e0e4]"
+            className="px-10 py-3.5 text-[0.7rem] uppercase tracking-[0.15em] border border-input text-primary transition-colors hover:bg-border"
           >
-            {t("polish")}
+            Polski
           </button>
         </div>
       </DialogContent>

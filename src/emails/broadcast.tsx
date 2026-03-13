@@ -90,7 +90,7 @@ const fontBody =
 
 // ── Styles ───────────────────────────────────────────────
 const bodyStyle = {
-  backgroundColor: "#fff8f8",
+  backgroundColor: "#FFFFF0",
   fontFamily: fontBody,
   margin: "0",
   padding: "40px 0",
@@ -99,7 +99,7 @@ const wrapper = {
   margin: "0 auto",
   maxWidth: "520px",
   backgroundColor: "#ffffff",
-  borderTop: "3px solid #d4a0b0",
+  borderTop: "3px solid #B08A50",
 };
 const header = {
   padding: "36px 32px 0",
@@ -114,7 +114,7 @@ const monogram = {
   textAlign: "center" as const,
 };
 const roseLine = {
-  borderTop: "2px solid #d4a0b0",
+  borderTop: "2px solid #B08A50",
   borderBottom: "none" as const,
   borderLeft: "none" as const,
   borderRight: "none" as const,
@@ -128,7 +128,7 @@ const label = {
   fontWeight: 400 as const,
   textTransform: "uppercase" as const,
   letterSpacing: "0.35em",
-  color: "#8a7f7f",
+  color: "#8A7F70",
   margin: "0 0 6px",
   textAlign: "center" as const,
 };
@@ -144,11 +144,11 @@ const bodyText = {
   fontFamily: fontBody,
   fontSize: "15px",
   lineHeight: "1.7",
-  color: "#5a4f4f",
+  color: "#5A4F44",
   margin: "0 0 12px",
 };
 const divider = {
-  borderTop: "1px solid #f0e0e4",
+  borderTop: "1px solid #E8DCC8",
   borderBottom: "none" as const,
   borderLeft: "none" as const,
   borderRight: "none" as const,
@@ -158,14 +158,14 @@ const closing = {
   fontFamily: fontDisplay,
   fontSize: "15px",
   fontStyle: "italic" as const,
-  color: "#8a7f7f",
+  color: "#8A7F70",
   margin: "0 0 24px",
   textAlign: "center" as const,
 };
 const unsubscribe = {
   fontFamily: fontBody,
   fontSize: "11px",
-  color: "#8a7f7f",
+  color: "#8A7F70",
   textAlign: "center" as const,
   margin: "0",
 };
@@ -177,7 +177,7 @@ const footer = {
 const footerMonogram = {
   fontFamily: fontDisplay,
   fontSize: "14px",
-  color: "#8a7f7f",
+  color: "#8A7F70",
   letterSpacing: "0.12em",
   margin: "0",
   textAlign: "center" as const,

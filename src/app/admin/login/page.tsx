@@ -35,7 +35,7 @@ export default function AdminLoginPage() {
   return (
     <main
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16"
-      style={{ backgroundColor: "#fff8f8", fontFamily: "var(--font-lato), sans-serif" }}
+      style={{ backgroundColor: "var(--color-background)", fontFamily: "var(--font-lato), sans-serif" }}
     >
       <style>{`
         @keyframes fadeInUp {
@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
           style={{
             width: "60vw", height: "60vh",
             top: "-10%", right: "-10%",
-            background: "radial-gradient(ellipse at center, rgba(255,218,233,0.4), rgba(247,224,232,0.2), transparent)",
+            background: "var(--gradient-glow-rose)",
           }}
         />
         <div
@@ -63,7 +63,7 @@ export default function AdminLoginPage() {
           style={{
             width: "50vw", height: "50vh",
             bottom: "-10%", left: "-10%",
-            background: "radial-gradient(ellipse at center, rgba(210,217,139,0.2), rgba(255,255,227,0.3), transparent)",
+            background: "var(--gradient-glow-olive)",
           }}
         />
         <div
@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
           style={{
             width: "30vw", height: "30vh",
             top: "40%", left: "10%",
-            background: "radial-gradient(ellipse at center, rgba(247,224,232,0.15), rgba(255,255,227,0.2))",
+            background: "var(--gradient-glow-soft)",
           }}
         />
       </div>
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
           style={{ animation: "fadeInUp 0.8s ease forwards", opacity: 0 }}
         >
           <span
-            className="text-3xl text-[#8a7f7f]"
+            className="text-3xl text-muted-foreground"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             {person1.firstName[0]}&nbsp;&amp;&nbsp;{person2.firstName[0]}
@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
         {/* Divider */}
         <div className="mx-auto mt-5 overflow-hidden">
           <div
-            className="mx-auto h-px bg-[#d4a0b0]"
+            className="mx-auto h-px bg-accent"
             style={{
               animation: "grow 0.7s ease forwards",
               animationDelay: "0.3s",
@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
 
         {/* Label */}
         <p
-          className="mt-5 text-xs font-light uppercase tracking-[0.4em] text-[#8a7f7f]"
+          className="mt-5 text-xs font-light uppercase tracking-[0.4em] text-muted-foreground"
           style={{ animation: "fadeInUp 0.8s ease forwards", animationDelay: "0.4s", opacity: 0 }}
         >
           Admin
@@ -121,7 +121,7 @@ export default function AdminLoginPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-[10px] uppercase tracking-[0.3em] text-[#8a7f7f]"
+              className="block text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
             >
               Email
             </label>
@@ -133,14 +133,14 @@ export default function AdminLoginPage() {
               placeholder="you@example.com"
               required
               autoComplete="email"
-              className="mt-2 w-full border-b border-[#d4a0b0] bg-transparent pb-3 text-sm tracking-wide text-[#2c2424] outline-none transition-colors duration-300 placeholder:text-[#8a7f7f]/40 focus:border-[#2c2424]"
+              className="mt-2 w-full border-b border-accent bg-transparent pb-3 text-sm tracking-wide text-primary outline-none transition-colors duration-300 placeholder:text-muted-foreground/40 focus:border-primary"
             />
           </div>
 
           <div>
             <label
               htmlFor="password"
-              className="block text-[10px] uppercase tracking-[0.3em] text-[#8a7f7f]"
+              className="block text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
             >
               Password
             </label>
@@ -151,18 +151,18 @@ export default function AdminLoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              className="mt-2 w-full border-b border-[#d4a0b0] bg-transparent pb-3 text-sm tracking-wide text-[#2c2424] outline-none transition-colors duration-300 placeholder:text-[#8a7f7f]/40 focus:border-[#2c2424]"
+              className="mt-2 w-full border-b border-accent bg-transparent pb-3 text-sm tracking-wide text-primary outline-none transition-colors duration-300 placeholder:text-muted-foreground/40 focus:border-primary"
             />
           </div>
 
           {error && (
-            <p className="text-xs uppercase tracking-[0.2em] text-red-400">{error}</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-destructive">{error}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#2c2424] px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-[#fff8f8] transition-colors duration-300 hover:bg-[#d4a0b0] disabled:opacity-50"
+            className="w-full bg-primary px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-background transition-colors duration-300 hover:bg-accent disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>

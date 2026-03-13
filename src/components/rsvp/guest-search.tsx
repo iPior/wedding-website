@@ -54,11 +54,11 @@ export function GuestSearch({ onHouseholdFound }: Props) {
   return (
     <div className="space-y-8">
       <form onSubmit={handleSearch} className="space-y-6">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="space-y-2">
             <label
               htmlFor="firstName"
-              className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
+              className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
             >
               {t("firstName")}
             </label>
@@ -68,13 +68,13 @@ export function GuestSearch({ onHouseholdFound }: Props) {
               onChange={(e) => setFirstName(e.target.value)}
               placeholder={t("firstNamePlaceholder")}
               required
-              className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
+              className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
             />
           </div>
           <div className="space-y-2">
             <label
               htmlFor="lastName"
-              className="block text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]"
+              className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
             >
               {t("lastName")}
             </label>
@@ -84,7 +84,7 @@ export function GuestSearch({ onHouseholdFound }: Props) {
               onChange={(e) => setLastName(e.target.value)}
               placeholder={t("lastNamePlaceholder")}
               required
-              className="w-full border border-[#c8b0b4] bg-white px-3 py-2.5 text-sm text-[#2c2424] placeholder:text-[#8a7f7f]/45 focus:border-[#d4a0b0] focus:outline-none focus:ring-0 transition-colors"
+              className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
             />
           </div>
         </div>
@@ -92,27 +92,27 @@ export function GuestSearch({ onHouseholdFound }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[#2c2424] py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-white transition-colors hover:bg-[#d4a0b0] disabled:opacity-50"
+          className="w-full bg-primary py-3.5 text-[0.7rem] uppercase tracking-[0.15em] text-primary-foreground transition-colors hover:bg-accent disabled:opacity-50"
         >
           {loading ? t("searching") : t("findInvitation")}
         </button>
       </form>
 
       {notPrimaryMessage && (
-        <div className="border border-[#f0e0e4] bg-[#fdf6f8] px-5 py-4 text-sm text-[#5a4f4f]">
+        <div className="border border-border bg-surface px-5 py-4 text-sm text-foreground-soft">
           {notPrimaryMessage}
         </div>
       )}
 
       {results && results.guests.length === 0 && (
-        <div className="border border-[#f0e0e4] bg-[#fdf6f8] px-5 py-4 text-sm text-[#5a4f4f]">
+        <div className="border border-border bg-surface px-5 py-4 text-sm text-foreground-soft">
           {t("notFound")}
         </div>
       )}
 
       {results && results.guests.length > 0 && !notPrimaryMessage && (
         <div className="space-y-3">
-          <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#8a7f7f]">
+          <p className="text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
             {t("selectName")}
           </p>
           {results.guests.map((guest) => (
@@ -120,16 +120,16 @@ export function GuestSearch({ onHouseholdFound }: Props) {
               key={guest.id}
               onClick={() => handleSelectGuest(guest)}
               disabled={loadingHousehold}
-              className="group w-full border border-[#f0e0e4] px-5 py-4 text-left transition-all hover:border-[#d4a0b0] hover:shadow-sm hover:-translate-y-px disabled:opacity-50"
+              className="group w-full border border-border px-5 py-4 text-left transition-all hover:border-accent hover:shadow-sm hover:-translate-y-px disabled:opacity-50"
             >
               <span
-                className="text-lg text-[#2c2424]"
+                className="text-lg text-primary"
                 style={{ fontFamily: "var(--font-playfair), serif" }}
               >
                 {guest.firstName} {guest.lastName}
               </span>
               {!guest.isPrimary && (
-                <span className="ml-3 text-[0.62rem] uppercase tracking-[0.15em] text-[#8a7f7f]">
+                <span className="ml-3 text-[0.62rem] uppercase tracking-[0.15em] text-muted-foreground">
                   {t("householdMember")}
                 </span>
               )}

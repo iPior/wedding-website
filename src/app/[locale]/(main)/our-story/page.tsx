@@ -1,36 +1,37 @@
+import Image from "next/image";
 import { weddingConfig } from "../../../../../wedding.config";
 import { getTranslations } from "next-intl/server";
+import { FadeIn } from "@/components/fade-in";
 
 // Gradient palettes — one per milestone, evocative of each story beat
 const milestoneVisuals = [
   {
-    gradient: "linear-gradient(145deg, #f5e6c8 0%, #e8c48a 55%, #d4a86c 100%)",
+    gradient: "linear-gradient(145deg, var(--color-memory-gold-light) 0%, var(--color-memory-gold) 55%, var(--color-memory-gold-dark) 100%)",
   },
   {
-    gradient: "linear-gradient(145deg, #d4e4f0 0%, #b0c8dc 55%, #8cafc8 100%)",
+    gradient: "linear-gradient(145deg, var(--color-memory-blue-light) 0%, var(--color-memory-blue) 55%, var(--color-memory-blue-dark) 100%)",
   },
   {
-    gradient: "linear-gradient(145deg, #f0d8cc 0%, #d8b0a0 55%, #c49488 100%)",
+    gradient: "linear-gradient(145deg, var(--color-memory-clay-light) 0%, var(--color-memory-clay) 55%, var(--color-memory-clay-dark) 100%)",
   },
   {
-    gradient: "linear-gradient(145deg, #dcd4ec 0%, #b8acd0 55%, #9888b8 100%)",
+    gradient: "linear-gradient(145deg, var(--color-memory-lavender-light) 0%, var(--color-memory-lavender) 55%, var(--color-memory-lavender-dark) 100%)",
   },
 ];
 
 // Alternating polaroid tilts
 const polaroidRotations = [-2.5, 1.8, -1.5, 2.2, -2, 5.5];
 
-function PhotoFrame({ gradient, year, image }: { gradient: string; year: string; image?: string }) {
+function PhotoFrame({ gradient, label, image }: { gradient: string; label: string; image?: string }) {
   if (image) {
     return (
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={year} className="absolute inset-0 w-full h-full object-cover" />
+          <Image src={image} alt={label} fill sizes="(max-width: 768px) 80vw, 320px" className="object-cover" />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.1) 100%)",
+              "var(--gradient-photo-vignette)",
           }}
         />
       </div>
@@ -47,7 +48,7 @@ function PhotoFrame({ gradient, year, image }: { gradient: string; year: string;
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.1) 100%)",
+            "var(--gradient-photo-vignette)",
         }}
       />
       {/* Year watermark */}
@@ -58,10 +59,10 @@ function PhotoFrame({ gradient, year, image }: { gradient: string; year: string;
           fontSize: "clamp(3rem, 8vw, 5rem)",
           fontWeight: 400,
           letterSpacing: "0.05em",
-          color: "rgba(255,255,255,0.2)",
+          color: "var(--color-watermark)",
         }}
       >
-        {year}
+        {label}
       </div>
       {/* Camera indicator */}
       <div className="absolute bottom-3 right-3">
@@ -70,7 +71,7 @@ function PhotoFrame({ gradient, year, image }: { gradient: string; year: string;
           height="16"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="rgba(255,255,255,0.35)"
+          stroke="var(--color-camera-stroke)"
           strokeWidth="1.2"
         >
           <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
@@ -87,35 +88,40 @@ export default async function OurStoryPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10 md:py-16">
-      <p className="text-xs uppercase tracking-[0.3em] text-[#d4a0b0] mb-3">{t("sectionNumber")}</p>
-      <h1
-        className="text-5xl text-[#2c2424] mb-8 md:mb-16"
-        style={{ fontFamily: "var(--font-playfair), serif" }}
-      >
-        {t("title")}
-      </h1>
+      <FadeIn>
+        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-3">{t("sectionNumber")}</p>
+        <h1
+          className="text-5xl text-primary mb-8 md:mb-16"
+          style={{ fontFamily: "var(--font-playfair), serif" }}
+        >
+          {t("title")}
+        </h1>
+      </FadeIn>
       {/* Timeline — alternating left/right with photos on opposing side */}
       <div className="relative max-w-4xl mx-auto">
-        {/* Center spine */}
-        <div
-          className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent, rgba(212,160,176,0.3), transparent)",
-          }}
-        />
-
         {(() => {
           let polaroidCount = 0;
           return milestones.map((m, i) => {
           const isEven = i % 2 === 0;
           const visual = milestoneVisuals[i % milestoneVisuals.length];
           const polaroidIndex = m.image ? polaroidCount++ : 0;
+          const label = `${t(`months.${m.month}`)} ${m.year}`;
 
           return (
-            <div key={i} className="relative mb-20">
+            <FadeIn key={i} className="relative mb-20" delay={Math.min(i * 0.15, 0.3)}>
+              {/* Spine segment to next dot (not on last milestone) */}
+              {i < milestones.length - 1 && (
+                <div
+                  className="absolute left-4 md:left-1/2 w-px -translate-x-1/2"
+                  style={{
+                    top: "1.125rem",
+                    bottom: "-6.125rem", // -(mb-20 + dot-center-offset) = -(5rem + 1.125rem)
+                    background: "rgba(176, 138, 80, 0.3)",
+                  }}
+                />
+              )}
               {/* Spine dot */}
-              <div className="absolute left-4 md:left-1/2 -translate-x-1/2  translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-[#d4a0b0] bg-[#fff8f8] z-10" />
+              <div className="absolute left-4 md:left-1/2 -translate-x-1/2  translate-y-1/2 top-3 w-3 h-3 rounded-full border-2 border-accent bg-background z-10" />
 
               <div
                 className={`flex flex-col md:flex-row md:items-start gap-6 ${
@@ -129,18 +135,18 @@ export default async function OurStoryPage() {
                   }`}
                 >
                   <p
-                    className="text-3xl text-[#d4a0b0]/60 mb-1"
+                    className="text-3xl text-accent/60 mb-1"
                     style={{ fontFamily: "var(--font-playfair), serif" }}
                   >
-                    {m.year}
+                    {label}
                   </p>
                   <h2
-                    className="text-2xl text-[#2c2424] mb-2"
+                    className="text-2xl text-primary mb-2"
                     style={{ fontFamily: "var(--font-playfair), serif" }}
                   >
                     {t(`milestones.${i}.title`)}
                   </h2>
-                  <p className="text-sm text-[#8a7f7f]">{t(`milestones.${i}.description`)}</p>
+                  <p className="text-sm text-muted-foreground">{t(`milestones.${i}.description`)}</p>
                 </div>
 
                 {/* Photo side — only rendered when an image is set */}
@@ -154,20 +160,20 @@ export default async function OurStoryPage() {
                     <div
                       style={{
                         transform: `rotate(${polaroidRotations[polaroidIndex % polaroidRotations.length]}deg)`,
-                        backgroundColor: "#ffffff",
+                        backgroundColor: "var(--color-card)",
                         padding: "10px 10px 40px 10px",
-                        boxShadow: "0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08)",
+                        boxShadow: "var(--shadow-polaroid)",
                         display: "inline-block",
                         width: "100%",
                         maxWidth: "320px",
                       }}
                     >
-                      <PhotoFrame gradient={visual.gradient} year={m.year} image={m.image} />
+                      <PhotoFrame gradient={visual.gradient} label={label} image={m.image} />
                     </div>
                   </div>
                 )}
               </div>
-            </div>
+            </FadeIn>
           );
         });
         })()}

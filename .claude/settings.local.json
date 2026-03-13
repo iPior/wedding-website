@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /c/Users/Piotr/Documents/GitHub/wedding-website-v2/src/app/\\\\[locale\\\\]/\\\\\\(main\\\\\\)/ | grep -i rsvp)",
+      "Bash(ls -la /c/Users/Piotr/Documents/GitHub/wedding-website-v2/src/app/\\\\[locale\\\\]/\\\\\\(main\\\\\\)/rsvp/)",
+      "Bash(ls -la /c/Users/Piotr/Documents/GitHub/wedding-website-v2/src/app/\\\\[locale\\\\]/\\\\\\(main\\\\\\)/rsvp/modify/\\\\[token\\\\]/)",
+      "Bash(ls \"C:/Users/Piotr/Documents/GitHub/wedding-website-v2/src/app/[locale]/\\(main\\)/\")",
+      "Bash(find \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\\\\src\\\\app\\\\[locale\\\\]\\(main\\)\" -name \"page.tsx\" -type f)",
+      "Bash(find /c/Users/Piotr/Documents/GitHub/wedding-website-v2/src/app/\\\\[locale\\\\]/\\\\\\(main\\\\\\) -name \"page.tsx\")",
+      "Bash(find /c/Users/Piotr/Documents/GitHub/wedding-website-v2/src/app/\\\\[locale\\\\]/\\\\\\(main\\\\\\) -name \"_*\" -type f)",
+      "Bash(find /c/Users/Piotr/Documents/GitHub/wedding-website-v2/src/app/\\\\[locale\\\\]/\\\\\\(main\\\\\\) -type f -name \"*.tsx\" | head -10)",
+      "Bash(git add:*)",
+      "Bash(cd \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\" && bun run build 2>&1 | tail -30)",
+      "Bash(git commit:*)",
+      "Bash(cd \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\" && bun run lint 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\" && bun run build 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\" && bun run lint 2>&1 && bun run build 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\" && bun run build 2>&1 | tail -35)",
+      "Bash(cd \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\" && bun run build 2>&1 | tail -10)",
+      "Bash(cd \"C:\\\\Users\\\\Piotr\\\\Documents\\\\GitHub\\\\wedding-website-v2\" && bun run build 2>&1 | tail -5)"
+    ]
+  }
+}

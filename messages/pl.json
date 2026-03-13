@@ -71,6 +71,20 @@
   "OurStory": {
     "sectionNumber": "001",
     "title": "Nasza Historia",
+    "months": {
+      "1": "Styczeń",
+      "2": "Luty",
+      "3": "Marzec",
+      "4": "Kwiecień",
+      "5": "Maj",
+      "6": "Czerwiec",
+      "7": "Lipiec",
+      "8": "Sierpień",
+      "9": "Wrzesień",
+      "10": "Październik",
+      "11": "Listopad",
+      "12": "Grudzień"
+    },
     "milestones": {
       "0": {
         "title": "Gdzie to się wszystko zaczęło",
@@ -121,7 +135,9 @@
     "sectionNumber": "001",
     "title": "Potwierdź Udział",
     "subtitle": "Bardzo chcielibyśmy świętować razem z Tobą. Wyszukaj swoje imię poniżej i daj nam znać, czy możesz przyjść.",
-    "issuesHelp": "[TODO: Jeśli coś nie działa z RSVP, napisz/zadzwoń do nas: ...]"
+    "issuesHelp": "Jeśli coś nie działa z RSVP, napisz/zadzwoń do nas",
+    "helpButton": "Pomoc",
+    "helpTitle": "Potrzebujesz pomocy?"
   },  
    "RsvpSearch": {
     "firstName": "Imię",
@@ -159,13 +175,20 @@
     "submitRsvp": "Prześlij RSVP",
     "emailRequired": "Adres e-mail jest wymagany",
     "selectAttending": "Wybierz status uczestnictwa dla {name}",
-    "plusOneName": "Wprowadź imię i nazwisko osoby towarzyszącej nr {number}"
+    "plusOneName": "Wprowadź imię i nazwisko osoby towarzyszącej nr {number}",
+    "contactNote": "Coś nie tak z Twoim RSVP? Skontaktuj się z parą młodą."
   },
   "RsvpConfirmation": {
     "thankYou": "Dziękujemy",
     "submitted": "Twoja odpowiedź została przesłana. Otrzymasz wiadomość e-mail z potwierdzeniem i linkiem umożliwiającym zmianę odpowiedzi w razie potrzeby.",
     "excited": "Cieszymy się, że będziemy mogli świętować razem z wami",
-    "backToSearch": "Powrót do wyszukiwania"
+    "missYou": "Będzie nam Cię brakować",
+    "declineMessage": "Dziękujemy za informację. Mamy nadzieję, że będziemy mogli świętować razem przy innej okazji.",
+    "backHome": "Wróć na stronę główną",
+    "backToSearch": "Powrót do wyszukiwania",
+    "ceremony": "Ceremonia",
+    "reception": "Przyjęcie",
+    "viewDetails": "Szczegóły"
   },
   "ModifyRsvp": {
     "title": "Modyfikuj potwierdzenie udziału",
@@ -228,6 +251,6 @@
     "polish": "Polski"
   },
   "Venues": {
-    "ceremonyName": "[TODO: POLISH CHURCH NAME]"
+    "ceremonyName": "Parafia Świętego Maksymiliana Kolbego"
   }
 }

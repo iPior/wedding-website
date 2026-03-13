@@ -25,12 +25,12 @@ export function CsvUpload() {
           name="file"
           accept=".csv"
           required
-          className="flex-1 text-xs text-[#8a7f7f] file:mr-3 file:border-0 file:bg-[#f0e0e4] file:px-3 file:py-1.5 file:text-[11px] file:uppercase file:tracking-[0.2em] file:text-[#2c2424] file:cursor-pointer"
+          className="flex-1 text-xs text-muted-foreground file:mr-3 file:border-0 file:bg-border file:px-3 file:py-1.5 file:text-[11px] file:uppercase file:tracking-[0.2em] file:text-primary file:cursor-pointer"
         />
         <button
           type="submit"
           disabled={loading}
-          className="bg-[#2c2424] px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-[#fff8f8] transition-colors hover:bg-[#d4a0b0] disabled:opacity-40 whitespace-nowrap"
+          className="bg-primary px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-background transition-colors hover:bg-accent disabled:opacity-40 whitespace-nowrap"
         >
           {loading ? "Importing..." : "Import CSV"}
         </button>
@@ -40,8 +40,8 @@ export function CsvUpload() {
         <div
           className={`border p-3 text-xs uppercase tracking-[0.15em] ${
             result.success
-              ? "border-[#d4a0b0]/40 bg-[#d4a0b0]/10 text-[#2c2424]"
-              : "border-red-200 bg-red-50 text-red-700"
+              ? "border-accent/40 bg-accent/10 text-primary"
+              : "border-destructive/30 bg-destructive/10 text-destructive"
           }`}
         >
           {result.success ? (

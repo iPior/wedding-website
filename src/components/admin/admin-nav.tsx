@@ -17,49 +17,50 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className="border-b border-[#f0e0e4] bg-[#fff8f8]">
+    <nav className="border-b border-border bg-background">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-8">
           {/* Monogram */}
           <Link
             href="/admin"
-            className="text-base text-[#8a7f7f]"
+            className="text-base text-muted-foreground"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
             {person1.firstName[0]}&nbsp;&amp;&nbsp;{person2.firstName[0]}
           </Link>
 
           {/* Divider */}
-          <span className="h-4 w-px bg-[#f0e0e4]" />
+          <span className="h-4 w-px bg-border" />
 
           {/* Nav links */}
           <div className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative text-xs uppercase tracking-[0.25em] transition-colors duration-200"
-                style={{
-                  color: pathname === link.href ? "#2c2424" : "#8a7f7f",
-                }}
-              >
-                {link.label}
-                {pathname === link.href && (
-                  <span className="absolute -bottom-[17px] left-0 right-0 h-px bg-[#d4a0b0]" />
-                )}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs uppercase tracking-[0.25em] transition-colors duration-200 pb-0.5"
+                  style={{
+                    color: active ? "var(--color-primary)" : "var(--color-muted-foreground)",
+                    borderBottom: active ? "1px solid var(--color-accent)" : "1px solid transparent",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="hidden text-[11px] uppercase tracking-[0.15em] text-[#8a7f7f]/60 sm:block">
+          <span className="hidden text-[11px] uppercase tracking-[0.15em] text-muted-foreground/60 sm:block">
             {userEmail}
           </span>
           <form action={logout}>
             <button
               type="submit"
-              className="text-xs uppercase tracking-[0.25em] text-[#8a7f7f] transition-colors duration-200 hover:text-[#2c2424]"
+              className="text-xs uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-200 hover:text-primary"
             >
               Logout
             </button>
