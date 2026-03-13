@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import { CsvUpload } from "@/components/admin/csv-upload";
 import { AddGuestForm } from "@/components/admin/add-guest-form";
-import { DeleteGuestButton, DeleteHouseholdButton } from "@/components/admin/delete-button";
+import { EditGuestButton, EditHouseholdButton } from "@/components/admin/edit-guest-modal";
 import { GuestFilters } from "@/components/admin/guest-filters";
 import { CsvExportButton } from "@/components/admin/csv-export-button";
 
@@ -105,7 +105,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
                         <div className="flex items-center gap-2">
                           <span className="text-primary">{household.name}</span>
                           <span className="text-xs text-muted-foreground/60">(+{household.maxPlusOnes})</span>
-                          <DeleteHouseholdButton householdId={household.id} />
+                          <EditHouseholdButton household={household} />
                         </div>
                       ) : null}
                     </TableCell>
@@ -137,7 +137,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
                       {guest.dietaryRestrictions ?? "—"}
                     </TableCell>
                     <TableCell>
-                      <DeleteGuestButton guestId={guest.id} />
+                      <EditGuestButton guest={guest} />
                     </TableCell>
                   </TableRow>
                 ))

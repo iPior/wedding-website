@@ -227,6 +227,47 @@ export async function addGuest(formData: FormData) {
   return { success: true };
 }
 
+const updateGuestSchema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email().optional().or(z.literal("")),
+  isPrimary: z.boolean(),
+  attending: z.enum(["YES", "NO", "PENDING"]),
+  dietaryRestrictions: z.string().optional(),
+});
+
+export async function updateGuest(guestId: string, formData: FormData) {
+  const parsed = updateGuestSchema.safeParse({
+    firstName: formData.get("firstName"),
+    lastName: formData.get("lastName"),
+    email: formData.get("email") || undefined,
+    isPrimary: formData.get("isPrimary") === "true",
+    attending: formData.get("attending"),
+    dietaryRestrictions: formData.get("dietaryRestrictions") || undefined,
+  });
+
+  if (!parsed.success) {
+    return { success: false, error: "Invalid input" };
+  }
+
+  const { firstName, lastName, email, isPrimary, attending, dietaryRestrictions } = parsed.data;
+
+  await prisma.guest.update({
+    where: { id: guestId },
+    data: {
+      firstName,
+      lastName,
+      email: email || null,
+      isPrimary,
+      attending,
+      dietaryRestrictions: dietaryRestrictions || null,
+    },
+  });
+
+  revalidatePath("/admin/guests");
+  return { success: true };
+}
+
 export async function deleteGuest(guestId: string) {
   const guest = await prisma.guest.findUnique({
     where: { id: guestId },
@@ -243,6 +284,22 @@ export async function deleteGuest(guestId: string) {
   if (guest.household.guests.length <= 1) {
     await prisma.household.delete({ where: { id: guest.householdId } });
   }
+
+  revalidatePath("/admin/guests");
+  return { success: true };
+}
+
+export async function updateHousehold(householdId: string, formData: FormData) {
+  const name = (formData.get("name") as string | null)?.trim();
+  const maxPlusOnes = parseInt(formData.get("maxPlusOnes") as string || "0", 10);
+
+  if (!name) return { success: false, error: "Name is required" };
+  if (isNaN(maxPlusOnes) || maxPlusOnes < 0) return { success: false, error: "Invalid plus ones" };
+
+  await prisma.household.update({
+    where: { id: householdId },
+    data: { name, maxPlusOnes },
+  });
 
   revalidatePath("/admin/guests");
   return { success: true };

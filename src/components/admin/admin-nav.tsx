@@ -34,21 +34,22 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
 
           {/* Nav links */}
           <div className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative text-xs uppercase tracking-[0.25em] transition-colors duration-200"
-                style={{
-                  color: pathname === link.href ? "var(--color-primary)" : "var(--color-muted-foreground)",
-                }}
-              >
-                {link.label}
-                {pathname === link.href && (
-                  <span className="absolute -bottom-[17px] left-0 right-0 h-px bg-accent" />
-                )}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-xs uppercase tracking-[0.25em] transition-colors duration-200 pb-0.5"
+                  style={{
+                    color: active ? "var(--color-primary)" : "var(--color-muted-foreground)",
+                    borderBottom: active ? "1px solid var(--color-accent)" : "1px solid transparent",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
