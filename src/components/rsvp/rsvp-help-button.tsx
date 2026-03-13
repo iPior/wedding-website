@@ -12,7 +12,7 @@ export function RsvpHelpButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 bg-white text-primary border border-accent px-4 py-2.5 text-[0.65rem] uppercase tracking-[0.18em] shadow-md transition-colors hover:bg-accent/10"
+        className="fixed bottom-6 right-6 z-50 bg-white text-primary border border-accent px-4 py-2.5 text-[0.65rem] uppercase tracking-[0.18em] shadow-md transition-colors hover:bg-accent/10 md:static md:mt-8 md:ml-auto md:block"
       >
         {t("helpButton")}
       </button>

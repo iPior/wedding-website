@@ -25,8 +25,9 @@ export default async function RsvpPage() {
 
       <FadeIn delay={0.15}>
         <RsvpFlow />
-        <RsvpHelpButton />
       </FadeIn>
+
+      <RsvpHelpButton />
     </main>
   );
 }
