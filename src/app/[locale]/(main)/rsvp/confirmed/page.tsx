@@ -1,5 +1,6 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { FadeIn } from "@/components/fade-in";
 import { weddingConfig } from "../../../../../../wedding.config";
 
 const { ceremony, reception } = weddingConfig.venue;
@@ -22,7 +23,7 @@ export default async function RsvpConfirmedPage({
 
   return (
     <section className="flex min-h-[calc(100vh-15rem)] items-center justify-center px-6 py-16 text-center">
-      <div className="w-full max-w-xl space-y-10">
+      <FadeIn className="w-full max-w-xl space-y-10">
 
         {/* Thank you */}
         <div className="space-y-3">
@@ -98,7 +99,7 @@ export default async function RsvpConfirmedPage({
           </Link>
         )}
 
-      </div>
+      </FadeIn>
     </section>
   );
 }
