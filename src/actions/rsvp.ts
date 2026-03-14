@@ -5,7 +5,7 @@ import Fuse from "fuse.js";
 import { z } from "zod";
 import * as Sentry from "@sentry/nextjs";
 import { prisma } from "@/lib/prisma";
-import { resend } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
 import { logger } from "@/lib/logger";
 import { normalizeLocale, withLocalePath } from "@/lib/locale";
 import { getEmailMessages } from "@/emails/i18n";
@@ -319,7 +319,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
   });
 
   try {
-    await resend.emails.send({
+    await sendEmail({
       from: process.env.EMAIL_FROM!,
       to: email,
       subject: emailMessages.subject,
@@ -503,7 +503,7 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
   });
 
   try {
-    await resend.emails.send({
+    await sendEmail({
       from: process.env.EMAIL_FROM!,
       to: email,
       subject: emailMessages.subject,

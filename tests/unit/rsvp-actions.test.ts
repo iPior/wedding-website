@@ -18,6 +18,7 @@ const { mockPrisma } = vi.hoisted(() => {
 
 vi.mock("@/lib/prisma", () => ({ prisma: mockPrisma }));
 vi.mock("@/lib/resend", () => ({
+  sendEmail: vi.fn().mockResolvedValue({}),
   resend: { emails: { send: vi.fn().mockResolvedValue({}) } },
 }));
 vi.mock("@/emails/rsvp-confirmation", () => ({ default: vi.fn() }));
