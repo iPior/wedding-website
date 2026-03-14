@@ -5,9 +5,9 @@ import Image from "next/image";
 import { FadeIn } from "@/components/fade-in";
 
 type Member = {
-  name: string;
-  role: string;
-  image: string;
+  readonly name: string;
+  readonly role: string;
+  readonly image: string;
 };
 
 function BridalPartyRow({
@@ -15,7 +15,7 @@ function BridalPartyRow({
   roleLabels,
   rowIndex,
 }: {
-  members: Member[];
+  members: readonly Member[];
   roleLabels: Record<string, string>;
   rowIndex: number;
 }) {
@@ -66,7 +66,7 @@ export function BridalPartyGrid({
   members,
   roleLabels,
 }: {
-  members: Member[];
+  members: readonly Member[];
   roleLabels: Record<string, string>;
 }) {
   // Group members into rows of 2

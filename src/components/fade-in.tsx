@@ -31,7 +31,7 @@ export function FadeIn({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold]);
 
   return (
     <div
