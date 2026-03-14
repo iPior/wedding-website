@@ -6,10 +6,12 @@ export function FadeIn({
   children,
   className,
   delay = 0,
+  threshold = 0.1,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  threshold?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -18,13 +20,6 @@ export function FadeIn({
     const el = ref.current;
     if (!el) return;
 
-    // If the element starts below the fold, skip animation entirely
-    if (el.getBoundingClientRect().top >= window.innerHeight) {
-      setVisible(true);
-      return;
-    }
-
-    // Above the fold — animate in via IntersectionObserver
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -32,7 +27,7 @@ export function FadeIn({
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold }
     );
     observer.observe(el);
     return () => observer.disconnect();
