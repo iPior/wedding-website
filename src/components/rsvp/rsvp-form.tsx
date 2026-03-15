@@ -89,7 +89,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
     e.preventDefault();
     setError(null);
 
-    if (!email.trim()) {
+    if (!modifyToken && !email.trim()) {
       setError(t("emailRequired"));
       return;
     }
@@ -160,27 +160,29 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
         </p>
       </div>
 
-      {/* Email */}
-      <div className="space-y-2">
-        <label
-          htmlFor="email"
-          className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
-        >
-          {t("yourEmail")}
-        </label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={t("emailPlaceholder")}
-          required
-          className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
-        />
-        <p className="text-xs text-muted-foreground">
-          {t("emailHelp")}
-        </p>
-      </div>
+      {/* Email — shown as editable on initial RSVP, hidden on modify */}
+      {!modifyToken && (
+        <div className="space-y-2">
+          <label
+            htmlFor="email"
+            className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
+          >
+            {t("yourEmail")}
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder={t("emailPlaceholder")}
+            required
+            className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
+          />
+          <p className="text-xs text-muted-foreground">
+            {t("emailHelp")}
+          </p>
+        </div>
+      )}
 
       <div className="h-px bg-border" />
 
