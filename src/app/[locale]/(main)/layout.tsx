@@ -2,6 +2,7 @@ import { Playfair_Display, Lato } from "next/font/google";
 import { Nav } from "./_nav";
 import { PageTransition } from "./_page-transition";
 import { Footer } from "./_footer";
+import { BridalPartyPreload } from "@/components/bridal-party-preload";
 import { weddingConfig } from "../../../../wedding.config";
 
 const playfair = Playfair_Display({
@@ -84,6 +85,8 @@ export default function MainLayout({
           }}
         />
       </div>
+
+      <BridalPartyPreload />
 
       {/* Page content above watercolor layer */}
       <div className="relative z-10">

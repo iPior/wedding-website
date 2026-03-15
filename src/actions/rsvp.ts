@@ -5,7 +5,7 @@ import Fuse from "fuse.js";
 import { z } from "zod";
 import * as Sentry from "@sentry/nextjs";
 import { prisma } from "@/lib/prisma";
-import { resend } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
 import { logger } from "@/lib/logger";
 import { normalizeLocale, withLocalePath } from "@/lib/locale";
 import { getEmailMessages } from "@/emails/i18n";
@@ -315,11 +315,12 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
     return {
       name: fullGuest ? `${fullGuest.firstName} ${fullGuest.lastName}` : "Guest",
       attending: g.attending === "YES",
+      dietaryRestrictions: g.attending === "YES" ? (g.dietaryRestrictions ?? null) : null,
     };
   });
 
   try {
-    await resend.emails.send({
+    await sendEmail({
       from: process.env.EMAIL_FROM!,
       to: email,
       subject: emailMessages.subject,
@@ -328,6 +329,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         guests: guestDetails,
         plusOnes: plusOnes.map((p) => ({
           name: `${p.firstName} ${p.lastName}`,
+          dietaryRestrictions: p.dietaryRestrictions ?? null,
         })),
         modifyUrl,
         attendingCount: attendingGuests.length + plusOnes.length,
@@ -499,11 +501,12 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
     return {
       name: fullGuest ? `${fullGuest.firstName} ${fullGuest.lastName}` : "Guest",
       attending: g.attending === "YES",
+      dietaryRestrictions: g.attending === "YES" ? (g.dietaryRestrictions ?? null) : null,
     };
   });
 
   try {
-    await resend.emails.send({
+    await sendEmail({
       from: process.env.EMAIL_FROM!,
       to: email,
       subject: emailMessages.subject,
@@ -512,6 +515,7 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
         guests: guestDetails,
         plusOnes: plusOnes.map((p) => ({
           name: `${p.firstName} ${p.lastName}`,
+          dietaryRestrictions: p.dietaryRestrictions ?? null,
         })),
         modifyUrl,
         locale,
