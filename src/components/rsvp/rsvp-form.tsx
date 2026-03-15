@@ -147,44 +147,47 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Header */}
-      <div>
-        <h2
-          className="text-3xl text-primary"
-          style={{ fontFamily: "var(--font-playfair), serif" }}
-        >
-          {primaryGuest ? `${primaryGuest.firstName} ${primaryGuest.lastName}` : household.householdName}
-        </h2>
-        <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
-          {modifyToken ? t("updateSubtitle") : t("respondSubtitle")}
-        </p>
-      </div>
-
-      {/* Email — shown as editable on initial RSVP, hidden on modify */}
+      {/* Header — only shown on initial RSVP */}
       {!modifyToken && (
-        <div className="space-y-2">
-          <label
-            htmlFor="email"
-            className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
+        <div>
+          <h2
+            className="text-3xl text-primary"
+            style={{ fontFamily: "var(--font-playfair), serif" }}
           >
-            {t("yourEmail")}
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={t("emailPlaceholder")}
-            required
-            className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
-          />
-          <p className="text-xs text-muted-foreground">
-            {t("emailHelp")}
+            {primaryGuest ? `${primaryGuest.firstName} ${primaryGuest.lastName}` : household.householdName}
+          </h2>
+          <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
+            {t("respondSubtitle")}
           </p>
         </div>
       )}
 
-      <div className="h-px bg-border" />
+      {/* Email — shown as editable on initial RSVP, hidden on modify */}
+      {!modifyToken && (
+        <>
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground"
+            >
+              {t("yourEmail")}
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("emailPlaceholder")}
+              required
+              className="w-full border border-input bg-card px-3 py-2.5 text-sm text-primary placeholder:text-muted-foreground/45 focus:border-accent focus:outline-none focus:ring-0 transition-colors"
+            />
+            <p className="text-xs text-muted-foreground">
+              {t("emailHelp")}
+            </p>
+          </div>
+          <div className="h-px bg-border" />
+        </>
+      )}
 
       {/* Guests */}
       <div className="space-y-8">
