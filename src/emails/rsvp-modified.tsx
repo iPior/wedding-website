@@ -210,8 +210,7 @@ const bodyText = {
   margin: "0 0 8px",
 };
 const card = {
-  backgroundColor: "#FBF3E0",
-  padding: "20px 24px",
+  padding: "20px 0",
   margin: "24px 0",
 };
 const cardLabel = {
