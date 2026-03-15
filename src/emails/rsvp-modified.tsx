@@ -19,10 +19,12 @@ const { person1, person2 } = weddingConfig.couple;
 interface GuestDetail {
   name: string;
   attending: boolean;
+  dietaryRestrictions?: string | null;
 }
 
 interface PlusOneDetail {
   name: string;
+  dietaryRestrictions?: string | null;
 }
 
 interface RsvpModifiedEmailProps {
@@ -70,16 +72,23 @@ export default function RsvpModifiedEmail({
               <Text style={cardLabel}>{m.guestsLabel}</Text>
               <Hr style={cardDivider} />
               {guests.map((guest, i) => (
-                <Text key={i} style={guestRow}>
-                  {guest.name}
-                  <span
-                    style={guest.attending ? statusAttending : statusDeclined}
-                  >
-                    {guest.attending
-                      ? ` - ${m.attending}`
-                      : ` - ${m.notAttending}`}
-                  </span>
-                </Text>
+                <div key={i}>
+                  <Text style={guestRow}>
+                    {guest.name}
+                    <span
+                      style={guest.attending ? statusAttending : statusDeclined}
+                    >
+                      {guest.attending
+                        ? ` - ${m.attending}`
+                        : ` - ${m.notAttending}`}
+                    </span>
+                  </Text>
+                  {guest.attending && guest.dietaryRestrictions && (
+                    <Text style={dietaryText}>
+                      {m.dietaryLabel}: {guest.dietaryRestrictions}
+                    </Text>
+                  )}
+                </div>
               ))}
 
               {plusOnes.length > 0 && (
@@ -89,9 +98,16 @@ export default function RsvpModifiedEmail({
                   </Text>
                   <Hr style={cardDivider} />
                   {plusOnes.map((po, i) => (
-                    <Text key={i} style={guestRow}>
-                      {po.name}
-                    </Text>
+                    <div key={i}>
+                      <Text style={guestRow}>
+                        {po.name}
+                      </Text>
+                      {po.dietaryRestrictions && (
+                        <Text style={dietaryText}>
+                          {m.dietaryLabel}: {po.dietaryRestrictions}
+                        </Text>
+                      )}
+                    </div>
                   ))}
                 </>
               )}
@@ -214,12 +230,20 @@ const cardDivider = {
   borderRight: "none" as const,
   margin: "8px 0 12px",
 };
+const dietaryText = {
+  fontFamily: fontBody,
+  fontSize: "12px",
+  lineHeight: "1.4",
+  color: "#8A7F70",
+  fontStyle: "italic" as const,
+  margin: "0 0 6px",
+};
 const guestRow = {
   fontFamily: fontBody,
   fontSize: "14px",
   lineHeight: "1.5",
   color: "#2c2424",
-  margin: "6px 0",
+  margin: "6px 0 0",
 };
 const statusAttending = { color: "#B08A50" };
 const statusDeclined = { color: "#8A7F70" };

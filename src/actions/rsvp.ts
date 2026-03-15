@@ -315,6 +315,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
     return {
       name: fullGuest ? `${fullGuest.firstName} ${fullGuest.lastName}` : "Guest",
       attending: g.attending === "YES",
+      dietaryRestrictions: g.attending === "YES" ? (g.dietaryRestrictions ?? null) : null,
     };
   });
 
@@ -328,6 +329,7 @@ export async function submitRsvp(input: SubmitRsvpInput): Promise<RsvpResult> {
         guests: guestDetails,
         plusOnes: plusOnes.map((p) => ({
           name: `${p.firstName} ${p.lastName}`,
+          dietaryRestrictions: p.dietaryRestrictions ?? null,
         })),
         modifyUrl,
         attendingCount: attendingGuests.length + plusOnes.length,
@@ -499,6 +501,7 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
     return {
       name: fullGuest ? `${fullGuest.firstName} ${fullGuest.lastName}` : "Guest",
       attending: g.attending === "YES",
+      dietaryRestrictions: g.attending === "YES" ? (g.dietaryRestrictions ?? null) : null,
     };
   });
 
@@ -512,6 +515,7 @@ export async function modifyRsvp(input: ModifyRsvpInput): Promise<RsvpResult> {
         guests: guestDetails,
         plusOnes: plusOnes.map((p) => ({
           name: `${p.firstName} ${p.lastName}`,
+          dietaryRestrictions: p.dietaryRestrictions ?? null,
         })),
         modifyUrl,
         locale,

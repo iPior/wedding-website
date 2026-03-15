@@ -9,6 +9,7 @@ type RsvpEmailCopy = {
   plusOnesLabel: string;
   attending: string;
   notAttending: string;
+  dietaryLabel: string;
   ctaHint: string;
   cta: string;
   closing: string;
@@ -38,6 +39,7 @@ const en: EmailMessages = {
     plusOnesLabel: "PLUS ONES",
     attending: "Attending",
     notAttending: "Not Attending",
+    dietaryLabel: "Dietary restrictions",
     ctaHint: "Need to make changes?",
     cta: "Modify Your RSVP",
     closing: "We are excited to celebrate with you!",
@@ -53,6 +55,7 @@ const en: EmailMessages = {
     plusOnesLabel: "PLUS ONES",
     attending: "Attending",
     notAttending: "Not Attending",
+    dietaryLabel: "Dietary restrictions",
     ctaHint: "Need to make more changes?",
     cta: "Modify Your RSVP",
     closing: "We are excited to celebrate with you!",
@@ -76,6 +79,7 @@ const pl: EmailMessages = {
     plusOnesLabel: "OSOBY TOWARZYSZACE",
     attending: "Obecny",
     notAttending: "Nieobecny",
+    dietaryLabel: "Ograniczenia dietetyczne",
     ctaHint: "Chcecie wprowadzic zmiany?",
     cta: "Zmien RSVP",
     closing: "Nie mozemy sie doczekac wspolnego swietowania!",
@@ -91,6 +95,7 @@ const pl: EmailMessages = {
     plusOnesLabel: "OSOBY TOWARZYSZACE",
     attending: "Obecny",
     notAttending: "Nieobecny",
+    dietaryLabel: "Ograniczenia dietetyczne",
     ctaHint: "Potrzebujecie kolejnych zmian?",
     cta: "Zmien RSVP",
     closing: "Nie mozemy sie doczekac wspolnego swietowania!",
