@@ -80,7 +80,7 @@ export const weddingConfig = {
     },
     {
       name: "Madison Coelho",
-      role: "Maid of Honor",
+      role: "Maid of Honour",
       image: "/images/bridal-party/madison.jpeg",
     },
     {
@@ -106,7 +106,7 @@ export const weddingConfig = {
     {
       name: "Jacob Sikora",
       role: "Groomsman",
-      image: "",
+      image: "/images/bridal-party/jay.jpeg",
     },
     {
       name: "Viki Baniak",
@@ -121,7 +121,7 @@ export const weddingConfig = {
     {
       name: "Julia Szaran",
       role: "Bridesmaid",
-      image: "",
+      image: "/images/bridal-party/julia.jpeg",
     },
   ],
 } as const;
