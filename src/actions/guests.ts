@@ -122,44 +122,51 @@ export async function importGuests(formData: FormData): Promise<ImportResult> {
     return { success: false, householdsCreated: 0, guestsCreated: 0, errors };
   }
 
-  // Insert in a transaction
+  // Prepare bulk inserts to avoid long interactive transactions on large CSV files.
+  const householdsToCreate = Array.from(householdMap.entries()).map(([householdName, members]) => ({
+    id: randomUUID(),
+    name: householdName,
+    maxPlusOnes: Math.max(...members.map((m) => m.max_plus_ones)),
+  }));
+
+  const guestsToCreate = householdsToCreate.flatMap((household) => {
+    const members = householdMap.get(household.name) ?? [];
+    return members.map((member) => ({
+      householdId: household.id,
+      firstName: member.first_name,
+      lastName: member.last_name,
+      isPrimary: member.is_primary,
+    }));
+  });
+
   let householdsCreated = 0;
   let guestsCreated = 0;
 
   try {
-    await prisma.$transaction(async (tx) => {
-      for (const [householdName, members] of householdMap) {
-        const maxPlusOnes = Math.max(...members.map((m) => m.max_plus_ones));
+    await prisma.$transaction([
+      prisma.household.createMany({ data: householdsToCreate }),
+      prisma.guest.createMany({ data: guestsToCreate }),
+    ]);
 
-        const household = await tx.household.create({
-          data: {
-            name: householdName,
-            maxPlusOnes,
-            guests: {
-              create: members.map((m) => ({
-                firstName: m.first_name,
-                lastName: m.last_name,
-                isPrimary: m.is_primary,
-              })),
-            },
-          },
-        });
-
-        householdsCreated++;
-        guestsCreated += members.length;
-
-        void household;
-      }
-    });
+    householdsCreated = householdsToCreate.length;
+    guestsCreated = guestsToCreate.length;
   } catch (error) {
     logger.error(
       "guests.import.transaction_failed",
-      { requestId, householdsAttempted: householdMap.size, validRows: validRows.length },
+      {
+        requestId,
+        householdsAttempted: householdMap.size,
+        guestsAttempted: validRows.length,
+      },
       error,
     );
     Sentry.captureException(error, {
       tags: { action: "importGuests" },
-      extra: { requestId, householdsAttempted: householdMap.size, validRows: validRows.length },
+      extra: {
+        requestId,
+        householdsAttempted: householdMap.size,
+        guestsAttempted: validRows.length,
+      },
     });
 
     return {
