@@ -54,6 +54,12 @@ export function AdminNav({ userEmail }: { userEmail: string }) {
         </div>
 
         <div className="flex items-center gap-4">
+          <Link
+            href="/"
+            className="text-xs uppercase tracking-[0.25em] text-muted-foreground transition-colors duration-200 hover:text-primary"
+          >
+            Back to website
+          </Link>
           <span className="hidden text-[11px] uppercase tracking-[0.15em] text-muted-foreground/60 sm:block">
             {userEmail}
           </span>
