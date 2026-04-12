@@ -8,7 +8,8 @@ export default async function BridalPartyPage() {
 
   const roleLabels: Record<string, string> = {
     "Best Man": t("roles.Best Man"),
-    "Maid of Honor": t("roles.Maid of Honor"),
+    "Maid of Honour": t("roles.Maid of Honour"),
+    "Maid of Honor": t("roles.Maid of Honour"),
     Groomsman: t("roles.Groomsman"),
     Bridesmaid: t("roles.Bridesmaid"),
   };
