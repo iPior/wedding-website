@@ -13,7 +13,15 @@ export default async function AdminEmailsPage() {
   const [subscribers, totalSubscribed, totalUnsubscribed] = await Promise.all([
     prisma.mailingListEntry.findMany({
       include: {
-        guest: { select: { firstName: true, lastName: true } },
+        guest: {
+          select: {
+            household: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
       orderBy: { createdAt: "desc" },
     }),
@@ -48,7 +56,7 @@ export default async function AdminEmailsPage() {
             <Table>
               <TableHeader>
                 <TableRow className="border-b border-border hover:bg-transparent">
-                  <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Name</TableHead>
+                  <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Household</TableHead>
                   <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Email</TableHead>
                   <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Status</TableHead>
                   <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Added</TableHead>
@@ -58,7 +66,7 @@ export default async function AdminEmailsPage() {
                 {subscribers.map((entry) => (
                   <TableRow key={entry.id} className="border-b border-border hover:bg-background">
                     <TableCell className="text-sm text-primary">
-                      {entry.guest.firstName} {entry.guest.lastName}
+                      {entry.guest.household.name}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {entry.email}

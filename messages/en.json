@@ -155,7 +155,7 @@
   },
   "RsvpForm": {
     "updateSubtitle": "Update your RSVP below",
-    "respondSubtitle": "Please respond for each guest in your household",
+    "respondSubtitle": "Please respond for each guest include in your invitation",
     "yourEmail": "Your Email",
     "emailPlaceholder": "you@example.com",
     "emailHelp": "We'll send a confirmation with a link to modify your RSVP.",

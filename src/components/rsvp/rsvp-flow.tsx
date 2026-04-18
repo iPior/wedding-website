@@ -11,9 +11,18 @@ export function RsvpFlow() {
   const tConf = useTranslations("RsvpConfirmation");
   const router = useRouter();
   const [household, setHousehold] = useState<HouseholdData | null>(null);
+  const [selectedGuest, setSelectedGuest] = useState<{
+    id: string;
+    firstName: string;
+    lastName: string;
+  } | null>(null);
 
-  function handleHouseholdFound(data: HouseholdData) {
+  function handleHouseholdFound(
+    data: HouseholdData,
+    guest: { id: string; firstName: string; lastName: string }
+  ) {
     setHousehold(data);
+    setSelectedGuest(guest);
   }
 
   function handleSuccess(anyAttending: boolean) {
@@ -22,6 +31,7 @@ export function RsvpFlow() {
 
   function handleBack() {
     setHousehold(null);
+    setSelectedGuest(null);
   }
 
   if (!household) {
@@ -37,7 +47,11 @@ export function RsvpFlow() {
         <span aria-hidden="true">&larr;</span>
         {tConf("backToSearch")}
       </button>
-      <RsvpForm household={household} onSuccess={handleSuccess} />
+      <RsvpForm
+        household={household}
+        selectedGuest={selectedGuest ?? undefined}
+        onSuccess={handleSuccess}
+      />
     </div>
   );
 }

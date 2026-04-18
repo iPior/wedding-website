@@ -5,7 +5,10 @@ import { useTranslations } from "next-intl";
 import { searchGuests, getHouseholdForRsvp, type SearchResult, type HouseholdData } from "@/actions/rsvp";
 
 type Props = {
-  onHouseholdFound: (data: HouseholdData) => void;
+  onHouseholdFound: (
+    data: HouseholdData,
+    selectedGuest: { id: string; firstName: string; lastName: string }
+  ) => void;
 };
 
 export function GuestSearch({ onHouseholdFound }: Props) {
@@ -45,7 +48,11 @@ export function GuestSearch({ onHouseholdFound }: Props) {
     setLoadingHousehold(false);
 
     if (household) {
-      onHouseholdFound(household);
+      onHouseholdFound(household, {
+        id: guest.id,
+        firstName: guest.firstName,
+        lastName: guest.lastName,
+      });
     } else {
       setNotPrimaryMessage(t("loadError"));
     }
