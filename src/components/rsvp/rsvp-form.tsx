@@ -27,21 +27,30 @@ type PlusOneFormData = {
 
 type Props = {
   household: HouseholdData;
+  selectedGuest?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+  };
   modifyToken?: string;
   onSuccess: (anyAttending: boolean) => void;
 };
 
-export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
+export function RsvpForm({ household, selectedGuest, modifyToken, onSuccess }: Props) {
   const t = useTranslations("RsvpForm");
   const tSearch = useTranslations("RsvpSearch");
   const tErr = useTranslations("Errors");
   const primaryGuest = household.guests.find((g) => g.isPrimary);
+  const selectedHouseholdGuest = selectedGuest
+    ? household.guests.find((g) => g.id === selectedGuest.id)
+    : null;
+  const headerGuest = selectedHouseholdGuest ?? selectedGuest ?? primaryGuest;
   const preferredLocale = useMemo(
     () => normalizeLocale(typeof navigator === "undefined" ? null : navigator.language),
     []
   );
 
-  const [email, setEmail] = useState(primaryGuest?.email ?? "");
+  const [email, setEmail] = useState(selectedHouseholdGuest?.email ?? primaryGuest?.email ?? "");
   const [guests, setGuests] = useState<GuestFormData[]>(
     household.guests.map((g) => ({
       id: g.id,
@@ -154,7 +163,7 @@ export function RsvpForm({ household, modifyToken, onSuccess }: Props) {
             className="text-3xl text-primary"
             style={{ fontFamily: "var(--font-playfair), serif" }}
           >
-            {primaryGuest ? `${primaryGuest.firstName} ${primaryGuest.lastName}` : household.householdName}
+            {headerGuest ? `${headerGuest.firstName} ${headerGuest.lastName}` : household.householdName}
           </h2>
           <p className="mt-2 text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
             {t("respondSubtitle")}

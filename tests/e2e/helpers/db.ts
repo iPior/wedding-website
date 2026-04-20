@@ -164,6 +164,25 @@ const fixtures: FixtureHousehold[] = [
       },
     ],
   },
+  {
+    id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa8",
+    name: "E2E Dual Primary",
+    maxPlusOnes: 0,
+    guests: [
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaa801",
+        firstName: "Alex",
+        lastName: "Johne",
+        isPrimary: true,
+      },
+      {
+        id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaa802",
+        firstName: "Rachel",
+        lastName: "Johne",
+        isPrimary: true,
+      },
+    ],
+  },
 ];
 
 export async function resetAndSeedRsvpFixtures() {

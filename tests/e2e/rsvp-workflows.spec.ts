@@ -87,6 +87,23 @@ test("TC-04: couple split attendance is persisted", async ({ page }) => {
   expect(partner?.attending).toBe("NO");
 });
 
+test("TC-05: form title reflects selected primary guest", async ({ page }) => {
+  await page.goto("/rsvp");
+  await page.getByLabel("First Name").fill("Alex");
+  await page.getByLabel("Last Name").fill("Johne");
+  await page.getByRole("button", { name: "Find My Invitation" }).click();
+  await page.getByRole("button", { name: /^Alex Johne/ }).first().click();
+  await expect(page.locator("form h2").first()).toHaveText("Alex Johne");
+
+  await page.getByRole("button", { name: "Back to search" }).click();
+
+  await page.getByLabel("First Name").fill("Rachel");
+  await page.getByLabel("Last Name").fill("Johne");
+  await page.getByRole("button", { name: "Find My Invitation" }).click();
+  await page.getByRole("button", { name: /^Rachel Johne/ }).first().click();
+  await expect(page.locator("form h2").first()).toHaveText("Rachel Johne");
+});
+
 test("TC-06: plus-one add obeys limit and persists plus one", async ({ page }) => {
   await openGuest(page, "Dan", "Guest");
 
