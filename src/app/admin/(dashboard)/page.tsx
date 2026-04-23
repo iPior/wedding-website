@@ -3,17 +3,21 @@ import { AttendanceChart } from "@/components/admin/charts/attendance-chart";
 import { RsvpTimeline } from "@/components/admin/charts/rsvp-timeline";
 
 export default async function AdminDashboardPage() {
-  const [householdCount, guestCount, plusOneCount, plusOneAllowance, rsvpCounts, rsvpDates] =
+  const [households, rsvpDates] =
     await Promise.all([
-      prisma.household.count(),
-      prisma.guest.count(),
-      prisma.plusOne.count(),
-      prisma.household.aggregate({
-        _sum: { maxPlusOnes: true },
-      }),
-      prisma.guest.groupBy({
-        by: ["attending"],
-        _count: true,
+      prisma.household.findMany({
+        select: {
+          maxPlusOnes: true,
+          guests: {
+            select: {
+              attending: true,
+              rsvpSubmittedAt: true,
+            },
+          },
+          plusOnes: {
+            select: { id: true },
+          },
+        },
       }),
       prisma.guest.findMany({
         where: { rsvpSubmittedAt: { not: null } },
@@ -22,13 +26,46 @@ export default async function AdminDashboardPage() {
       }),
     ]);
 
-  const attendingGuests = rsvpCounts.find((r) => r.attending === "YES")?._count ?? 0;
-  const attending = attendingGuests + plusOneCount;
-  const declined = rsvpCounts.find((r) => r.attending === "NO")?._count ?? 0;
-  const pending = rsvpCounts.find((r) => r.attending === "PENDING")?._count ?? 0;
-  const responded = attendingGuests + declined;
-  const responseRate = guestCount > 0 ? Math.round((responded / guestCount) * 100) : 0;
-  const theoreticalMax = guestCount + (plusOneAllowance._sum.maxPlusOnes ?? 0);
+  const householdCount = households.length;
+  let guestCount = 0;
+  let attending = 0;
+  let declined = 0;
+  let pending = 0;
+  let theoreticalMax = 0;
+  let respondedGuests = 0;
+
+  for (const household of households) {
+    guestCount += household.guests.length;
+    theoreticalMax += household.guests.length + household.maxPlusOnes;
+
+    const householdHasSubmittedRsvp = household.guests.some((guest) => Boolean(guest.rsvpSubmittedAt));
+
+    for (const guest of household.guests) {
+      if (guest.attending === "YES") {
+        attending += 1;
+        respondedGuests += 1;
+      } else if (guest.attending === "NO") {
+        declined += 1;
+        respondedGuests += 1;
+      } else {
+        pending += 1;
+      }
+    }
+
+    if (household.maxPlusOnes > 0) {
+      if (!householdHasSubmittedRsvp) {
+        pending += household.maxPlusOnes;
+      } else {
+        const acceptedPlusOnes = Math.min(household.maxPlusOnes, household.plusOnes.length);
+        attending += acceptedPlusOnes;
+        declined += household.maxPlusOnes - acceptedPlusOnes;
+      }
+    }
+  }
+
+  const responseRate = guestCount > 0
+    ? Math.round((respondedGuests / guestCount) * 100)
+    : 0;
 
   const topStats = [
     { label: "Households", value: householdCount },
