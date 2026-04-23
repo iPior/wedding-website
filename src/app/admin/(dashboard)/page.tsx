@@ -3,13 +3,21 @@ import { AttendanceChart } from "@/components/admin/charts/attendance-chart";
 import { RsvpTimeline } from "@/components/admin/charts/rsvp-timeline";
 
 export default async function AdminDashboardPage() {
-  const [householdCount, guestCount, rsvpCounts, rsvpDates] =
+  const [households, rsvpDates] =
     await Promise.all([
-      prisma.household.count(),
-      prisma.guest.count(),
-      prisma.guest.groupBy({
-        by: ["attending"],
-        _count: true,
+      prisma.household.findMany({
+        select: {
+          maxPlusOnes: true,
+          guests: {
+            select: {
+              attending: true,
+              rsvpSubmittedAt: true,
+            },
+          },
+          plusOnes: {
+            select: { id: true },
+          },
+        },
       }),
       prisma.guest.findMany({
         where: { rsvpSubmittedAt: { not: null } },
@@ -18,15 +26,54 @@ export default async function AdminDashboardPage() {
       }),
     ]);
 
-  const attending = rsvpCounts.find((r) => r.attending === "YES")?._count ?? 0;
-  const declined = rsvpCounts.find((r) => r.attending === "NO")?._count ?? 0;
-  const pending = rsvpCounts.find((r) => r.attending === "PENDING")?._count ?? 0;
-  const responded = attending + declined;
-  const responseRate = guestCount > 0 ? Math.round((responded / guestCount) * 100) : 0;
+  const householdCount = households.length;
+  let guestCount = 0;
+  let attending = 0;
+  let declined = 0;
+  let pending = 0;
+  let theoreticalMax = 0;
+  let respondedGuests = 0;
 
-  const stats = [
+  for (const household of households) {
+    guestCount += household.guests.length;
+    theoreticalMax += household.guests.length + household.maxPlusOnes;
+
+    const householdHasSubmittedRsvp = household.guests.some((guest) => Boolean(guest.rsvpSubmittedAt));
+
+    for (const guest of household.guests) {
+      if (guest.attending === "YES") {
+        attending += 1;
+        respondedGuests += 1;
+      } else if (guest.attending === "NO") {
+        declined += 1;
+        respondedGuests += 1;
+      } else {
+        pending += 1;
+      }
+    }
+
+    if (household.maxPlusOnes > 0) {
+      if (!householdHasSubmittedRsvp) {
+        pending += household.maxPlusOnes;
+      } else {
+        const acceptedPlusOnes = Math.min(household.maxPlusOnes, household.plusOnes.length);
+        attending += acceptedPlusOnes;
+        declined += household.maxPlusOnes - acceptedPlusOnes;
+      }
+    }
+  }
+
+  const responseRate = guestCount > 0
+    ? Math.round((respondedGuests / guestCount) * 100)
+    : 0;
+
+  const topStats = [
     { label: "Households", value: householdCount },
-    { label: "Total Guests", value: guestCount },
+    { label: "Guests", value: guestCount },
+    { label: "Theoretical Max", value: theoreticalMax },
+  ];
+
+  const bottomStats = [
     { label: "Attending", value: attending },
     { label: "Declined", value: declined },
     { label: "Pending", value: pending },
@@ -68,8 +115,27 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-        {stats.map((stat) => (
+      <div className="grid gap-4 sm:grid-cols-3">
+        {topStats.map((stat) => (
+          <div
+            key={stat.label}
+            className="border border-border bg-card/60 p-4"
+          >
+            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              {stat.label}
+            </p>
+            <p
+              className="mt-2 text-2xl text-primary"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
+            >
+              {stat.value}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {bottomStats.map((stat) => (
           <div
             key={stat.label}
             className="border border-border bg-card/60 p-4"

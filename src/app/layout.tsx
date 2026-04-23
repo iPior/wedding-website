@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import { getLocale } from "next-intl/server";
+import { Analytics } from "@vercel/analytics/next";
 import { weddingConfig } from "../../wedding.config";
 import "./globals.css";
 
@@ -49,7 +50,10 @@ export default async function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-title" content="N&P" />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
