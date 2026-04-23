@@ -3,11 +3,14 @@ import { AttendanceChart } from "@/components/admin/charts/attendance-chart";
 import { RsvpTimeline } from "@/components/admin/charts/rsvp-timeline";
 
 export default async function AdminDashboardPage() {
-  const [householdCount, guestCount, plusOneCount, rsvpCounts, rsvpDates] =
+  const [householdCount, guestCount, plusOneCount, plusOneAllowance, rsvpCounts, rsvpDates] =
     await Promise.all([
       prisma.household.count(),
       prisma.guest.count(),
       prisma.plusOne.count(),
+      prisma.household.aggregate({
+        _sum: { maxPlusOnes: true },
+      }),
       prisma.guest.groupBy({
         by: ["attending"],
         _count: true,
@@ -25,10 +28,15 @@ export default async function AdminDashboardPage() {
   const pending = rsvpCounts.find((r) => r.attending === "PENDING")?._count ?? 0;
   const responded = attendingGuests + declined;
   const responseRate = guestCount > 0 ? Math.round((responded / guestCount) * 100) : 0;
+  const theoreticalMax = guestCount + (plusOneAllowance._sum.maxPlusOnes ?? 0);
 
-  const stats = [
+  const topStats = [
     { label: "Households", value: householdCount },
-    { label: "Total Guests", value: guestCount },
+    { label: "Guests", value: guestCount },
+    { label: "Theoretical Max", value: theoreticalMax },
+  ];
+
+  const bottomStats = [
     { label: "Attending", value: attending },
     { label: "Declined", value: declined },
     { label: "Pending", value: pending },
@@ -70,8 +78,27 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-        {stats.map((stat) => (
+      <div className="grid gap-4 sm:grid-cols-3">
+        {topStats.map((stat) => (
+          <div
+            key={stat.label}
+            className="border border-border bg-card/60 p-4"
+          >
+            <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              {stat.label}
+            </p>
+            <p
+              className="mt-2 text-2xl text-primary"
+              style={{ fontFamily: "var(--font-playfair), serif" }}
+            >
+              {stat.value}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {bottomStats.map((stat) => (
           <div
             key={stat.label}
             className="border border-border bg-card/60 p-4"
