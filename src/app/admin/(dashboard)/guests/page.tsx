@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
-import type { AttendanceStatus } from "@prisma/client";
+import type { AttendanceStatus, Prisma } from "@prisma/client";
 import {
   Table,
   TableBody,
@@ -16,35 +16,83 @@ import { GuestFilters } from "@/components/admin/guest-filters";
 import { CsvExportButton } from "@/components/admin/csv-export-button";
 
 type Props = {
-  searchParams: Promise<{ search?: string; status?: string }>;
+  searchParams: Promise<{ search?: string; status?: string; sort?: string; dietary?: string }>;
 };
 
 export default async function AdminGuestsPage({ searchParams }: Props) {
-  const { search, status } = await searchParams;
+  const { search, status, sort, dietary } = await searchParams;
 
-  const where: Record<string, unknown> = {};
-  if (status && ["YES", "NO", "PENDING"].includes(status)) {
-    where.attending = status as AttendanceStatus;
+  const whereConditions: Prisma.GuestWhereInput[] = [];
+  const validStatuses: AttendanceStatus[] = ["YES", "NO", "PENDING"];
+
+  if (status && validStatuses.includes(status as AttendanceStatus)) {
+    whereConditions.push({ attending: status as AttendanceStatus });
   }
+
   if (search) {
-    where.OR = [
-      { firstName: { contains: search, mode: "insensitive" } },
-      { lastName: { contains: search, mode: "insensitive" } },
+    whereConditions.push({
+      OR: [
+        { firstName: { contains: search, mode: "insensitive" } },
+        { lastName: { contains: search, mode: "insensitive" } },
+      ],
+    });
+  }
+
+  if (dietary === "with") {
+    whereConditions.push({ dietaryRestrictions: { not: null } });
+    whereConditions.push({ dietaryRestrictions: { not: "" } });
+  }
+
+  if (dietary === "without") {
+    whereConditions.push({
+      OR: [{ dietaryRestrictions: null }, { dietaryRestrictions: "" }],
+    });
+  }
+
+  const where: Prisma.GuestWhereInput = whereConditions.length > 0
+    ? { AND: whereConditions }
+    : {};
+
+  const validSorts = ["name_asc", "name_desc", "rsvp_date_asc", "rsvp_date_desc"] as const;
+  const selectedSort = validSorts.includes(sort as (typeof validSorts)[number]) ? sort : "name_asc";
+
+  let orderBy: Prisma.GuestOrderByWithRelationInput[] = [
+    { firstName: "asc" },
+    { lastName: "asc" },
+    { id: "asc" },
+  ];
+
+  if (selectedSort === "name_desc") {
+    orderBy = [{ firstName: "desc" }, { lastName: "desc" }, { id: "asc" }];
+  }
+
+  if (selectedSort === "rsvp_date_asc") {
+    orderBy = [
+      { rsvpSubmittedAt: { sort: "asc", nulls: "last" } },
+      { firstName: "asc" },
+      { lastName: "asc" },
+      { id: "asc" },
     ];
   }
 
-  const households = await prisma.household.findMany({
-    where: { guests: { some: where } },
-    include: {
-      guests: {
-        where,
-        orderBy: { isPrimary: "desc" },
-      },
-    },
-    orderBy: { name: "asc" },
+  if (selectedSort === "rsvp_date_desc") {
+    orderBy = [
+      { rsvpSubmittedAt: { sort: "desc", nulls: "last" } },
+      { firstName: "asc" },
+      { lastName: "asc" },
+      { id: "asc" },
+    ];
+  }
+
+  const guests = await prisma.guest.findMany({
+    where,
+    include: { household: true },
+    orderBy,
   });
 
-  const totalGuests = households.reduce((sum, h) => sum + h.guests.length, 0);
+  const totalGuests = guests.length;
+  const totalHouseholds = new Set(guests.map((guest) => guest.householdId)).size;
+  const hasActiveFilters = Boolean(search || status || dietary);
 
   return (
     <main className="space-y-10">
@@ -58,8 +106,8 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
             Guests
           </h1>
           <p className="mt-1 text-xs uppercase tracking-[0.15em] text-muted-foreground/70">
-            {households.length} household(s) · {totalGuests} guest(s)
-            {(search || status) && " · filtered"}
+            {totalHouseholds} household(s) · {totalGuests} guest(s)
+            {hasActiveFilters && " · filtered"}
           </p>
         </div>
         <CsvExportButton />
@@ -82,7 +130,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
         <GuestFilters />
       </Suspense>
 
-      {households.length > 0 && (
+      {guests.length > 0 && (
         <div className="border border-border bg-card/60">
           <Table>
             <TableHeader>
@@ -98,62 +146,58 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {households.flatMap((household) =>
-                household.guests.map((guest, guestIdx) => (
-                  <TableRow key={guest.id} className="border-b border-border hover:bg-background">
-                    <TableCell className="text-sm">
-                      {guestIdx === 0 ? (
-                        <div className="flex items-center gap-2">
-                          <span className="text-primary">{household.name}</span>
-                          <span className="text-xs text-muted-foreground/60">(+{household.maxPlusOnes})</span>
-                          <EditHouseholdButton household={household} />
-                        </div>
-                      ) : null}
-                    </TableCell>
-                    <TableCell className="text-sm text-primary">
-                      {guest.firstName} {guest.lastName}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {guest.email ?? "—"}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {guest.isPrimary ? "Yes" : "—"}
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className="text-xs uppercase tracking-[0.15em]"
-                        style={{
-                          color:
-                            guest.attending === "YES"
-                              ? "var(--color-primary)"
-                              : guest.attending === "NO"
-                                ? "var(--color-accent)"
-                                : "var(--color-muted-foreground)",
-                        }}
-                      >
-                        {guest.attending ?? "PENDING"}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {guest.rsvpSubmittedAt ? guest.rsvpSubmittedAt.toLocaleDateString() : "—"}
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {guest.dietaryRestrictions ?? "—"}
-                    </TableCell>
-                    <TableCell>
-                      <EditGuestButton guest={guest} />
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
+              {guests.map((guest) => (
+                <TableRow key={guest.id} className="border-b border-border hover:bg-background">
+                  <TableCell className="text-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="text-primary">{guest.household.name}</span>
+                      <span className="text-xs text-muted-foreground/60">(+{guest.household.maxPlusOnes})</span>
+                      <EditHouseholdButton household={guest.household} />
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-sm text-primary">
+                    {guest.firstName} {guest.lastName}
+                  </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
+                    {guest.email ?? "—"}
+                  </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
+                    {guest.isPrimary ? "Yes" : "—"}
+                  </TableCell>
+                  <TableCell>
+                    <span
+                      className="text-xs uppercase tracking-[0.15em]"
+                      style={{
+                        color:
+                          guest.attending === "YES"
+                            ? "var(--color-primary)"
+                            : guest.attending === "NO"
+                              ? "var(--color-accent)"
+                              : "var(--color-muted-foreground)",
+                      }}
+                    >
+                      {guest.attending ?? "PENDING"}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
+                    {guest.rsvpSubmittedAt ? guest.rsvpSubmittedAt.toLocaleDateString() : "—"}
+                  </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
+                    {guest.dietaryRestrictions ?? "—"}
+                  </TableCell>
+                  <TableCell>
+                    <EditGuestButton guest={guest} />
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </div>
       )}
 
-      {households.length === 0 && (
+      {guests.length === 0 && (
         <p className="py-12 text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
-          {search || status
+          {hasActiveFilters
             ? "No guests match your filters."
             : "No guests yet. Import a CSV or add guests manually."}
         </p>
