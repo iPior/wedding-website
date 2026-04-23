@@ -57,8 +57,8 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
     ? { AND: whereConditions }
     : {};
 
-  const validSorts = ["name_asc", "name_desc", "rsvp_date_asc", "rsvp_date_desc"] as const;
-  const selectedSort = validSorts.includes(sort as (typeof validSorts)[number]) ? sort : "name_asc";
+  const validSorts = ["default", "name_asc", "name_desc", "rsvp_date_asc", "rsvp_date_desc"] as const;
+  const selectedSort = validSorts.includes(sort as (typeof validSorts)[number]) ? sort : "default";
 
   let orderBy: Prisma.GuestOrderByWithRelationInput[] = [
     { firstName: "asc" },
@@ -138,7 +138,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
             Guests
           </h1>
           <p className="mt-1 text-xs uppercase tracking-[0.15em] text-muted-foreground/70">
-            {totalHouseholds} household(s) | {totalGuests} guest(s) | {theoreticalMaxGuests} theoretical max
+            {totalHouseholds} households | {totalGuests} guests | {theoreticalMaxGuests} theoretical max guests (with plus ones)
             {hasActiveFilters && " | filtered"}
           </p>
         </div>
