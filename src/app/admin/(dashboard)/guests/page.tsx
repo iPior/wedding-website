@@ -92,6 +92,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
                 <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Email</TableHead>
                 <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Primary</TableHead>
                 <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">RSVP</TableHead>
+                <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">RSVP Date</TableHead>
                 <TableHead className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-normal">Dietary</TableHead>
                 <TableHead className="w-[80px]" />
               </TableRow>
@@ -132,6 +133,9 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
                       >
                         {guest.attending ?? "PENDING"}
                       </span>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {guest.rsvpSubmittedAt ? guest.rsvpSubmittedAt.toLocaleDateString() : "—"}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {guest.dietaryRestrictions ?? "—"}
