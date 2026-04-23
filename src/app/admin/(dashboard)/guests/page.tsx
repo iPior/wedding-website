@@ -104,6 +104,15 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
 
   const totalGuests = guests.length;
   const totalHouseholds = new Set(guests.map((guest) => guest.householdId)).size;
+  const seenHouseholdIds = new Set<string>();
+  const theoreticalMaxGuests = guests.reduce((sum, guest) => {
+    if (!seenHouseholdIds.has(guest.householdId)) {
+      seenHouseholdIds.add(guest.householdId);
+      return sum + 1 + guest.household.maxPlusOnes;
+    }
+
+    return sum + 1;
+  }, 0);
   const hasActiveFilters = Boolean(search || status || dietary);
   const plusOneDisplayRowByHousehold = new Map<string, string>();
 
@@ -129,7 +138,7 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
             Guests
           </h1>
           <p className="mt-1 text-xs uppercase tracking-[0.15em] text-muted-foreground/70">
-            {totalHouseholds} household(s) | {totalGuests} guest(s)
+            {totalHouseholds} household(s) | {totalGuests} guest(s) | {theoreticalMaxGuests} theoretical max
             {hasActiveFilters && " | filtered"}
           </p>
         </div>
