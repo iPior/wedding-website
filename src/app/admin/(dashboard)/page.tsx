@@ -3,10 +3,11 @@ import { AttendanceChart } from "@/components/admin/charts/attendance-chart";
 import { RsvpTimeline } from "@/components/admin/charts/rsvp-timeline";
 
 export default async function AdminDashboardPage() {
-  const [householdCount, guestCount, rsvpCounts, rsvpDates] =
+  const [householdCount, guestCount, plusOneCount, rsvpCounts, rsvpDates] =
     await Promise.all([
       prisma.household.count(),
       prisma.guest.count(),
+      prisma.plusOne.count(),
       prisma.guest.groupBy({
         by: ["attending"],
         _count: true,
@@ -18,10 +19,11 @@ export default async function AdminDashboardPage() {
       }),
     ]);
 
-  const attending = rsvpCounts.find((r) => r.attending === "YES")?._count ?? 0;
+  const attendingGuests = rsvpCounts.find((r) => r.attending === "YES")?._count ?? 0;
+  const attending = attendingGuests + plusOneCount;
   const declined = rsvpCounts.find((r) => r.attending === "NO")?._count ?? 0;
   const pending = rsvpCounts.find((r) => r.attending === "PENDING")?._count ?? 0;
-  const responded = attending + declined;
+  const responded = attendingGuests + declined;
   const responseRate = guestCount > 0 ? Math.round((responded / guestCount) * 100) : 0;
 
   const stats = [

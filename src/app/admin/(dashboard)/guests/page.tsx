@@ -24,9 +24,13 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
 
   const whereConditions: Prisma.GuestWhereInput[] = [];
   const validStatuses: AttendanceStatus[] = ["YES", "NO", "PENDING"];
+  const selectedStatus = status && validStatuses.includes(status as AttendanceStatus)
+    ? (status as AttendanceStatus)
+    : null;
+  const selectedDietary = dietary === "with" || dietary === "without" ? dietary : null;
 
-  if (status && validStatuses.includes(status as AttendanceStatus)) {
-    whereConditions.push({ attending: status as AttendanceStatus });
+  if (selectedStatus) {
+    whereConditions.push({ attending: selectedStatus });
   }
 
   if (search) {
@@ -38,12 +42,12 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
     });
   }
 
-  if (dietary === "with") {
+  if (selectedDietary === "with") {
     whereConditions.push({ dietaryRestrictions: { not: null } });
     whereConditions.push({ dietaryRestrictions: { not: "" } });
   }
 
-  if (dietary === "without") {
+  if (selectedDietary === "without") {
     whereConditions.push({
       OR: [{ dietaryRestrictions: null }, { dietaryRestrictions: "" }],
     });
@@ -86,13 +90,32 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
 
   const guests = await prisma.guest.findMany({
     where,
-    include: { household: true },
+    include: {
+      household: {
+        include: {
+          plusOnes: {
+            orderBy: [{ firstName: "asc" }, { lastName: "asc" }],
+          },
+        },
+      },
+    },
     orderBy,
   });
 
   const totalGuests = guests.length;
   const totalHouseholds = new Set(guests.map((guest) => guest.householdId)).size;
   const hasActiveFilters = Boolean(search || status || dietary);
+  const plusOneDisplayRowByHousehold = new Map<string, string>();
+
+  for (const guest of guests) {
+    if (!plusOneDisplayRowByHousehold.has(guest.householdId)) {
+      plusOneDisplayRowByHousehold.set(guest.householdId, guest.id);
+    }
+
+    if (guest.isPrimary) {
+      plusOneDisplayRowByHousehold.set(guest.householdId, guest.id);
+    }
+  }
 
   return (
     <main className="space-y-10">
@@ -106,8 +129,8 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
             Guests
           </h1>
           <p className="mt-1 text-xs uppercase tracking-[0.15em] text-muted-foreground/70">
-            {totalHouseholds} household(s) · {totalGuests} guest(s)
-            {hasActiveFilters && " · filtered"}
+            {totalHouseholds} household(s) | {totalGuests} guest(s)
+            {hasActiveFilters && " | filtered"}
           </p>
         </div>
         <CsvExportButton />
@@ -146,50 +169,103 @@ export default async function AdminGuestsPage({ searchParams }: Props) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {guests.map((guest) => (
-                <TableRow key={guest.id} className="border-b border-border hover:bg-background">
-                  <TableCell className="text-sm">
-                    <div className="flex items-center gap-2">
-                      <span className="text-primary">{guest.household.name}</span>
-                      <span className="text-xs text-muted-foreground/60">(+{guest.household.maxPlusOnes})</span>
-                      <EditHouseholdButton household={guest.household} />
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-sm text-primary">
-                    {guest.firstName} {guest.lastName}
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {guest.email ?? "—"}
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {guest.isPrimary ? "Yes" : "—"}
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className="text-xs uppercase tracking-[0.15em]"
-                      style={{
-                        color:
-                          guest.attending === "YES"
-                            ? "var(--color-primary)"
-                            : guest.attending === "NO"
-                              ? "var(--color-accent)"
-                              : "var(--color-muted-foreground)",
-                      }}
-                    >
-                      {guest.attending ?? "PENDING"}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {guest.rsvpSubmittedAt ? guest.rsvpSubmittedAt.toLocaleDateString() : "—"}
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {guest.dietaryRestrictions ?? "—"}
-                  </TableCell>
-                  <TableCell>
-                    <EditGuestButton guest={guest} />
-                  </TableCell>
-                </TableRow>
-              ))}
+              {guests.flatMap((guest) => {
+                const showHouseholdPlusOnes = plusOneDisplayRowByHousehold.get(guest.householdId) === guest.id;
+                const householdPlusOnes = showHouseholdPlusOnes
+                  ? guest.household.plusOnes.filter((plusOne) => {
+                    if (selectedStatus && selectedStatus !== "YES") {
+                      return false;
+                    }
+
+                    if (selectedDietary === "with") {
+                      return Boolean(plusOne.dietaryRestrictions?.trim());
+                    }
+
+                    if (selectedDietary === "without") {
+                      return !plusOne.dietaryRestrictions?.trim();
+                    }
+
+                    return true;
+                  })
+                  : [];
+                const rsvpDateText = guest.rsvpSubmittedAt ? guest.rsvpSubmittedAt.toLocaleDateString() : "-";
+
+                const guestRow = (
+                  <TableRow key={guest.id} className="border-b border-border hover:bg-background">
+                    <TableCell className="text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="text-primary">{guest.household.name}</span>
+                        <span className="text-xs text-muted-foreground/60">(+{guest.household.maxPlusOnes})</span>
+                        <EditHouseholdButton household={guest.household} />
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-sm text-primary">
+                      {guest.firstName} {guest.lastName}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {guest.email ?? "-"}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {guest.isPrimary ? "Yes" : "-"}
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className="text-xs uppercase tracking-[0.15em]"
+                        style={{
+                          color:
+                            guest.attending === "YES"
+                              ? "var(--color-primary)"
+                              : guest.attending === "NO"
+                                ? "var(--color-accent)"
+                                : "var(--color-muted-foreground)",
+                        }}
+                      >
+                        {guest.attending ?? "PENDING"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {guest.rsvpSubmittedAt ? guest.rsvpSubmittedAt.toLocaleDateString() : "-"}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {guest.dietaryRestrictions ?? "-"}
+                    </TableCell>
+                    <TableCell>
+                      <EditGuestButton guest={guest} />
+                    </TableCell>
+                  </TableRow>
+                );
+
+                const plusOneRows = householdPlusOnes.map((plusOne) => (
+                  <TableRow key={`plus-one-${plusOne.id}`} className="border-b border-border bg-background/40 hover:bg-background">
+                    <TableCell className="text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="text-primary">{guest.household.name}</span>
+                        <span className="text-xs text-muted-foreground/60">(+{guest.household.maxPlusOnes})</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-sm text-primary">
+                      {plusOne.firstName} {plusOne.lastName}
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">-</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">No</TableCell>
+                    <TableCell>
+                      <span
+                        className="text-xs uppercase tracking-[0.15em]"
+                        style={{ color: "var(--color-primary)" }}
+                      >
+                        YES
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{rsvpDateText}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {plusOne.dietaryRestrictions ?? "-"}
+                    </TableCell>
+                    <TableCell />
+                  </TableRow>
+                ));
+
+                return [guestRow, ...plusOneRows];
+              })}
             </TableBody>
           </Table>
         </div>
