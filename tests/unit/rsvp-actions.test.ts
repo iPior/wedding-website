@@ -86,7 +86,7 @@ function setupTransaction() {
 
 beforeEach(() => {
   vi.clearAllMocks();
-  // Default: deadline not passed (wedding config says 2026-06-01)
+  // Default: deadline not passed (wedding config says 2026-06-07)
   vi.useFakeTimers();
   vi.setSystemTime(new Date("2026-04-01T12:00:00Z"));
 });
@@ -194,7 +194,7 @@ describe("submitRsvp", () => {
   });
 
   it("blocks submission after deadline", async () => {
-    vi.setSystemTime(new Date("2026-07-01T12:00:00Z")); // After June 1 deadline
+    vi.setSystemTime(new Date("2026-07-01T12:00:00Z")); // After June 7 deadline
 
     const household = makeHousehold();
     const result = await submitRsvp(makeSubmitInput(household.id, [household.guests[0].id]));
