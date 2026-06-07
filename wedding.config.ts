@@ -5,7 +5,7 @@ export const weddingConfig = {
     person1: { firstName: "Natalie", lastName: "Sikora" },
     person2: { firstName: "Piotr", lastName: "Szaran" },
   },
-  date: "2026-07-18T14:30:00",
+  date: "2026-14-18T14:30:00",
   venue: {
     ceremony: {
       name: "St. Maximilian Kolbe Catholic Church",
