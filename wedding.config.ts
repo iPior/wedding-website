@@ -5,7 +5,7 @@ export const weddingConfig = {
     person1: { firstName: "Natalie", lastName: "Sikora" },
     person2: { firstName: "Piotr", lastName: "Szaran" },
   },
-  date: "2026-14-18T14:30:00",
+  date: "2026-07-18T14:30:00",
   venue: {
     ceremony: {
       name: "St. Maximilian Kolbe Catholic Church",
@@ -16,7 +16,7 @@ export const weddingConfig = {
       address: "20 Polonia Ave, Brampton, ON L6Y 5W8",
     },
   },
-  rsvpDeadline: "2026-06-07T23:59:59",
+  rsvpDeadline: "2026-06-14T23:59:59",
   theme: {
     primaryColor: "#8B7355",
     accentColor: "#D4C5A9",
