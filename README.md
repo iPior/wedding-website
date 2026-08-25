@@ -10,6 +10,24 @@ The site supported the full guest communication and RSVP period without a report
 
 Vercel was chosen for managed deployment and CDN-backed delivery. For a time-sensitive event, that kept hosting and infrastructure overhead low while allowing the work to stay focused on application reliability and the guest experience. Sentry monitored client, server, and edge errors in production, while Vercel Analytics provided traffic visibility.
 
+
+## AI-assisted design and development workflow
+
+This project was also a deliberate exercise in human-directed, AI-assisted product development.
+
+I used Claude with the `frontend-design` skill to generate ten distinct visual directions for the site. Natalie and I reviewed them together, selected the interactions and visual details we liked, and recombined those ideas into three stronger candidates. Those intermediate designs are preserved in the [wedding website templates repository](https://github.com/iPior/wedding-website-templates).
+
+The final design emerged by combining the strongest parts of those three candidates into one coherent direction. That chosen design then became the visual foundation for the production application.
+
+Implementation followed a phased, specification-driven workflow:
+
+1. Define the product requirements, architecture decisions, user stories, and acceptance criteria in `PROJECT.md`.
+2. Break the roadmap into bounded features such as access control, guest import, RSVP submission, email delivery, administration, and testing.
+3. Work on one feature at a time, giving the AI only the relevant requirements and code context.
+4. Review, integrate, and test each feature before expanding the scope.
+
+Keeping each task focused made the AI context smaller, the generated changes easier to review, and the implementation more consistent with the project specification. Product direction, design selection, architectural decisions, and production ownership remained human-led throughout.
+
 ## What the application does
 
 ### Guest experience
