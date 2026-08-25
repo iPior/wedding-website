@@ -83,64 +83,6 @@ bun run test
 bun run test:e2e
 ```
 
-## Local development
-
-### Prerequisites
-
-- [Bun](https://bun.sh/)
-- A Supabase project with PostgreSQL
-- A Resend account for email delivery
-- Optional Sentry project for local integration testing and production monitoring
-
-### Setup
-
-```bash
-git clone https://github.com/iPior/wedding-website.git
-cd wedding-website
-bun install
-cp .env.example .env.local
-bun run prisma:generate
-bun run prisma:migrate
-bun run prisma:seed
-bun run dev
-```
-
-The application will be available at [http://localhost:3000](http://localhost:3000).
-
-Wedding-specific content lives in `wedding.config.ts`, while translated copy is stored in `messages/en.json` and `messages/pl.json`.
-
-### Environment variables
-
-| Variable | Purpose |
-| --- | --- |
-| `SITE_PASSWORD` | Shared password for the guest-facing site |
-| `NEXT_PUBLIC_SITE_URL` | Canonical application URL used for metadata and RSVP links |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser/server Supabase client key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Privileged Supabase key for trusted server-side operations |
-| `DATABASE_URL` | PostgreSQL connection string used by Prisma |
-| `RESEND_API_KEY` | Resend API credential |
-| `EMAIL_FROM` | Verified sender name and address |
-| `SENTRY_DSN` | Server and edge Sentry data-source name |
-| `NEXT_PUBLIC_SENTRY_DSN` | Browser Sentry data-source name |
-| `SENTRY_ORG`, `SENTRY_PROJECT`, `SENTRY_AUTH_TOKEN` | Source-map upload configuration |
-| `SENTRY_ENVIRONMENT` | Deployment environment label |
-
-## Available scripts
-
-| Command | Purpose |
-| --- | --- |
-| `bun run dev` | Start the development server |
-| `bun run build` | Generate the Prisma client and create a production build |
-| `bun run start` | Run the production server |
-| `bun run lint` | Run ESLint |
-| `bun run test` | Run Vitest |
-| `bun run test:e2e` | Run Playwright |
-| `bun run prisma:generate` | Generate the Prisma client |
-| `bun run prisma:migrate` | Apply local database migrations |
-| `bun run prisma:seed` | Seed development data |
-| `bun run email:dev` | Preview React Email templates locally |
-
 ## Project status
 
 The wedding has taken place and the production run is complete. The code remains public as a portfolio project demonstrating a real-world, event-driven application whose reliability, data handling, and communication workflows mattered to more than 200 users.
